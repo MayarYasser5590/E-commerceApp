@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shop-workspace/util": ["libs/shared/util/src/index.ts"],
+      "@shop-workspace/types": ["libs/shared/types/src/index.ts"],
+      "@shop-workspace/shared-ui": ["libs/shared/ui/src/index.ts"],
+      "@shop-workspace/shared-auth": ["libs/shared/auth/src/index.ts"],
+      "@shop-workspace/shop-feature-home": [
+        "libs/shop/feature-home/src/index.ts"
+      ],
+      "@shop-workspace/admin-feature-dashboard": [
+        "libs/admin/feature-dashboard/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
