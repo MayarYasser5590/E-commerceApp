@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-shared-auth',
   imports: [],
   templateUrl: './shared-auth.html',
-  styleUrl: './shared-auth.css',
+  styleUrl: './shared-auth.scss',
 })
 export class SharedAuth {}

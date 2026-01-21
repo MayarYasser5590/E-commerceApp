@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-admin-feature-dashboard',
   imports: [],
   templateUrl: './admin-feature-dashboard.html',
-  styleUrl: './admin-feature-dashboard.css',
+  styleUrl: './admin-feature-dashboard.scss',
 })
 export class AdminFeatureDashboard {}

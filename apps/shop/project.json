@@ -19,7 +19,7 @@
             "input": "apps/shop/public"
           }
         ],
-        "styles": ["apps/shop/src/styles.css"]
+        "styles": ["apps/shop/src/styles.scss"]
       },
       "configurations": {
         "production": {

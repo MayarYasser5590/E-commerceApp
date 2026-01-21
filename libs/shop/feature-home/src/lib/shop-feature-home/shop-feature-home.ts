@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'lib-shop-feature-home',
   imports: [],
   templateUrl: './shop-feature-home.html',
-  styleUrl: './shop-feature-home.css',
+  styleUrl: './shop-feature-home.scss',
 })
 export class ShopFeatureHome {}
