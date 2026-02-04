@@ -1,8 +1,9 @@
 // Shared Auth Public API
-export * from './lib/models/auth.models';
-export * from './lib/data-access/auth.service';
-export * from './lib/data-access/auth.tokens';
-export * from './lib/interceptors/jwt.interceptor';
-export * from './lib/interceptors/error.interceptor';
-export * from './lib/guards/auth.guard';
-export * from './lib/guards/admin.guard';
+// TODO: Add Public API
+// export * from './lib/models/auth.models';
+// export * from './lib/data-access/auth.service';
+// export * from './lib/data-access/auth.tokens';
+// export * from './lib/interceptors/jwt.interceptor';
+// export * from './lib/interceptors/error.interceptor';
+// export * from './lib/guards/auth.guard';
+// export * from './lib/guards/admin.guard';
