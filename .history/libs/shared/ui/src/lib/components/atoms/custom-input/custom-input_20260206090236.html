@@ -1,0 +1,19 @@
+<div class="relative">
+  <input
+    [class]="inputClass"
+    [type]="inputType()"
+    [disabled]="isDisabled()"
+    [value]="value()"
+    [placeholder]="placeholder"
+    [autocomplete]="autocomplete"
+    (input)="onInput($event.target.value)"
+    (blur)="onTouched()"
+  />
+
+  @if (type === 'password') {
+  <lib-password-toggle
+    [isVisible]="showPassword()"
+    (toggled)="togglePassword()"
+  />
+  }
+</div>
