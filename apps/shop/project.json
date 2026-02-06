@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/shop/src",
-  "tags": [],
+  "tags": ["scope:shop", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -23,6 +23,12 @@
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/shop/src/environments/environment.ts",
+              "with": "apps/shop/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
