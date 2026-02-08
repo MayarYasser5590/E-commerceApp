@@ -7,8 +7,11 @@
   >
     <div class="w-full max-w-md">
       <!-- Top Flourish -->
-      <!-- TODO: Flourish Component -->
+      <div class="mb-8 flex justify-center">
+        <lib-flourish />
+      </div>
 
+      <!-- Title and Subtitle -->
       <div class="text-center mb-8">
         <h1 class="text-3xl font-bold">{{ title() }}</h1>
         @if (subtitle()) {
@@ -28,7 +31,9 @@
 
       <!-- Bottom Flourish -->
       <div class="mt-8">
-        <!-- TODO: Flourish Component -->
+        <div class="mt-8 flex justify-center rotate-180">
+          <lib-flourish />
+        </div>
       </div>
     </div>
   </div>
