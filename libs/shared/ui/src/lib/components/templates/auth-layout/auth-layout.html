@@ -1,44 +1,44 @@
-<div class="container mx-auto flex">
-  <div class="w-1/2 bg-gray-100 p-4">
+<div
+  class="fixed inset-0 flex flex-col md:flex-row min-h-screen bg-white font-sans overflow-hidden"
+>
+  <!-- Form Section (Left) -->
+  <div
+    class="w-full md:w-1/2 flex flex-col items-center justify-center p-6 md:p-12 lg:p-16 xl:p-24 overflow-y-auto"
+  >
+    <div class="w-full max-w-md">
+      <!-- Top Flourish -->
+      <!-- TODO: Flourish Component -->
 
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold">{{ title() }}</h1>
+        @if (subtitle()) {
+        <p class="mt-2 text-gray-500 text-lg">{{ subtitle() }}</p>
+        }
+      </div>
 
-    <!-- Top Flourish -->
-    <div class="h-10 w-full  rounded-md"></div>
+      <!-- Form Content -->
+      <div class="my-6">
+        <ng-content select="[auth-form]"></ng-content>
+      </div>
 
-    <!-- Header -->
-    <div>
-      <h1 class="text-3xl font-bold ">
-        {{ title() }}
-      </h1>
+      <!-- Footer Content -->
+      <div class="text-center">
+        <ng-content select="[auth-footer]"></ng-content>
+      </div>
 
-     @if (subtitle()) {
-  <p class="mt-2 text-gray-500">
-    {{ subtitle() }}
-  </p>
-}
-
-      <div class="mt-4 h-[2px] w-16 bg-gray-300"></div>
+      <!-- Bottom Flourish -->
+      <div class="mt-8">
+        <!-- TODO: Flourish Component -->
+      </div>
     </div>
-
-    <!-- Form Content -->
-    <div class="flex-1 my-8">
-      <ng-content select="[auth-form]"></ng-content>
-    </div>
-
-    <!-- Footer Content -->
-    <div class="mt-6">
-      <ng-content select="[auth-footer]"></ng-content>
-    </div>
-
-    <!-- Bottom Flourish -->
-    <div class="h-10 w-full  rounded-md rotate-180"></div>
-
   </div>
-  <!-- Right side  -->
-  <div class="w-1/2 bg-gray-200 p-4">
-      <img
+
+  <!-- Banner Section (Right)-->
+  <div class="hidden md:block md:w-1/2 bg-[#701a1a] relative">
+    <img
       [src]="bannerImage()"
       alt="Auth Banner"
-      class="w-full h-full object-cover"/>
+      class="w-full h-full object-cover"
+    />
   </div>
 </div>

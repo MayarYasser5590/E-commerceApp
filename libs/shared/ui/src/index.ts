@@ -8,3 +8,4 @@ export * from './lib/components/atoms/lib-button/lib-button';
 // Organisms
 
 // Templates
+export * from './lib/components/templates/auth-layout/auth-layout';

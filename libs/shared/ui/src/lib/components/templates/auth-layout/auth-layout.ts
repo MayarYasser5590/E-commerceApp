@@ -7,7 +7,7 @@ import { Component, input } from '@angular/core';
   styleUrl: './auth-layout.css',
 })
 export class AuthLayout {
-     bannerImage = input.required<string>();
+  bannerImage = input.required<string>();
   title = input<string>();
   subtitle = input<string>();
 }
