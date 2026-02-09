@@ -15,18 +15,16 @@
     <div>
       <p-inputOtp [length]="length" [integerOnly]="true" formControlName="otp">
       </p-inputOtp>
+      @if (otpForm.controls.otp.invalid && otpForm.touched) {
+      <p class="text-red-500 mt-2 text-sm">Invalid OTP code</p>
+      }
     </div>
-    @if (!disableResend()) {
-    <button
-      class="my-7 px-[20px] font-medium text-zinc-800 self-end cursor-pointer"
-      (click)="resendOtp()"
+    @if (!disableResend) {
+    <span class="my-7 px-[20px] font-medium text-zinc-800 self-end"
+      >Send a new code</span
     >
-      Send a new code
-    </button>
-    } @if (disableResend()) {
-    <span class="text-[#741C21] ml-1 py-6">
-      (Resend in {{ countdown() }}s)
-    </span>
+    } @if (disableResend) {
+    <span class="text-gray-400 ml-1"> (Resend in {{ countdown }}s) </span>
     }
     <lib-button
       label="Verify OTP"

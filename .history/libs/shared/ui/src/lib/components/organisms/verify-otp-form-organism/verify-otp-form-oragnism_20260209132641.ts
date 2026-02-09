@@ -3,6 +3,7 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { FormControl, FormGroup, FormsModule , ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthFormHeaderMolecule } from "../../molecules/AuthFormHeaderMolecule/AuthFormHeaderMolecule";
 import { LibButton } from "../../atoms/lib-button/lib-button";
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { LibButton } from "../../atoms/lib-button/lib-button";
 })
 export class VerifyOtpFormOragnism implements OnDestroy {
   length = 6;
+  isLoading = false;
   countdown = signal(0);
   disableResend = signal(false);
   intervalId: any;
@@ -31,6 +33,7 @@ export class VerifyOtpFormOragnism implements OnDestroy {
 
       submitOtpForm() {
     if (this.otpForm.valid) {
+      this.isLoading = true;
       const otpValue = this.otpForm.value.otp;
       console.log('Verified OTP:', otpValue);
     }
@@ -38,7 +41,6 @@ export class VerifyOtpFormOragnism implements OnDestroy {
 
   resendOtp() {
     this.startCountdown(30);
-    //API
   }
 
   startCountdown(seconds: number) {

@@ -3,6 +3,7 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { FormControl, FormGroup, FormsModule , ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthFormHeaderMolecule } from "../../molecules/AuthFormHeaderMolecule/AuthFormHeaderMolecule";
 import { LibButton } from "../../atoms/lib-button/lib-button";
+import { Subscription } from 'rxjs';
 
 
 @Component({
