@@ -1,0 +1,76 @@
+<div class="p-8 space-y-8 flex flex-col items-start">
+  <h1 class="text-2xl font-bold">LibButton Component Showcase</h1>
+
+  <!-- Variants -->
+  <section class="space-y-4">
+    <h2 class="text-xl font-semibold">Variants</h2>
+    <div class="flex flex-wrap gap-4">
+      <lib-button
+        label="Primary"
+        variant="primary"
+        (clicked)="onButtonClick()"
+      ></lib-button>
+      <lib-button
+        label="Secondary"
+        variant="secondary"
+        (clicked)="onButtonClick()"
+      ></lib-button>
+      <lib-button
+        label="Outline"
+        variant="outline"
+        (clicked)="onButtonClick()"
+      ></lib-button>
+      <lib-button
+        label="Text"
+        variant="text"
+        (clicked)="onButtonClick()"
+      ></lib-button>
+      <lib-button
+        label="Danger"
+        variant="danger"
+        (clicked)="onButtonClick()"
+      ></lib-button>
+    </div>
+  </section>
+
+  <!-- Sizes -->
+  <section class="space-y-4">
+    <h2 class="text-xl font-semibold">Sizes</h2>
+    <div class="flex flex-wrap items-center gap-4">
+      <lib-button label="Small" size="sm"></lib-button>
+      <lib-button label="Medium" size="md"></lib-button>
+      <lib-button label="Large" size="lg"></lib-button>
+    </div>
+  </section>
+
+  <!-- Icons -->
+  <section class="space-y-4">
+    <h2 class="text-xl font-semibold">Icons</h2>
+    <div class="flex flex-wrap gap-4">
+      <lib-button label="Search" [icon]="Search"></lib-button>
+      <lib-button
+        label="Settings"
+        [icon]="Settings"
+        iconPos="right"
+      ></lib-button>
+      <lib-button
+        label="Only Icon (with custom class)"
+        [icon]="Plus"
+        customClass="w-100 h-10 p-0"
+      ></lib-button>
+    </div>
+  </section>
+
+  <!-- States -->
+  <section class="space-y-4">
+    <h2 class="text-xl font-semibold">States</h2>
+    <div class="flex flex-wrap gap-4">
+      <lib-button label="Disabled" [disabled]="true"></lib-button>
+      <lib-button
+        [label]="isLoading() ? 'Loading...' : 'Click to Load'"
+        [isLoading]="isLoading()"
+        (clicked)="toggleLoading()"
+      ></lib-button>
+    </div>
+  </section>
+</div>
