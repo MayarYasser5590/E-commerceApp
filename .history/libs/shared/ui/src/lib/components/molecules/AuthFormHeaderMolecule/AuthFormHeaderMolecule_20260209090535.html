@@ -1,0 +1,11 @@
+<div class="text-zinc-800 pb-4">
+  <h1 class="font-semibold pb-1 text-[24px] leading-tight">{{ title }}</h1>
+
+  @if (description) {
+  <p class="font-normal text-[16px] leading-snug">
+    {{ description }} @if (actionLabel) {
+    <ng-content select="[intro-action]"></ng-content>
+    }
+  </p>
+  }
+</div>

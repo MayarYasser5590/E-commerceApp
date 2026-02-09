@@ -1,0 +1,9 @@
+<div class="text-zinc-800 pb-4 leading-[1] tracking-[0] align-middle">
+  <h1 class="font-semibold pb-[4px]">{{ title }}</h1>
+
+  @if (description) {
+  <p class="font-normal text-[16px]">
+    {{ description }}<ng-content></ng-content>
+  </p>
+  }
+</div>
