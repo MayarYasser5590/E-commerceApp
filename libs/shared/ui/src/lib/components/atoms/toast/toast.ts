@@ -8,7 +8,7 @@ import { ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
   imports: [ToastModule],
   template: `<p-toast [pt]="pt" [position]="position()" [life]="life()" /> `,
 })
-export class ToastToast {
+export class Toast {
   position = input<ToastPositionType>('bottom-right');
   life = input<number>(8000);
   private readonly messageService = inject(MessageService);
