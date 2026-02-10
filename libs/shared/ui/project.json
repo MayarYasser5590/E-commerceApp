@@ -18,6 +18,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/shared/ui",
+        "styles": ["libs/shared/ui/src/styles.scss"],
         "configFile": "libs/shared/ui/vite.config.mts"
       }
     },
