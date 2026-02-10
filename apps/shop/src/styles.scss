@@ -1,2 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+.p-inputotp .p-inputtext {
+  border-color: #D4D4D8;
+  box-shadow: none !important;
+}
+
+.p-inputotp .p-inputtext:hover,
+.p-inputotp .p-inputtext:focus,
+.p-inputotp .p-inputtext.p-focus {
+  border-color: #A6252A !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.p-inputotp input {
+  width: 45px;
+  height: 45px;
+  padding: 1rem;
+  text-align: center;
+  font-size: 16px;
+  color: #1F2537;
+  background: transparent;
+  border-radius: 10px;
+  border: 1px solid #D4D4D8;
+}
+
+/*mobile*/
+@media (max-width: 640px) {
+  .p-inputotp input {
+    width: 36px;
+    height: 36px;
+    padding: 0.5rem;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+}
+
+.form-input{
+    @apply border border-zinc-300 rounded-[10px] p-[10px]  text-[10px] md:text-[14px] font-normal leading-[100%] tracking-[0px] text-gray-700 placeholder-gray-400 align-middle focus:outline-none focus:ring-0 focus:border-[#A6252A]  focus:ring-1 focus:ring-[#A6252A];
+}
+
+.form-label{
+  @apply text-[14px] font-medium text-zinc-800;
+}
+

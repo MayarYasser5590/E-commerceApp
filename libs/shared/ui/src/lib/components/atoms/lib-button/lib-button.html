@@ -4,10 +4,10 @@
   (click)="onClick($event)"
   class="lib-button"
   [ngClass]="[
-    'variant-' + variant(),
-    'size-' + size(),
-    customClass()
-  ]"
+  variant() !== 'custom' ? 'variant-' + variant() : '',
+  'size-' + size(),
+  customClass()
+]"
   [class.is-loading]="isLoading()"
 >
   @if (isLoading()) {
