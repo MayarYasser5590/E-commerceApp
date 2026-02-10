@@ -1,2 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'libs/shared/ui/src/styles.scss';
+
+.p-inputotp .p-inputtext {
+  border-color: #d4d4d8;
+  box-shadow: none !important;
+}
+
+.p-inputotp .p-inputtext:hover,
+.p-inputotp .p-inputtext:focus,
+.p-inputotp .p-inputtext.p-focus {
+  border-color: #a6252a !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.p-inputotp input {
+  width: 45px;
+  height: 45px;
+  padding: 1rem;
+  text-align: center;
+  font-size: 16px;
+  color: #1f2537;
+  background: transparent;
+  border-radius: 10px;
+  border: 1px solid #d4d4d8;
+}
+
+/*mobile*/
+@media (max-width: 640px) {
+  .p-inputotp input {
+    width: 36px;
+    height: 36px;
+    padding: 0.5rem;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+}
