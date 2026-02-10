@@ -2,7 +2,12 @@
   "name": "@shop-workspace/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build:ui": "nx build shared-ui",
+    "build:tailwind:ui": "npx @tailwindcss/cli -i libs/shared/ui/src/styles.scss -o dist/libs/shared/ui/styles.css --minify",
+    "test:ui": "nx test shared-ui",
+    "lint:ui": "nx lint shared-ui"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~21.0.0",

@@ -13,6 +13,14 @@
         "reportsDirectory": "../../../coverage/libs/shared/ui"
       }
     },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/ui",
+        "configFile": "libs/shared/ui/vite.config.mts"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }
