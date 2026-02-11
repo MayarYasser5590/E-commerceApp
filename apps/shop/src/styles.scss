@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'libs/shared/ui/src/styles.scss';
-
+:root {
+  color-scheme: light !important;
+}
 .p-inputotp .p-inputtext {
   border-color: #d4d4d8;
   box-shadow: none !important;
