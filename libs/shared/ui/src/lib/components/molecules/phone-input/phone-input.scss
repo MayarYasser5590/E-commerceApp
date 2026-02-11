@@ -1,0 +1,18 @@
+.lib-phone-input {
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.25rem;
+}
+
+.lib-phone-input__country {
+  min-width: 11rem;
+}
+
+.lib-phone-input__number {
+  border: none;
+  flex: 1;
+  outline: none;
+}
