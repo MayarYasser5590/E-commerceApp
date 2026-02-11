@@ -1,4 +1,4 @@
-@use 'tailwindcss';
+@reference 'tailwindcss';
 
 .lib-button {
   @apply inline-flex items-center justify-center font-medium transition-all duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 overflow-hidden;
