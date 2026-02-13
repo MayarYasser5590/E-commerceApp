@@ -10,7 +10,7 @@
   <form
     [formGroup]="otpForm"
     (ngSubmit)="submitOtpForm()"
-    class="border-y py-10 border-zinc-200 flex flex-col justify-center items-center"
+    class="py-10 form-style"
   >
     <div>
       <p-inputOtp [length]="length" [integerOnly]="true" formControlName="otp">
@@ -32,8 +32,7 @@
       label="Verify OTP"
       type="submit"
       variant="custom"
-      customClass="w-85 sm:w-100 h-[41px] bg-[#A6252A] hover:bg-[#741C21] disabled:bg-[#d75458] text-white font-semibold rounded-xl
-  "
+      customClass="w-85 sm:w-100 h-[41px] shop-button-style"
       [disabled]="otpForm.invalid"
     ></lib-button>
   </form>
