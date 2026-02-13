@@ -10,21 +10,29 @@
   <form
     [formGroup]="otpForm"
     (ngSubmit)="submitOtpForm()"
-    class="border-y py-10 border-zinc-200 flex flex-col justify-center items-center"
+    class="py-10 form-style"
   >
-    <p-inputOtp [length]="length" [integerOnly]="true" formControlName="otp">
-    </p-inputOtp>
+    <div>
+      <p-inputOtp [length]="length" [integerOnly]="true" formControlName="otp">
+      </p-inputOtp>
+    </div>
+    @if (!disableResend()) {
     <button
       class="my-7 px-[20px] font-medium text-zinc-800 self-end cursor-pointer"
+      (click)="resendOtp()"
     >
       Send a new code
     </button>
+    } @if (disableResend()) {
+    <span class="text-[#741C21] ml-1 py-6">
+      (Resend in {{ countdown() }}s)
+    </span>
+    }
     <lib-button
       label="Verify OTP"
       type="submit"
       variant="custom"
-      customClass="w-85 sm:w-100 h-[41px] bg-[#A6252A] hover:bg-[#741C21] disabled:bg-[#d75458] text-white font-semibold rounded-xl
-  "
+      customClass="w-85 sm:w-100 h-[41px] shop-button-style"
       [disabled]="otpForm.invalid"
     ></lib-button>
   </form>

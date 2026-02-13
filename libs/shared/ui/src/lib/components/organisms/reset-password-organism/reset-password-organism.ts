@@ -4,7 +4,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { LibButton } from '../../atoms/lib-button/lib-button';
 import { FormField } from "../../molecules/form-field/form-field";
 import { CustomInput } from "../../atoms/custom-input/custom-input";
-import { confirmPasswordValidator } from '@shop-workspace/shared-types';
+import { confirmPasswordValidator } from '@shop-workspace/shared-util';
+import { getConfirmPasswordError } from '@shop-workspace/shared-util';
+
 
 @Component({
   selector: 'lib-reset-password-organism',
@@ -30,19 +32,12 @@ export class ResetPasswordOrganism {
     return null;
 }
 
-  get confirmPasswordError(): string | null {
-  const control = this.resetPassForm.get('confirmPassword');
-  if (!control || !control.touched) return null;
-
-  if (control.errors?.['required']) {
-    return 'Confirm password is required';
-  }
-  if (control.errors?.['mismatch']) {
-    return 'Passwords do not match';
-  }
-
-  return null;
+get confirmPasswordError(): string | null {
+  return getConfirmPasswordError(
+    this.resetPassForm.get('confirmPassword')
+  );
 }
+
 
   submitResetPassForm() {
     if (this.resetPassForm.valid) {
