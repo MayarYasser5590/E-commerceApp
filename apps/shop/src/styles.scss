@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+@use '../../../libs/shared/ui/src/lib/styles/auth-theme';
+@import "tailwindcss";
+
+.auth-page {
+  background-color: var(--page-bg);
+  color: var(--title);
+}
+
+.auth-title {
+  color: var(--title);
+}
+
+.auth-border{
+  border-color: var(--border-color);
+}
+.auth-input {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+}
+
+.auth-button {
+  background-color: var(--main-color);
+  color: #27272A;
 @import "tailwindcss";
 
 .p-inputotp .p-inputtext {
@@ -35,4 +58,5 @@
     font-size: 14px;
     border-radius: 8px;
   }
+}
 }
