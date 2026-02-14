@@ -19,7 +19,10 @@
             "input": "apps/shop/public"
           }
         ],
-        "styles": ["apps/shop/src/styles.scss"]
+        "styles": ["apps/shop/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["."]
+        }
       },
       "configurations": {
         "production": {

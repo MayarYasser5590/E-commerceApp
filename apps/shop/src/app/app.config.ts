@@ -10,6 +10,7 @@ import Lara from '@primeuix/themes/aura';
 import { AlarmClock, BadgeCheck, LucideAngularModule } from 'lucide-angular';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
 import { environment } from '../environments/environment';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,8 +28,14 @@ export const appConfig: ApplicationConfig = {
     },
     providePrimeNG({
       theme: {
-        preset: Lara,
+        options: {
+          cssLayer: {
+            name: 'primeng',
+            order: 'theme, base, primeng',
+          },
+        },
       },
     }),
+    MessageService,
   ],
 };

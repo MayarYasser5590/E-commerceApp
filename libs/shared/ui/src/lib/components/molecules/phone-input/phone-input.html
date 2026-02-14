@@ -1,0 +1,22 @@
+<div [class]="'lib-phone-input ' + containerClass">
+  <lib-select-input
+    [options]="countryOptions()"
+    optionLabel="label"
+    optionValue="code"
+    [placeholder]="selectPlaceholder()"
+    [inputClass]="'lib-phone-input__country ' + selectClass"
+    [disabled]="isDisabled()"
+    [ngModel]="countryCode()"
+    (ngModelChange)="onCountryCodeChange($event)"
+  />
+
+  <lib-custom-input
+    [inputId]="inputId"
+    type="tel"
+    [placeholder]="phonePlaceholder"
+    [inputClass]="'lib-phone-input__number ' + numberClass"
+    [disabled]="isDisabled()"
+    [ngModel]="number()"
+    (ngModelChange)="onPhoneNumberChange($event)"
+  />
+</div>

@@ -1,7 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
-@use '../../../libs/shared/ui/src/lib/styles/auth-theme';
-@import "tailwindcss";
+/* 1. Global Shared Styles (Includes Tailwind & Plugins) */
+@import 'libs/shared/ui/src/styles.scss';
 
+/* 2. Theme Variables */
+@use '../../../libs/shared/ui/src/lib/styles/auth-theme';
+
+/* 3. Global Settings */
+:root {
+  color-scheme: light !important;
+}
+
+/* 4. Auth Utility Classes (Using variables from auth-theme) */
 .auth-page {
   background-color: var(--page-bg);
   color: var(--title);
@@ -11,9 +19,10 @@
   color: var(--title);
 }
 
-.auth-border{
+.auth-border {
   border-color: var(--border-color);
 }
+
 .auth-input {
   background-color: var(--input-bg);
   color: var(--input-text);
@@ -21,18 +30,19 @@
 
 .auth-button {
   background-color: var(--main-color);
-  color: #27272A;
-@import "tailwindcss";
+  color: #27272a;
+}
 
+/* 5. Component Overrides */
 .p-inputotp .p-inputtext {
-  border-color: #D4D4D8;
+  border-color: #d4d4d8;
   box-shadow: none !important;
 }
 
 .p-inputotp .p-inputtext:hover,
 .p-inputotp .p-inputtext:focus,
 .p-inputotp .p-inputtext.p-focus {
-  border-color: #A6252A !important;
+  border-color: #a6252a !important;
   box-shadow: none !important;
   outline: none !important;
 }
@@ -43,13 +53,13 @@
   padding: 1rem;
   text-align: center;
   font-size: 16px;
-  color: #1F2537;
+  color: #1f2537;
   background: transparent;
   border-radius: 10px;
-  border: 1px solid #D4D4D8;
+  border: 1px solid #d4d4d8;
 }
 
-/*mobile*/
+/* Mobile Responsive Adjustments */
 @media (max-width: 640px) {
   .p-inputotp input {
     width: 36px;
@@ -58,5 +68,4 @@
     font-size: 14px;
     border-radius: 8px;
   }
-}
 }
