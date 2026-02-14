@@ -1,8 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+/* 1. Global Shared Styles (Includes Tailwind & Plugins) */
 @import 'libs/shared/ui/src/styles.scss';
+
+/* 2. Theme Variables */
+@use '../../../libs/shared/ui/src/lib/styles/auth-theme';
+
+/* 3. Global Settings */
 :root {
   color-scheme: light !important;
 }
+
+/* 4. Auth Utility Classes (Using variables from auth-theme) */
+.auth-page {
+  background-color: var(--page-bg);
+  color: var(--title);
+}
+
+.auth-title {
+  color: var(--title);
+}
+
+.auth-border {
+  border-color: var(--border-color);
+}
+
+.auth-input {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+}
+
+.auth-button {
+  background-color: var(--main-color);
+  color: #27272a;
+}
+
+/* 5. Component Overrides */
 .p-inputotp .p-inputtext {
   border-color: #d4d4d8;
   box-shadow: none !important;
@@ -28,7 +59,7 @@
   border: 1px solid #d4d4d8;
 }
 
-/*mobile*/
+/* Mobile Responsive Adjustments */
 @media (max-width: 640px) {
   .p-inputotp input {
     width: 36px;

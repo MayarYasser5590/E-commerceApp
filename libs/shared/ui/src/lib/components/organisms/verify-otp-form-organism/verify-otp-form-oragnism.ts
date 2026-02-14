@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output, signal } from '@angular/core';
 import { InputOtpModule } from 'primeng/inputotp';
 import { FormControl, FormGroup, FormsModule , ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthFormHeaderMolecule } from "../../molecules/AuthFormHeaderMolecule/AuthFormHeaderMolecule";
@@ -11,9 +11,13 @@ import { LibButton } from "../../atoms/lib-button/lib-button";
   templateUrl: './verify-otp-form-oragnism.html',
   styleUrl: './verify-otp-form-oragnism.scss',
 })
-export class VerifyOtpFormOragnism {
+export class VerifyOtpFormOragnism implements OnDestroy {
   length = 6;
-  isLoading = false;
+  countdown = signal(0);
+  disableResend = signal(false);
+  intervalId: any;
+  resendSuccess = false;
+
 
   @Output() verified = new EventEmitter<string>();  // will use it when forget password flow finished
 
@@ -27,9 +31,38 @@ export class VerifyOtpFormOragnism {
 
       submitOtpForm() {
     if (this.otpForm.valid) {
-      this.isLoading = true;
       const otpValue = this.otpForm.value.otp;
       console.log('Verified OTP:', otpValue);
+    }
+  }
+
+  resendOtp() {
+    this.startCountdown(30);
+    //API
+  }
+
+  startCountdown(seconds: number) {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+
+    this.countdown.set(seconds);
+    this.disableResend.set(true);
+
+    this.intervalId = setInterval(() => {
+      this.countdown.update(v => v - 1);
+
+      if (this.countdown() <= 0) {
+        this.disableResend.set(false);
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
   }
 
