@@ -11,7 +11,7 @@ export type ButtonVariant =
   | 'secondary'
   | 'outline'
   | 'text'
-  | 'danger';
+  | 'danger' | 'custom';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
