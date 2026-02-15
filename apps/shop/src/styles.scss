@@ -12,25 +12,40 @@
 /* 4. Auth Utility Classes (Using variables from auth-theme) */
 .auth-page {
   background-color: var(--page-bg);
-  color: var(--title);
 }
 
-.auth-title {
-  color: var(--title);
+.text-main-color {
+  color: var(--text-main-color);
 }
 
-.auth-border {
-  border-color: var(--border-color);
-}
-
-.auth-input {
+.form-input {
   background-color: var(--input-bg);
   color: var(--input-text);
+  border-color: var(--input-border);
+  @apply border  rounded-[10px] p-[10px]  text-[10px] md:text-[14px] font-normal leading-[100%] tracking-[0px] placeholder-gray-400 align-middle focus:outline-none focus:ring-0;
+  &:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 1px var(--input-border-focus);
+  }
 }
 
-.auth-button {
-  background-color: var(--main-color);
-  color: #27272a;
+.shop-button-style {
+  background-color: var(--button-bg);
+  color: var(--button-label-color);
+  @apply disabled:bg-[#d75458]  font-semibold rounded-xl;
+  &:hover {
+    background-color: var(--button-bg-hover);
+  }
+}
+
+.form-label {
+  @apply text-[14px] font-medium text-zinc-800;
+  color: var(--text-main-color);
+}
+
+.form-style {
+  @apply border-y flex flex-col justify-center items-center;
+  border-color: var(--form-border);
 }
 
 /* 5. Component Overrides */
