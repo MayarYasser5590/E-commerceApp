@@ -2,12 +2,14 @@ import { inject } from '@angular/core';
 import { Router, CanActivateFn } from '@angular/router';
 import { AuthService } from '../data-access/auth.service';
 
-export const authGuard: CanActivateFn = () => {
+export const guestGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  if (authService.isAuthenticated()) {
+    router.navigate(['/home']);
+    return false;
+  }
+
   return true;
-  // TODO: Add redirect URL for post-login redirection
-  router.navigate(['/auth/login']);
-  return false;
 };
