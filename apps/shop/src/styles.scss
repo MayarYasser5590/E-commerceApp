@@ -1,8 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+/* 2. Theme Variables */
 @use '../../../libs/shared/ui/src/lib/styles/auth-theme';
-@import "tailwindcss";
 
-.page-bg {
+/* 1. Global Shared Styles (Includes Tailwind & Plugins) */
+@import 'libs/shared/ui/src/styles.scss';
+
+/* 3. Global Settings */
+:root {
+  color-scheme: light !important;
+}
+
+/* 4. Auth Utility Classes (Using variables from auth-theme) */
+.auth-page {
   background-color: var(--page-bg);
 }
 
@@ -10,47 +18,46 @@
   color: var(--text-main-color);
 }
 
-.form-input{
-    background-color: var(--input-bg);
-    color: var(--input-text);
-    border-color: var(--input-border);
-    @apply border  rounded-[10px] p-[10px]  text-[10px] md:text-[14px] font-normal leading-[100%] tracking-[0px] placeholder-gray-400 align-middle focus:outline-none focus:ring-0 ;
-      &:focus {
-    border-color: var(--input-border-focus); 
+.form-input {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border-color: var(--input-border);
+  @apply border  rounded-[10px] p-[10px]  text-[10px] md:text-[14px] font-normal leading-[100%] tracking-[0px] placeholder-gray-400 align-middle focus:outline-none focus:ring-0;
+  &:focus {
+    border-color: var(--input-border-focus);
     box-shadow: 0 0 0 1px var(--input-border-focus);
   }
-
 }
 
 .shop-button-style {
   background-color: var(--button-bg);
   color: var(--button-label-color);
   @apply disabled:bg-[#d75458]  font-semibold rounded-xl;
-  &:hover{
-    background-color: var(--button-bg-hover)
+  &:hover {
+    background-color: var(--button-bg-hover);
   }
 }
 
-.form-label{
+.form-label {
   @apply text-[14px] font-medium text-zinc-800;
-  color: var(--text-main-color)
+  color: var(--text-main-color);
 }
 
-.form-style{
+.form-style {
   @apply border-y flex flex-col justify-center items-center;
   border-color: var(--form-border);
 }
 
-
+/* 5. Component Overrides */
 .p-inputotp .p-inputtext {
-  border-color: #D4D4D8;
+  border-color: #d4d4d8;
   box-shadow: none !important;
 }
 
 .p-inputotp .p-inputtext:hover,
 .p-inputotp .p-inputtext:focus,
 .p-inputotp .p-inputtext.p-focus {
-  border-color: #A6252A !important;
+  border-color: #a6252a !important;
   box-shadow: none !important;
   outline: none !important;
 }
@@ -61,13 +68,13 @@
   padding: 1rem;
   text-align: center;
   font-size: 16px;
-  color: #1F2537;
+  color: #1f2537;
   background: transparent;
   border-radius: 10px;
-  border: 1px solid #D4D4D8;
+  border: 1px solid #d4d4d8;
 }
 
-/*mobile*/
+/* Mobile Responsive Adjustments */
 @media (max-width: 640px) {
   .p-inputotp input {
     width: 36px;
@@ -77,7 +84,3 @@
     border-radius: 8px;
   }
 }
-
-
-
-

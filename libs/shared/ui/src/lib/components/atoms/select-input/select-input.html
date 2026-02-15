@@ -1,0 +1,16 @@
+<p-select
+  [inputId]="inputId"
+  [options]="options"
+  [optionLabel]="optionLabel"
+  fluid
+  [optionValue]="optionValue"
+  [placeholder]="placeholder"
+  [disabled]="isDisabled()"
+  [showClear]="showClear"
+  [filter]="filter"
+  [class]="inputClass"
+  [panelStyleClass]="panelStyleClass"
+  [ngModel]="value()"
+  (ngModelChange)="onValueChange($event)"
+  (onBlur)="onTouched()"
+/>
