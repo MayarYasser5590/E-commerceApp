@@ -1,0 +1,28 @@
+<button
+  [type]="type()"
+  [disabled]="disabled() || isLoading()"
+  (click)="onClick($event)"
+  class="lib-button"
+  [ngClass]="[
+  variant() !== 'custom' ? 'variant-' + variant() : '',
+  'size-' + size(),
+  customClass()
+]"
+  [class.is-loading]="isLoading()"
+>
+  @if (isLoading()) {
+  <lucide-angular
+    [img]="LoaderCircle"
+    class="animate-spin mr-2"
+    [size]="18"
+  ></lucide-angular>
+  } @else if (icon() && iconPos() === 'left') {
+  <lucide-angular [img]="icon()!" class="mr-2" [size]="18"></lucide-angular>
+  }
+
+  <span class="button-label">{{ label() }}</span>
+
+  @if (!isLoading() && icon() && iconPos() === 'right') {
+  <lucide-angular [img]="icon()!" class="ml-2" [size]="18"></lucide-angular>
+  }
+</button>

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SharedAuth } from './shared-auth';
+import { VerifyOtpFormOragnism } from './verify-otp-form-oragnism';
 
-describe('SharedAuth', () => {
-  let component: SharedAuth;
-  let fixture: ComponentFixture<SharedAuth>;
+describe('VerifyOtpFormOragnism', () => {
+  let component: VerifyOtpFormOragnism;
+  let fixture: ComponentFixture<VerifyOtpFormOragnism>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedAuth],
+      imports: [VerifyOtpFormOragnism],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SharedAuth);
+    fixture = TestBed.createComponent(VerifyOtpFormOragnism);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

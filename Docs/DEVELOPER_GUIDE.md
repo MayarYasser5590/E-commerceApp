@@ -78,9 +78,25 @@ We have a built-in Auth system in `libs/shared/auth`.
   {
     path: 'admin-dashboard',
     canActivate: [authGuard(['admin'])], // Only admins allowed
-    loadComponent: () => import(...)
   }
   ```
+
+---
+
+## 🌍 Environment Configuration
+
+We use specialized environment files for each app to handle API URLs and production flags.
+
+- **Files**: Found in `apps/[app-name]/src/environments/`.
+  - `environment.ts`: Development settings.
+  - `environment.prod.ts`: Production settings.
+- **How to use**: We use the `APP_CONFIG` injection token from `@shop-workspace/shared-util`.
+  ```typescript
+  // In your service
+  private config = inject(APP_CONFIG);
+  apiUrl = this.config.apiUrl;
+  ```
+- **Automatic Switching**: Nx is configured in `project.json` to automatically swap to the `.prod.ts` file when you run a production build (`nx build --prod`).
 
 ---
 
