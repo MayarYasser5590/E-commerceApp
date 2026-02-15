@@ -4,17 +4,23 @@
   --page-bg: #ffffff;
 
   /* Text */
-  --title: #27272A;        // heading
+  --text-main-color: #27272A;        // heading
 
   /* Inputs */
   --input-bg: #ffffff;
   --input-text: #27272A;
-  --input-border:#A6252A
+  --input-border: #E4E4E7;
+  --input-border-focus:#A6252A;
 
   /* Primary */
   --main-color: #A6252A;      
-  /*border*/
-  --border-color: #E4E4E7;
+
+    /*button*/
+    --button-label-color: #FFFFFF;
+    --button-bg-hover: #741C21;
+    --button-bg: #A6252A;
+
+    --form-border: #E4E4E7;
 }
 
 
@@ -24,18 +30,24 @@
     --page-bg: #27272A;
 
     /* Text */
-    --title: #FAFAFA;
+    --text-main-color: #FAFAFA;
 
     /* Inputs */
     --input-bg: #52525B;
     --input-text: #ffffff;
-    --input-border:#52525B;
+    --input-border: #52525B;
+    --input-border-focus:#52525B;
 
     /* Primary */
     --main-color: #ffb6c1;   
-    
-    /*border*/
-    --border-color: #52525B;
+
+    /*button*/
+    --button-label-color: #27272A;
+    --button-bg-hover: #fa99a7;
+    --button-bg: #ffb6c1;
+
+    --form-border: #52525B;
+
   }
 }
 
