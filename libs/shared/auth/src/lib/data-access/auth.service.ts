@@ -2,12 +2,22 @@ import { Injectable, signal, computed } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { AuthResponse, LoginCredentials, User } from '../models/auth.models';
+import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { APP_CONFIG } from '@shop-workspace/shared-util';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly AUTH_TOKEN_KEY = 'auth_token';
+  private httpClient = inject(HttpClient);
+  private config = inject(APP_CONFIG);
+  private get authBaseUrl() {
+  return `${this.config.apiUrl}/auth`;
+}
+
 
   // State using Signals
   private userSignal = signal<User | null>(null);
@@ -52,6 +62,23 @@ export class AuthService {
       });
     }
   }
+
+  verifyResetCode(resetCode: string) {
+  return this.httpClient.post(
+    `${this.authBaseUrl}/verifyResetCode`,
+    { resetCode }
+  );
+}
+
+  resetPassword(email: string, newPassword: string) {
+  return this.httpClient.post(
+    `${this.authBaseUrl}/resetPassword`,
+    {
+      email,
+      newPassword,
+    }
+  );
+}
 
   getToken(): string | null {
     return (
