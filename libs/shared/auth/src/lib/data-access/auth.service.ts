@@ -5,6 +5,7 @@ import { AuthResponse, LoginCredentials, User } from '../models/auth.models';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
+import { ResetPasswordRequest, VerifyResetCodeRequest } from '../models/auth-input-model';
 
 
 @Injectable({
@@ -28,7 +29,7 @@ export class AuthService {
     // Mocking API delay
     return of({
       user: {
-        id: '1',
+        _id: '1',
         email: credentials.email,
         firstName: 'Mock',
         lastName: 'User',
@@ -54,7 +55,7 @@ export class AuthService {
     if (token) {
       // In a real app, we would validate the token with an API call
       this.userSignal.set({
-        id: '1',
+        _id: '1',
         email: 'mocked@example.com',
         firstName: 'Remembered',
         lastName: 'User',
@@ -63,20 +64,15 @@ export class AuthService {
     }
   }
 
-  verifyResetCode(resetCode: string) {
-  return this.httpClient.post(
-    `${this.authBaseUrl}/verifyResetCode`,
-    { resetCode }
+ verifyResetCode(data: VerifyResetCodeRequest) {
+  return this.httpClient.post<{ message: string }>(
+    `${this.authBaseUrl}/verifyResetCode`,data
   );
 }
 
-  resetPassword(email: string, newPassword: string) {
-  return this.httpClient.post(
-    `${this.authBaseUrl}/resetPassword`,
-    {
-      email,
-      newPassword,
-    }
+resetPassword(data: ResetPasswordRequest) {
+  return this.httpClient.put<{ message: string }>(
+    `${this.authBaseUrl}/resetPassword`,data
   );
 }
 

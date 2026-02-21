@@ -11,7 +11,7 @@ import { AlarmClock, BadgeCheck, LucideAngularModule } from 'lucide-angular';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
 import { environment } from '../environments/environment';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import{jwtInterceptor} from '@shop-workspace/shared-auth'
+import{errorInterceptor, jwtInterceptor} from '@shop-workspace/shared-auth'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,7 +34,8 @@ export const appConfig: ApplicationConfig = {
     }),
     provideHttpClient(
   withInterceptors([
-    jwtInterceptor
+    jwtInterceptor,
+    errorInterceptor
   ])
 )
 

@@ -1,25 +1,22 @@
-// import {
-//   HttpInterceptorFn,
-//   HttpErrorResponse,
-// } from '@angular/common/http';
-// import { inject } from '@angular/core';
-// import { catchError } from 'rxjs/operators';
-// import { throwError } from 'rxjs';
-// import { Router } from '@angular/router';
-// import { AuthService } from '../data-access/auth.service';
+import {HttpInterceptorFn,HttpErrorResponse} from '@angular/common/http';
+import { inject } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthService } from '../data-access/auth.service';
 
-// export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-//   const authService = inject(AuthService);
-//   const router = inject(Router);
+export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-//   return next(req).pipe(
-//     catchError((error: HttpErrorResponse) => {
-//       if (error.status === 401) {
-//         authService.logout();
-//         router.navigate(['/login']);
-//       }
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+        authService.logout();
+        router.navigate(['/login']);
+      }
 
-//       return throwError(() => error);
-//     }),
-//   );
-// };
+      return throwError(() => error);
+    }),
+  );
+};

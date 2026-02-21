@@ -1,9 +1,13 @@
 export interface User {
-  id: string;
+  _id: string;
   email: string;
   firstName: string;
   lastName: string;
   role: 'user' | 'admin';
+  phone?: string;
+  gender?: string;
+  createdAt?: string;
+  photo?: string;
 }
 
 export interface LoginCredentials {
@@ -15,4 +19,5 @@ export interface LoginCredentials {
 export interface AuthResponse {
   user: User;
   token: string;
+  message: string;
 }

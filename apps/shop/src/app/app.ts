@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-// import { ShopFeatureHome } from "@shop-workspace/shop-feature-home";
 
 @Component({
   imports: [RouterModule],
