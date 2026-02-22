@@ -40,7 +40,7 @@ export interface ForgotPasswordDto {
 }
 
 export interface ResetPasswordDto {
-  email:string;
+  email: string;
   newPassword: string;
 }
 
