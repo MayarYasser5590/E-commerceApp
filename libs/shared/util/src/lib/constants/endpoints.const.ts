@@ -11,7 +11,7 @@ export const API_ENDPOINTS = {
     resetPassword: '/auth/resetPassword',
     deleteAccount: '/auth/deleteMe',
     editProfile: '/auth/editProfile',
-    changeRole: '/auth/update-role',
+    changeRole: '/auth/update-role/:userId',
   },
   PRODUCTS: {
     // Add product related endpoints here later
