@@ -140,6 +140,7 @@ export class AuthService {
   }
 
   logout(): void {
+    // TODO: REPLACE IT WITH COOKIES
     this.clearAuth();
   }
 
@@ -148,6 +149,7 @@ export class AuthService {
   }
 
   private setAuth(auth: AuthResponse): void {
+    // TODO: REPLACE IT WITH COOKIES
     localStorage.setItem(this.TOKEN_KEY, auth.token);
     localStorage.setItem(this.USER_KEY, JSON.stringify(auth.user));
     this.token.set(auth.token);
