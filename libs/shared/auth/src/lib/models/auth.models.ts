@@ -40,8 +40,8 @@ export interface ForgotPasswordDto {
 }
 
 export interface ResetPasswordDto {
+  email:string;
   newPassword: string;
-  resetCode: string;
 }
 
 export interface ChangeRoleDto {

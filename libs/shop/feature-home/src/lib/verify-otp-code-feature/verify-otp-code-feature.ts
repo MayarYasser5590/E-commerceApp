@@ -20,7 +20,7 @@ export class VerifyOtpCodeFeature {
   handleVerifyOtpCode(code: string) {
     this.isLoading.set(true);
     this.errorMessage.set(null);
-    this.authService.verifyResetCode({ resetCode: code }).subscribe({
+    this.authService.verifyReset(code ).subscribe({
         next: () => {
           this.isLoading.set(false);
         },
@@ -32,7 +32,7 @@ export class VerifyOtpCodeFeature {
   }
 
   handleResend() {
-  this.authService.forgotPassword({ email: this.email }) 
+  this.authService.forgotPassword(this.email) 
     .subscribe({
       next: () => {
         console.log("done");

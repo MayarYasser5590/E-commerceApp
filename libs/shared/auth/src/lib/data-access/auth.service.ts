@@ -6,9 +6,14 @@ import {
   AuthAdapter,
   AuthResponse,
   AuthResponseDto,
+  BaseUser,
+  ChangePasswordDto,
   LoginCredentials,
+  MessageResponse,
+  ResetPasswordDto,
   SignupCredentials,
   User,
+  UserDto,
 } from '../models/auth.models';
 import { API_ENDPOINTS } from '@shop-workspace/shared-util';
 
