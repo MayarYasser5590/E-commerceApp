@@ -8,64 +8,76 @@ To decouple our application from backend changes and ensure a clean domain model
 
 ### Why use it?
 
-- **Backend Independence**: If the backend changes a field name (e.g., `_id` to `uuid`), we only update the adapter, not the entire UI.
-- **Data Sanitization**: We can filter out unnecessary backend fields and ensure type safety (e.g., role fallbacks).
-- **Frontend-Friendly Names**: We map API-specific naming conventions to clear, readable frontend properties.
+- **Backend Independence**: If the backend changes a field name (e.g., `_id` to `uuid`), we only update the adapter, not the UI.
+- **Frontend-Friendly Names**: We map API-specific naming conventions to clear, readable frontend properties (e.g., `_id` -> `id`).
 
 ### Implementation
 
 The `AuthAdapter` class in `auth.models.ts` handles all transformations:
 
 ```typescript
-// Maps full API response (user + token)
-static fromResponseDto(dto: AuthResponseDto): AuthResponse {
+// Maps API UserDto to App User
+static fromDto(dto: UserDto): User {
   return {
-    user: this.fromDto(dto.user),
-    token: dto.token,
+    id: dto._id,
+    email: dto.email,
+    firstName: dto.firstName,
+    lastName: dto.lastName,
+    role: dto.role as 'user' | 'admin',
+    // ... logic for other fields
   };
 }
 ```
 
 ---
 
-## 2. DRY Models with Interface Inheritance
+## 2. API Endpoint Centralization
 
-To avoid repeating core user properties (email, name, etc.) across multiple interfaces, we use **Interface Inheritance**.
+To maintain a "single source of truth," all API paths are defined in `shared-util/endpoints.const.ts`. This makes it easy to update URLs without searching through service files.
 
-### Structure
+**Example Usage in `AuthService`**:
 
-- **`BaseUser`**: Contains all shared properties.
-- **`User`**: Extends `BaseUser` for internal app state (uses `id`).
-- **`UserDto`**: Extends `BaseUser` for API interactions (uses `_id`).
-- **`SignupCredentials`**: Extends `BaseUser` for registration forms.
-
-### Benefit
-
-Adding a new shared field like `profilePicture` only requires a single update in `BaseUser`.
+```typescript
+this.http.post(`${this.config.apiUrl}${API_ENDPOINTS.AUTH.signIn}`, data);
+```
 
 ---
 
-## 3. Consolidated Responses
+## 3. State Management with Angular Signals
 
-Since `Sign-in` and `Sign-up` endpoints return the same data structure, we use a single set of interfaces (`AuthResponse` and `AuthResponseDto`).
+We use **Angular Signals** for reactive, high-performance state management.
 
-### Usage in AuthService
+- `currentUser`: A signal containing the currently logged-in user object.
+- `isAuthenticated`: A computed signal that automatically updates based on the presence of an auth token.
 
-Services should remain simple and delegate transformation to the adapter:
+---
+
+## 4. Service Logic Flow
+
+Our `AuthService` follows a simple, consistent pattern for all actions:
+
+1. **Request**: Call the API using standardized endpoints.
+2. **Transform**: Use `AuthAdapter` to convert the backend response (DTO) to a frontend model.
+3. **State Update**: Update local signals (`currentUser.set()`) and local storage.
+
+### Example: Sign In Flow
 
 ```typescript
 signIn(credentials: LoginCredentials): Observable<AuthResponse> {
-  return this.http.post<AuthResponseDto>(url, credentials).pipe(
-    map(res => AuthAdapter.fromResponseDto(res))
+  return this.http.post<AuthResponseDto>(URL, credentials).pipe(
+    map(res => AuthAdapter.fromResponseDto(res)), // Step 2: Transform
+    tap(res => this.setAuth(res))                // Step 3: Update State
   );
 }
 ```
 
 ---
 
-## 4. Best Practices Summary
+## 5. Supported Actions
 
-- [x] **DRY**: Use inheritance for models.
-- [x] **Decoupled**: Use Adapters for API data.
-- [x] **Type Safe**: Explicitly map roles and use strict interface definitions.
-- [x] **Single-Purpose**: Models only define structure; Adapters only handle transformation.
+The library supports a full range of authentication features:
+
+- **Core**: Sign In, Sign Up, Logout.
+- **Account**: Get User Data, Edit Profile, Upload Photo, Delete Account.
+- **Security**: Change Password, Forgot Password, Reset Password Flow.
+- **Admin**: Update User Roles.
