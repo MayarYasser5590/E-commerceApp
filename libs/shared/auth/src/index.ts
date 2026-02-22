@@ -7,3 +7,5 @@ export * from './lib/interceptors/error.interceptor';
 export * from './lib/guards/auth.guard';
 export * from './lib/guards/guest.guard';
 // export * from './lib/guards/admin.guard';
+
+export * from './lib/data-access/email.service';

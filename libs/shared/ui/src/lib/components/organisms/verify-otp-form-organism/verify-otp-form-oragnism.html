@@ -10,7 +10,7 @@
   <form
     [formGroup]="otpForm"
     (ngSubmit)="submitOtpForm()"
-    class="py-10 form-style"
+    class="pt-7 pb-5 sm:pt-10 sm:pb-7 form-style"
   >
     <div>
       <p-inputOtp [length]="length" [integerOnly]="true" formControlName="otp">
@@ -24,7 +24,7 @@
       Send a new code
     </button>
     } @if (disableResend()) {
-    <span class="text-[#741C21] ml-1 py-6">
+    <span class="text-[#741C21] ml-1 py-4 md:py-6">
       (Resend in {{ countdown() }}s)
     </span>
     }
@@ -32,8 +32,12 @@
       label="Verify OTP"
       type="submit"
       variant="custom"
-      customClass="w-85 sm:w-100 h-[41px] shop-button-style"
+      customClass="w-75 sm:w-100 h-[41px] shop-button-style"
       [disabled]="otpForm.invalid"
+      [isLoading]="isLoading()"
     ></lib-button>
+    @if (errorMessage()) {
+    <span class="mt-1 sm:mt-2 text-[#A6252A]">{{errorMessage()}}</span>
+    }
   </form>
 </section>

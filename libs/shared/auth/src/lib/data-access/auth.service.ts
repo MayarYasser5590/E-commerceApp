@@ -5,7 +5,7 @@ import { AuthResponse, LoginCredentials, User } from '../models/auth.models';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
-import { ResetPasswordRequest, VerifyResetCodeRequest } from '../models/auth-input-model';
+import { ForgotPasswordRequest, ResetPasswordRequest, VerifyResetCodeRequest } from '../models/auth-input-model';
 
 
 @Injectable({
@@ -64,15 +64,25 @@ export class AuthService {
     }
   }
 
- verifyResetCode(data: VerifyResetCodeRequest) {
-  return this.httpClient.post<{ message: string }>(
-    `${this.authBaseUrl}/verifyResetCode`,data
+forgotPassword(data: ForgotPasswordRequest) {
+  return this.httpClient.post<{ message: string; info: string }>(
+    `${this.authBaseUrl}/forgotPassword`,
+    data
   );
 }
 
+ verifyResetCode(data: VerifyResetCodeRequest) {
+  return this.httpClient.post<{ status: string }>(
+    `${this.authBaseUrl}/verifyResetCode`,data);
+}
+
 resetPassword(data: ResetPasswordRequest) {
-  return this.httpClient.put<{ message: string }>(
-    `${this.authBaseUrl}/resetPassword`,data
+  return this.httpClient.put<{ message: string; token: string }>(
+    `${this.authBaseUrl}/resetPassword`,
+    data
+  ).pipe(tap((res) => {
+      this.saveSession(res.token, true); 
+    })
   );
 }
 

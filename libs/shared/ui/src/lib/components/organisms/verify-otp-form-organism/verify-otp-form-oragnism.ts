@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, input, OnDestroy, Output, signal } from '@angular/core';
 import { InputOtpModule } from 'primeng/inputotp';
 import { FormControl, FormGroup, FormsModule , ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthFormHeaderMolecule } from "../../molecules/AuthFormHeaderMolecule/AuthFormHeaderMolecule";
@@ -17,28 +17,27 @@ export class VerifyOtpFormOragnism implements OnDestroy {
   disableResend = signal(false);
   intervalId: any;
   resendSuccess = false;
+  isLoading = input<boolean>(false);
+  @Output() resend = new EventEmitter<void>(); 
+  @Output() verified = new EventEmitter<string>(); 
+  errorMessage = input<string | null>(null);
 
+   otpForm = new FormGroup({
+  otp: new FormControl<string>('', {nonNullable: true, 
+    validators: [Validators.required,Validators.minLength(6),Validators.maxLength(6)],
+  }),
+});
 
-  @Output() verified = new EventEmitter<string>();  // will use it when forget password flow finished
-
-  otpForm = new FormGroup({
-    otp: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(6),
-    ]),
-  });
-
-      submitOtpForm() {
+    submitOtpForm() {
     if (this.otpForm.valid) {
       const otpValue = this.otpForm.value.otp;
-      console.log('Verified OTP:', otpValue);
+      this.verified.emit(otpValue);
+
     }
   }
 
   resendOtp() {
-    this.startCountdown(30);
-    //API
+    this.resend.emit();
   }
 
   startCountdown(seconds: number) {
@@ -65,6 +64,5 @@ export class VerifyOtpFormOragnism implements OnDestroy {
       clearInterval(this.intervalId);
     }
   }
-
 
 }

@@ -35,6 +35,6 @@ export interface ResetPasswordRequest {
   newPassword : string ;
 }
 
-export interface ChangeUserRole {
+export interface ChangeUserRoleRequest {
   role : string;
 }
