@@ -15,14 +15,38 @@ export interface UserDto extends BaseUser {
   _id: string;
   role: string;
   gender: string;
-  wishlist: any[];
-  addresses: any[];
+  wishlist: unknown[];
+  addresses: unknown[];
   createdAt: string;
 }
 
 export interface SignupCredentials extends BaseUser {
   password: string;
   rePassword?: string;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface ChangePasswordDto {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface ForgotPasswordDto {
+  email: string;
+}
+
+export interface ResetPasswordDto {
+  newPassword: string;
+  resetCode: string;
+}
+
+export interface ChangeRoleDto {
+  userId: string;
+  role: 'user' | 'admin';
 }
 
 export interface AuthResponse {
@@ -34,6 +58,10 @@ export interface AuthResponseDto {
   message: string;
   user: UserDto;
   token: string;
+}
+
+export interface MessageResponse {
+  message: string;
 }
 
 export class AuthAdapter {
@@ -53,6 +81,16 @@ export class AuthAdapter {
     return {
       user: this.fromDto(dto.user),
       token: dto.token,
+    };
+  }
+
+  static toEditProfileDto(user: Partial<BaseUser>): Partial<BaseUser> {
+    // This could handle specific mapping if the API expects different names for editing
+    return {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone,
+      photo: user.photo,
     };
   }
 }
