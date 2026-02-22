@@ -1,0 +1,56 @@
+
+<section class="my-2 rounded-1 p-1 container  mx-auto">
+  <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()">
+    <div class="flex gap-4 my-2">
+      <div>
+        <lib-form-field label="firstName">
+          <lib-custom-input formControlName="firstName" type="text"></lib-custom-input>
+        </lib-form-field>
+      </div>
+      <div>
+        <lib-form-field label="lastName">
+          <lib-custom-input formControlName="lastName" type="text"></lib-custom-input>
+        </lib-form-field>
+      </div>
+    </div>
+    <div class="my-2">
+      <lib-form-field label="email">
+        <lib-custom-input formControlName="email" type="email"></lib-custom-input>
+      </lib-form-field>
+    </div>
+
+      <div class="my-2">
+      <lib-form-field label="phone">
+        <lib-custom-input formControlName="phone"  type="tel"></lib-custom-input>
+      </lib-form-field>
+    </div>
+
+  <div class="my-2">
+    <label for="state">gender</label>
+    <select  id="state" formControlName="gender">
+    <option value="" disabled selected>Select Gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+  </div>
+      <div class="my-2">
+      <lib-form-field label="password">
+        <lib-custom-input formControlName="password"  type="password"></lib-custom-input>
+      </lib-form-field>
+    </div>
+      <div class="my-2">
+      <lib-form-field label="rePassword">
+        <lib-custom-input formControlName="rePassword"  type="password"></lib-custom-input>
+      </lib-form-field>
+    </div>
+     <div class="my-2">
+     <lib-button
+     label="creat Account"
+      type="submit"
+     customClass="w-85 sm:w-100 h-[41px] bg-[#A6252A] hover:bg-[#741C21] disabled:bg-[#d75458] text-white font-semibold rounded-xl"
+      [disabled]="registerForm.invalid"
+      >
+    </lib-button>
+    </div>
+  </form>
+</section>

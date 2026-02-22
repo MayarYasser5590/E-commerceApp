@@ -2,6 +2,6 @@ import { AppConfig } from '@shop-workspace/shared-util';
 
 export const environment: AppConfig = {
   production: true,
-  apiUrl: 'https://api.admin.com/api',
+  apiUrl: 'https://flower.elevateegy.com/api/v1',
   appName: 'Admin Dashboard',
 };

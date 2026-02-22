@@ -7,7 +7,7 @@ export * from './lib/components/atoms/label/label';
 export * from './lib/components/atoms/custom-input/custom-input';
 export * from './lib/components/atoms/select-input/select-input';
 // Molecules
-export * from './lib/components/molecules/AuthFormHeaderMolecule/AuthFormHeaderMolecule'
+export * from './lib/components/molecules/AuthFormHeaderMolecule/AuthFormHeaderMolecule';
 export * from './lib/components/molecules/form-field/form-field';
 export * from './lib/components/molecules/phone-input/phone-input';
 // Organisms
