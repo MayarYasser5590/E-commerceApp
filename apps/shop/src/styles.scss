@@ -74,6 +74,11 @@
   border: 1px solid #d4d4d8;
 }
 
+.p-inputotp {
+  display: flex;
+  gap: 12px;
+}
+
 /* Mobile Responsive Adjustments */
 @media (max-width: 640px) {
   .p-inputotp input {

@@ -10,6 +10,8 @@ import Lara from '@primeuix/themes/aura';
 import { AlarmClock, BadgeCheck, LucideAngularModule } from 'lucide-angular';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
 import { environment } from '../environments/environment';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import{errorInterceptor, jwtInterceptor} from '@shop-workspace/shared-auth'
 import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
@@ -36,6 +38,12 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    provideHttpClient(
+  withInterceptors([
+    jwtInterceptor,
+    errorInterceptor
+  ])
+),
     MessageService,
   ],
 };

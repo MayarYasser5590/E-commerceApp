@@ -1,101 +1,167 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
-import { AuthResponse, LoginCredentials, User } from '../models/auth.models';
+import { inject, Injectable, signal, computed } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { APP_CONFIG } from '@shop-workspace/shared-util';
+import { map, Observable, tap } from 'rxjs';
+import {
+  AuthAdapter,
+  AuthResponse,
+  AuthResponseDto,
+  LoginCredentials,
+  SignupCredentials,
+  User,
+} from '../models/auth.models';
+import { API_ENDPOINTS } from '@shop-workspace/shared-util';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly AUTH_TOKEN_KEY = 'auth_token';
+  private http = inject(HttpClient);
+  private config = inject(APP_CONFIG);
+
+  private readonly TOKEN_KEY = 'auth_token';
+  private readonly USER_KEY = 'auth_user';
 
   // State using Signals
-  private userSignal = signal<User | null>(null);
-  currentUser = this.userSignal.asReadonly();
-  isAuthenticated = computed(() => !!this.userSignal());
+  currentUser = signal<User | null>(this.getStoredUser());
+  token = signal<string | null>(localStorage.getItem(this.TOKEN_KEY));
 
-  login(credentials: LoginCredentials): Observable<AuthResponse> {
-    // Mocking API delay
-    return of({
-      user: {
-        id: '1',
-        email: credentials.email,
-        firstName: 'Mock',
-        lastName: 'User',
-        role: 'user',
-      },
-      token: 'mock-jwt-token-' + Math.random().toString(36).substring(7),
-    } as AuthResponse).pipe(
-      delay(1000),
-      tap((response) => {
-        this.userSignal.set(response.user);
-        this.saveSession(response.token, credentials.rememberMe);
-      }),
+  // Computed state
+  isAuthenticated = computed(() => !!this.token());
+
+  signIn(credentials: LoginCredentials): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponseDto>(
+        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.signIn}`,
+        credentials,
+      )
+      .pipe(
+        map((res) => AuthAdapter.fromResponseDto(res)),
+        tap((res) => this.setAuth(res)),
+      );
+  }
+
+  signUp(credentials: SignupCredentials): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponseDto>(
+        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.signUp}`,
+        credentials,
+      )
+      .pipe(
+        map((res) => AuthAdapter.fromResponseDto(res)),
+        tap((res) => this.setAuth(res)),
+      );
+  }
+
+  changePassword(data: ChangePasswordDto): Observable<MessageResponse> {
+    return this.http.patch<MessageResponse>(
+      `${this.config.apiUrl}${API_ENDPOINTS.AUTH.changePassword}`,
+      data,
     );
+  }
+
+  uploadProfilePhoto(file: File): Observable<AuthResponse> {
+    const formData = new FormData();
+    formData.append('photo', file);
+    return this.http
+      .put<AuthResponseDto>(
+        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.uploadPhoto}`,
+        formData,
+      )
+      .pipe(
+        map((res) => AuthAdapter.fromResponseDto(res)),
+        tap((res) => this.setAuth(res)),
+      );
+  }
+
+  getLoggedUserData(): Observable<User> {
+    return this.http
+      .get<UserDto>(`${this.config.apiUrl}${API_ENDPOINTS.AUTH.getUserData}`)
+      .pipe(
+        map((res) => AuthAdapter.fromDto(res)),
+        tap((user) => this.currentUser.set(user)),
+      );
+  }
+
+  forgotPassword(email: string): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(
+      `${this.config.apiUrl}${API_ENDPOINTS.AUTH.forgotPassword}`,
+      { email },
+    );
+  }
+
+  verifyReset(code: string): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(
+      `${this.config.apiUrl}${API_ENDPOINTS.AUTH.verifyReset}`,
+      { code },
+    );
+  }
+
+  resetPassword(data: ResetPasswordDto): Observable<MessageResponse> {
+    return this.http.put<MessageResponse>(
+      `${this.config.apiUrl}${API_ENDPOINTS.AUTH.resetPassword}`,
+      data,
+    );
+  }
+
+  deleteAccount(): Observable<MessageResponse> {
+    return this.http
+      .delete<MessageResponse>(
+        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.deleteAccount}`,
+      )
+      .pipe(tap(() => this.logout()));
+  }
+
+  editProfile(data: Partial<BaseUser>): Observable<User> {
+    const dto = AuthAdapter.toEditProfileDto(data);
+    return this.http
+      .put<UserDto>(
+        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.editProfile}`,
+        dto,
+      )
+      .pipe(
+        map((res) => AuthAdapter.fromDto(res)),
+        tap((user) => this.currentUser.set(user)),
+      );
+  }
+
+  changeUserRole(userId: string, role: 'user' | 'admin'): Observable<User> {
+    return this.http
+      .patch<UserDto>(`${this.config.apiUrl}${API_ENDPOINTS.AUTH.changeRole}`, {
+        userId,
+        role,
+      })
+      .pipe(map((res) => AuthAdapter.fromDto(res)));
   }
 
   logout(): void {
-    this.userSignal.set(null);
-    this.clearSession();
-  }
-
-  autoLogin(): void {
-    const token = this.getToken();
-    if (token) {
-      // In a real app, we would validate the token with an API call
-      this.userSignal.set({
-        id: '1',
-        email: 'mocked@example.com',
-        firstName: 'Remembered',
-        lastName: 'User',
-        role: 'user',
-      });
-    }
+    this.clearAuth();
   }
 
   getToken(): string | null {
-    return (
-      this.getCookie(this.AUTH_TOKEN_KEY) ||
-      sessionStorage.getItem(this.AUTH_TOKEN_KEY)
-    );
+    return this.token();
   }
 
-  private saveSession(token: string, rememberMe: boolean): void {
-    if (rememberMe) {
-      this.setCookie(this.AUTH_TOKEN_KEY, token, 7);
-    } else {
-      sessionStorage.setItem(this.AUTH_TOKEN_KEY, token);
+  private setAuth(auth: AuthResponse): void {
+    localStorage.setItem(this.TOKEN_KEY, auth.token);
+    localStorage.setItem(this.USER_KEY, JSON.stringify(auth.user));
+    this.token.set(auth.token);
+    this.currentUser.set(auth.user);
+  }
+
+  private clearAuth(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.USER_KEY);
+    this.token.set(null);
+    this.currentUser.set(null);
+  }
+
+  private getStoredUser(): User | null {
+    const user = localStorage.getItem(this.USER_KEY);
+    try {
+      return user ? JSON.parse(user) : null;
+    } catch {
+      return null;
     }
-  }
-
-  private clearSession(): void {
-    this.deleteCookie(this.AUTH_TOKEN_KEY);
-    sessionStorage.removeItem(this.AUTH_TOKEN_KEY);
-  }
-
-  private setCookie(name: string, value: string, days: number): void {
-    let expires = '';
-    if (days) {
-      const date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = '; expires=' + date.toUTCString();
-    }
-    document.cookie =
-      name + '=' + (value || '') + expires + '; path=/; SameSite=Strict';
-  }
-
-  private getCookie(name: string): string | null {
-    const nameEQ = name + '=';
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  }
-
-  private deleteCookie(name: string): void {
-    document.cookie = name + '=; Max-Age=-99999999; path=/';
   }
 }

@@ -1,6 +1,13 @@
 <lib-auth-layout bannerImage="/assets/banner.webp">
   <div auth-form>
-    <lib-verify-otp-form-oragnism></lib-verify-otp-form-oragnism>
+    <lib-verify-otp-form-oragnism
+      (verified)="handleVerifyOtpCode($event)"
+      [isLoading]="isLoading()"
+      (resend)="handleResend()"
+      [errorMessage]="errorMessage()"
+    >
+      >
+    </lib-verify-otp-form-oragnism>
   </div>
   <div auth-footer class="font-medium text-[14px]">
     <p class="text-zinc-800">
