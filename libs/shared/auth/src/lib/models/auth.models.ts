@@ -49,11 +49,14 @@ export interface ChangeRoleDto {
   role: 'user' | 'admin';
 }
 
+// for signin and signup
 export interface AuthResponse {
   user: User;
   token: string;
+  message: string;
 }
 
+// for signin and signup
 export interface AuthResponseDto {
   message: string;
   user: UserDto;
@@ -81,6 +84,7 @@ export class AuthAdapter {
     return {
       user: this.fromDto(dto.user),
       token: dto.token,
+      message: dto.message,
     };
   }
 
