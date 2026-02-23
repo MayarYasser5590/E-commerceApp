@@ -1,5 +1,4 @@
 // Shared UI Public API
-// TODO: Add Public API
 // Atoms
 export * from './lib/components/atoms/lib-button/lib-button';
 export * from './lib/components/atoms/toast/toast';
@@ -12,10 +11,10 @@ export * from './lib/components/molecules/form-field/form-field';
 export * from './lib/components/molecules/phone-input/phone-input';
 // Organisms
 export * from './lib/components/organisms/verify-otp-form-organism/verify-otp-form-oragnism';
+export * from './lib/components/organisms/register/register';
+export * from './lib/components/organisms/reset-password-organism/reset-password-organism';
 // Templates
 export * from './lib/components/templates/auth-layout/auth-layout';
-
-export * from './lib/components/organisms/reset-password-organism/reset-password-organism';
 
 export * from './lib/components/atoms/custom-input/custom-input';
 

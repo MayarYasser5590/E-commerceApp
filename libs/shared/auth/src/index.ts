@@ -9,3 +9,10 @@ export * from './lib/guards/guest.guard';
 // export * from './lib/guards/admin.guard';
 
 export * from './lib/data-access/email.service';
+
+// Features
+export * from './lib/features/login/login.component';
+export * from './lib/features/register/register.component';
+export * from './lib/features/verify-otp/verify-otp.component';
+export * from './lib/features/reset-password/reset-password.component';
+export * from './lib/features/auth.routes';

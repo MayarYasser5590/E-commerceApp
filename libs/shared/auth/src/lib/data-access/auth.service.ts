@@ -1,3 +1,4 @@
+import { ResetPasswordCredentials } from './../models/auth.models';
 import { inject, Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
@@ -102,8 +103,8 @@ export class AuthService {
     );
   }
 
-  resetPassword(data: ResetPasswordDto): Observable<MessageResponse> {
-    return this.http.put<MessageResponse>(
+  resetPassword(data: ResetPasswordCredentials): Observable<ResetPasswordDto> {
+    return this.http.put<ResetPasswordDto>(
       `${this.config.apiUrl}${API_ENDPOINTS.AUTH.resetPassword}`,
       data,
     );

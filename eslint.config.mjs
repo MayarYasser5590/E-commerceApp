@@ -59,7 +59,12 @@ export default [
             },
             {
               sourceTag: 'type:auth',
-              onlyDependOnLibsWithTags: ['type:util', 'type:model'],
+              onlyDependOnLibsWithTags: [
+                'type:util',
+                'type:model',
+                'type:ui',
+                'type:data-access', 
+              ],
             },
             {
               sourceTag: 'type:util',

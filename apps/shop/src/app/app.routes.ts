@@ -15,4 +15,9 @@ export const appRoutes: Routes = [
         (m) => m.ShopFeatureHome,
       ),
   },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('@shop-workspace/shared-auth').then((m) => m.AUTH_ROUTES),
+  },
 ];

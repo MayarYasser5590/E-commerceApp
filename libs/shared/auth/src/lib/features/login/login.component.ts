@@ -3,6 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'lib-login',
   imports: [],
-  template: '',
+  template: `..`,
 })
 export class LoginComponent {}
