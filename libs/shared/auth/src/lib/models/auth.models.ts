@@ -30,6 +30,11 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface ResetPasswordCredentials {
+  email: string;
+  newPassword: string;
+}
+
 export interface ChangePasswordDto {
   oldPassword: string;
   newPassword: string;
@@ -40,8 +45,8 @@ export interface ForgotPasswordDto {
 }
 
 export interface ResetPasswordDto {
-  email:string;
-  newPassword: string;
+  message: string;
+  token: string;
 }
 
 export interface ChangeRoleDto {
