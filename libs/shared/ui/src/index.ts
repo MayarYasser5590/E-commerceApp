@@ -22,3 +22,5 @@ export * from './lib/components/atoms/custom-input/custom-input';
 export * from './lib/components/atoms/password-toggle/password-toggle';
 
 export * from './lib/components/molecules/form-field/form-field';
+
+export * from './lib/components/organisms/product-card-organism/product-card-organism';
