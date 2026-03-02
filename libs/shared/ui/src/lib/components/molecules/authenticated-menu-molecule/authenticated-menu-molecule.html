@@ -1,0 +1,43 @@
+<button
+  type="button"
+  class="relative flex items-center gap-1 bg-transparent border-0 p-0"
+  (click)="toggle($event)"
+>
+  <div>
+    <span class="text-gray-500 text-[11px] block">Hello</span>
+    <strong class="text-[#741C21] text-[15px]"> {{ userName }} </strong>
+  </div>
+
+  <lucide-icon [name]="icons.ChevronDown" class="w-5 h-5"> </lucide-icon>
+</button>
+
+<p-menu
+  #menu
+  [model]="menuModel"
+  [popup]="true"
+  styleClass="custom-user-menu bg-white"
+>
+  <ng-template pTemplate="start">
+    <div
+      class="px-4 py-3 font-semibold text-[#741C21] border-b border-gray-200"
+    >
+      {{ userName }}
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="item" let-item>
+    <a
+      class="flex items-center gap-3 px-4 focus:text-[#741C21] py-2 text-sm hover:bg-gray-100 cursor-pointer"
+      [routerLink]="item.routerLink"
+      (click)="item.command?.()"
+    >
+      <lucide-icon
+        [name]="item.icon"
+        class="w-4 h-4 text-gray-500"
+      ></lucide-icon>
+      <span class="text-gray-600 text-[8px] md:text-[14px] focus:text-[#741c21]"
+        >{{ item.label }}</span
+      >
+    </a>
+  </ng-template>
+</p-menu>

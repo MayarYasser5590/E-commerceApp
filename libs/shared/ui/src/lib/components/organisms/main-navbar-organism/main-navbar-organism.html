@@ -1,0 +1,54 @@
+<nav class="bg-[#741C21] w-full relative">
+  <!-- Desktop -->
+  <div class="hidden md:flex justify-center items-center gap-2">
+    @for (item of navItems; track item.route) {
+    <a
+      [routerLink]="item.route"
+      routerLinkActive="border-b border-b-[#FFC2D0]"
+      class="cursor-pointer py-3 px-3 text-gray-100 flex items-center gap-2 transition hover:bg-[#8d252b]"
+    >
+      <lucide-icon [name]="item.icon" class="w-5 h-5"></lucide-icon>
+      {{ item.label }}
+    </a>
+    }
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="md:hidden flex justify-between items-center px-4 py-3">
+    <span class="text-gray-100 font-semibold">Menu</span>
+
+    <button (click)="toggleMenu()" class="text-gray-100 cursor-pointer">
+      <lucide-icon [name]="isOpen() ? icons.X : icons.Menu" class="w-6 h-6">
+      </lucide-icon>
+    </button>
+  </div>
+
+  <!-- Mobile Dropdown -->
+  @if (isOpen()) {
+  <div
+    class="md:hidden bg-[#741C21] border-t border-[#8d252b] flex flex-col animate-slideDown"
+  >
+    @for (item of navItems; track item.route) {
+    <a
+      [routerLink]="item.route"
+      (click)="closeMenu()"
+      routerLinkActive="bg-[#8d252b]"
+      class="py-3 px-4 text-gray-100 flex items-center gap-3 transition hover:bg-[#8d252b]"
+    >
+      <lucide-icon [name]="item.icon" class="w-5 h-5"></lucide-icon>
+      {{ item.label }}
+    </a>
+    } @if (isAuthenticated) {
+    <button
+      (click)="logout.emit()"
+      ;
+      (click)="closeMenu()"
+      class="py-3 px-4 text-gray-100 flex items-center gap-3 border-t border-[#8d252b] hover:bg-[#8d252b]"
+    >
+      <lucide-icon [name]="icons.LogOut" class="w-5 h-5"></lucide-icon>
+      Logout
+    </button>
+    }
+  </div>
+  }
+</nav>

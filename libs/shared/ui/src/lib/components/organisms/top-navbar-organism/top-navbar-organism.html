@@ -1,0 +1,58 @@
+<nav class="py-3 px-7 bg-white flex justify-between items-center">
+  <lib-logo-atom
+    imgClass=" max-w-[45px] max-h-[40px]  md:max-w-[65px] md:max-h-[60px]"
+  ></lib-logo-atom>
+  @if (isAuthenticated) {
+  <div
+    class="location hidden md:block flex flex-col justify-center items-center"
+  >
+    <span class="text-gray-600">Deliver to:</span>
+    <div class="flex justify-center items-center text-[#741C21]">
+      <lucide-icon [name]="icons.MapPinPen" class="w-5 h-5"></lucide-icon>
+      <span class="text-[#741C21] font-medium">Cairo</span>
+    </div>
+  </div>
+  }
+  <lib-search-input-molecule
+    placeholder="What awesome gift are you looking for?"
+    [widthClass]="
+    isAuthenticated
+      ? ' md:w-[450px] lg:w-[840px]'
+      : ' md:w-[350px] lg:w-[940px]'
+  "
+    inputClass="flex items-center text-[#741C21] h-[52px] gap-2 rounded-[10px] border border-[#D4D4D8] p-4 outline-none focus:border-0 focus:ring-1 focus:ring-[#741C21]"
+  ></lib-search-input-molecule>
+  <div class="ations flex items-center justify-center">
+    @if (isAuthenticated) {
+    <div class="flex items-center justify-center">
+      <div
+        class="text-left px-3 flex justify-center items-center cursor-pointer"
+      >
+        <lib-authenticated-menu-molecule
+          [userName]="user()?.firstName"
+          (logout)="logout.emit()"
+        ></lib-authenticated-menu-molecule>
+      </div>
+      <lib-nav-user-data-molecule
+        [isAuthenticated]="true"
+        [favCount]="2"
+        [cartCount]="3"
+      ></lib-nav-user-data-molecule>
+    </div>
+    } @if(!isAuthenticated) {
+    <div class="flex items-center justify-center">
+      <a
+        class="cursor-pointer px-3 border-e border-[#E4E4E7] flex justify-center items-center"
+      >
+        <lucide-icon [name]="icons.User" class="w-5 h-5"></lucide-icon>
+        Login
+      </a>
+
+      <lib-nav-user-data-molecule
+        [isAuthenticated]="false"
+      ></lib-nav-user-data-molecule>
+    </div>
+    }
+    <span class="px-3">العربية</span>
+  </div>
+</nav>

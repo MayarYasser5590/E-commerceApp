@@ -169,4 +169,10 @@ export class AuthService {
       return null;
     }
   }
+
+  initUser(): void {
+  if (this.token() && !this.currentUser()) {
+    this.getLoggedUserData().subscribe();
+  }
+}
 }

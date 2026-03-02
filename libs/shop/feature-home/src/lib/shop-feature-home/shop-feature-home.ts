@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-import { ButtonShowcase } from '../button-showcase';
+import { Component} from '@angular/core';
+
 @Component({
   selector: 'lib-shop-feature-home',
-  imports: [ButtonShowcase],
+  imports: [],
   templateUrl: './shop-feature-home.html',
   styleUrl: './shop-feature-home.scss',
 })
-export class ShopFeatureHome {}
+export class ShopFeatureHome {
+  
+}
