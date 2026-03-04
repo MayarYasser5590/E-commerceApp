@@ -20,12 +20,13 @@
         </p>
       </div>
       <div>
-        <button
-          pButton
-          class="p-button-danger bg-[#A6252A] py-[7px] px-[16px] rounded-[10px]"
+        <lib-button
+          label="Explore gifts →"
+          variant="custom"
+          size="md"
+          customClass="bg-[#A6252A] text-white py-[7px] px-[16px] rounded-[10px] hover:bg-[#8c1f23] transition"
         >
-          Explore gifts →
-        </button>
+        </lib-button>
       </div>
     </div>
 
@@ -35,13 +36,15 @@
         class="best-seller-carousel"
         [value]="bestSellers()"
         [numVisible]="3"
-        [circular]="true"
+        [circular]="false"
         [autoplayInterval]="4000"
         [responsiveOptions]="responsiveOptions"
       >
-        <ng-template pTemplate="item" let-product class="flex gap-3">
-          <lib-product-card-organism [product]="product">
-          </lib-product-card-organism>
+        <ng-template pTemplate="item" let-product>
+          <div class="px-3 w-full">
+            <lib-product-card-organism [product]="product">
+            </lib-product-card-organism>
+          </div>
         </ng-template>
       </p-carousel>
     </div>

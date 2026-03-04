@@ -18,14 +18,14 @@
 }
 
 :host ::ng-deep .best-seller-carousel .p-carousel-item {
-  padding: 0 12px;
+  display: flex;
 }
 
-:host ::ng-deep .best-seller-carousel .p-carousel-item:first-child {
-  padding-left: 0 !important;
+:host ::ng-deep .best-seller-carousel .p-carousel-item > div {
+  width: 100%;
 }
 
-:host ::ng-deep .best-seller-carousel .p-carousel-item:last-child {
-  padding-right: 0 !important;
-}
+
+
+
 
