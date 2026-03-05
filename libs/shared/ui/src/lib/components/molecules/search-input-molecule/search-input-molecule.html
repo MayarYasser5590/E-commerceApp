@@ -1,0 +1,15 @@
+<div class="relative hidden md:block" [class]="widthClass">
+  <lucide-icon
+    [name]="icons.Search"
+    class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+  >
+  </lucide-icon>
+  <input
+    pInputText
+    type="text"
+    [placeholder]="placeholder"
+    (input)="onInput($event)"
+    class="w-full ps-13 placeholder:text-[#A1A1AA] placeholder:font-normal placeholder:text-sm"
+    [class]="inputClass"
+  />
+</div>

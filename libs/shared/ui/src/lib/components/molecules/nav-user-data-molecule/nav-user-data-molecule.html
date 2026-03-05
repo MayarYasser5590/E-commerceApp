@@ -1,0 +1,31 @@
+<div
+  class="border-e border-[#E4E4E7] flex justify-center items-center gap-x-3 px-3"
+>
+  <a class="cursor-pointer relative">
+    <lucide-icon [name]="icons.Heart" class="w-5 h-5"></lucide-icon>
+
+    @if (isAuthenticated) {
+    <span
+      class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 rounded-full"
+    >
+      {{ favCount }}
+    </span>
+    }
+  </a>
+
+  <a class="cursor-pointer relative">
+    <lucide-icon [name]="icons.ShoppingCart" class="w-5 h-5"></lucide-icon>
+
+    @if (isAuthenticated) {
+    <span
+      class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 rounded-full"
+    >
+      {{ cartCount }}
+    </span>
+    }
+  </a>
+
+  <a class="cursor-pointer">
+    <lucide-icon [name]="icons.Bell" class="w-5 h-5"></lucide-icon>
+  </a>
+</div>
