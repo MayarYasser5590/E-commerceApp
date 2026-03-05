@@ -139,10 +139,18 @@ export class AuthService {
       .pipe(map((res) => AuthAdapter.fromDto(res)));
   }
 
-  logout(): void {
+
+logout(): Observable<MessageResponse> {
+  return this.http
+    .get<MessageResponse>(
+      `${this.config.apiUrl}${API_ENDPOINTS.AUTH.logout}`,
+    )
+    .pipe(
+      tap(() => this.clearAuth()),
+    );
+    
     // TODO: REPLACE IT WITH COOKIES
-    this.clearAuth();
-  }
+}
 
   getToken(): string | null {
     return this.token();
@@ -171,4 +179,10 @@ export class AuthService {
       return null;
     }
   }
+
+  initUser(): void {
+  if (this.token() && !this.currentUser()) {
+    this.getLoggedUserData().subscribe();
+  }
+}
 }
