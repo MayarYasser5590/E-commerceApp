@@ -3,3 +3,12 @@ export * from './lib/verify-otp-code-feature/verify-otp-code-feature'
 
 export * from './lib/reset-password-feature/reset-password-feature'
 
+export * from './lib/product.service';
+
+export * from './lib/shop-products-features//product-details-feature/components/details-section/details-section';
+export * from './lib/shop-products-features//product-details-feature/components/Ratings-section/ratings-section';
+export * from './lib/shop-products-features//product-details-feature/components/related-products/related-products-section';
+
+export * from './lib/shop-products-features/products-feature/products-feature';
+export * from './lib/shop-products-features/product-details-feature/product-details-feature';
+

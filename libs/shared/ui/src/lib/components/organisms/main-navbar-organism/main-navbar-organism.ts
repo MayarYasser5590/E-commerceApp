@@ -28,7 +28,7 @@ export class MainNavbarOrganism {
 
   navItems: MainNavItem[] = [
     { label: 'Home', route: '/home', icon: House },
-    { label: 'Products', route: '/Products', icon: Gift },
+    { label: 'Products', route: '/products', icon: Gift },
     { label: 'Categories', route: '/Categories', icon: ClipboardList },
     { label: 'Occasions', route: '/Occasions', icon: PartyPopper },
     { label: 'Contact', route: '/Contact', icon: Headset },

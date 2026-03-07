@@ -1,0 +1,76 @@
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+  <div>
+    <!-- image cover -->
+    <div class="rounded-xl overflow-hidden border">
+      <img
+        [src]="product.imgCover"
+        [alt]="product.title"
+        class="w-full h-[420px] object-cover"
+      />
+    </div>
+    <!--  thumbnails -->
+
+    <div class="flex gap-3 mt-4">
+      @for (img of product.images; track $index) {
+      <img
+        [src]="img"
+        alt="Product Images"
+        (keydown.enter)="changeImage(img)"
+        (click)="changeImage(img)"
+        role="button"
+        tabindex="0"
+        class="w-20 h-20 rounded-lg object-cover border cursor-pointer hover:border-red-500 transition"
+      />
+      }
+    </div>
+  </div>
+
+  <!-- right side -->
+  <div class="space-y-4">
+    <h1 class="text-2xl font-semibold">{{ product.title }}</h1>
+    <div class="flex items-center gap-3">
+      <span class="text-gray-400 line-through text-lg">
+        {{ product.price }} EGP
+      </span>
+      <span class="text-2xl font-bold text-black">
+        {{ product.priceAfterDiscount }} EGP
+      </span>
+
+      <!-- stock badge -->
+      <span class="bg-gray-100 text-sm px-3 py-1 rounded-full">
+        {{ product.quantity }} left in stock
+      </span>
+    </div>
+
+    <div class="flex items-center gap-2 text-sm">
+      <lucide-angular [name]="icons.Star" class="text-yellow-500" [size]="18">
+      </lucide-angular>
+      <span class="text-blue-600"> ({{ product.rateCount }} ratings) </span>
+    </div>
+
+    <hr />
+
+    <p class="text-gray-600 leading-relaxed">{{ product.description }}</p>
+
+    <!-- ACTIONS -->
+    <div class="flex items-center gap-4 pt-4">
+      <!-- WISHLIST -->
+      <lib-button
+        variant="outline"
+        size="md"
+        [icon]="icons.Heart"
+        customClass="w-12 h-12 flex items-center justify-center"
+        (clicked)="addToWishlist()"
+      ></lib-button>
+
+      <lib-button
+        label="Add to Cart"
+        [icon]="icons.ShoppingCart"
+        iconPos="left"
+        variant="custom"
+        customClass="w-full bg-red-700 hover:bg-red-800 text-white py-3 rounded-lg flex justify-center"
+        (clicked)="addToCart()"
+      ></lib-button>
+    </div>
+  </div>
+</div>
