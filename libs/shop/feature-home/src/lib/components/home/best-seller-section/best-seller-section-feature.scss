@@ -1,0 +1,31 @@
+:host ::ng-deep .best-seller-carousel {
+  position: relative;
+}
+
+:host ::ng-deep .best-seller-carousel .p-carousel-prev-button,
+:host ::ng-deep .best-seller-carousel .p-carousel-next-button {
+  background-color: #A6252A !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+  width: 38px !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s ease !important;
+  top: 45%;
+  transform: translateY(-50%);
+}
+
+:host ::ng-deep .best-seller-carousel .p-carousel-item {
+  display: flex;
+}
+
+:host ::ng-deep .best-seller-carousel .p-carousel-item > div {
+  width: 100%;
+}
+
+
+
+
+

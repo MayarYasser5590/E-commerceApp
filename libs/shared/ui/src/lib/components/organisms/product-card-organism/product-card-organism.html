@@ -1,0 +1,55 @@
+<div
+  class="relative bg-white w-full text-black rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition"
+>
+  <img
+    [src]="product.imgCover"
+    [alt]="product.title"
+    class="w-full h-72 object-cover"
+  />
+
+  <!-- BADGE -->
+  <div class="absolute top-4 right-4">
+    @if (product.quantity <= 0) {
+    <p-tag
+      value="OUT OF STOCK"
+      severity="danger"
+      class="py-[2px] px-[8px] bg-[#DC2626] ms-2 text-white rounded-full text-[12px]"
+    ></p-tag>
+    } @if (product.sold > 5) {
+    <p-tag
+      value="HOT"
+      severity="warn"
+      class="py-[2px] px-[8px] bg-[#FBEAEA] ms-2 text-[#A6252A] rounded-full text-[12px]"
+    ></p-tag>
+    }
+  </div>
+
+  <div class="p-4 space-y-2">
+    <h3 class="font-semibold text-[18px] text-[#741C21] line-clamp-1">
+      {{ product.title }}
+    </h3>
+    <!-- Rating -->
+    <p-rating
+      [ngModel]="product.rateAvg"
+      [readonly]="true"
+      class="text-[#FBA707]"
+    >
+    </p-rating>
+
+    <!-- Price -->
+    <div class="flex gap-2 items-center font-medium text-[16px]">
+      <span class="text-[#741C21]"> {{ product.priceAfterDiscount }} EGP </span>
+
+      <span class="line-through text-gray-400 text-sm">
+        {{ product.price }} EGP
+      </span>
+    </div>
+  </div>
+
+  <!-- ADD TO CART -->
+  <button
+    class="absolute bottom-4 right-4 bg-[#A6252A] text-white rounded-full p-3 shadow-lg hover:scale-110 transition"
+  >
+    <lucide-icon [name]="icons.ShoppingCart" size="18"></lucide-icon>
+  </button>
+</div>
