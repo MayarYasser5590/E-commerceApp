@@ -1,0 +1,98 @@
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+  <div>
+    <!-- image cover -->
+    <div
+      class="rounded-xl overflow-hidden md:max-h[302px] md:max-w-[505px] lg:max-h-[402px] lg:max-w-[605px]"
+    >
+      <img
+        [src]="selectedImage || product.imgCover"
+        [alt]="product.title"
+        class="w-full object-cover object-center"
+      />
+    </div>
+    <!--  thumbnails -->
+
+    <div class="flex gap-3 mt-4">
+      @for (img of product.images; track $index) {
+      <img
+        [src]="img"
+        alt="Product Images"
+        (keydown.enter)="changeImage(img)"
+        (click)="changeImage(img)"
+        role="button"
+        tabindex="0"
+        class="w-[91px] h-[111px] rounded-lg object-cover cursor-pointer hover:skew-3 transition"
+      />
+      }
+    </div>
+  </div>
+
+  <!-- right side -->
+  <div class="flex flex-col justify-between">
+    <div>
+      <h1 class="text-[30px] text-[#27272A] font-semibold">
+        {{ product.title }}
+      </h1>
+      <div class="flex items-center gap-3">
+        <span class="text-gray-300 font-bold line-through text-2xl">
+          {{ product.price }}
+        </span>
+        <span class="text-2xl font-bold text-[#27272A]">
+          {{ product.priceAfterDiscount }} <span class="font-normal">EGP</span>
+        </span>
+
+        <!-- stock badge -->
+        <div
+          class="flex items-center gap-2 text-[#27272A] px-3 py-1 rounded-full bg-gray-100"
+        >
+          <lucide-icon [name]="icons.Package" [size]="18"> </lucide-icon>
+          <span class="text-[14px] font-medium">
+            {{ stock }} left in stock
+          </span>
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-x-2 border-y border-y-[#F4F4F5] py-4 my-2 text-sm"
+      >
+        <lucide-icon [name]="icons.Star" class="text-yellow-500" [size]="18">
+        </lucide-icon>
+        <p class="text-[16px]">
+          <span class="font-normal">Rating: {{product.rateAvg}}/5</span>
+          <span class="text-blue-600 font-medium">
+            ({{ product.rateCount }} ratings)
+          </span>
+        </p>
+      </div>
+
+      <p class="text-gray-600 font-normal text-[16px]">
+        {{ product.description }}
+      </p>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="flex items-center gap-x-6 pt-4 w-full">
+      <!-- WISHLIST -->
+      <div>
+        <lib-button
+          variant="outline"
+          size="md"
+          customClass="w-full flex py-[10px] items-center justify-center"
+          (clicked)="addToWishlist()"
+        >
+          <lucide-icon [name]="icons.HeartPlus" [size]="18"></lucide-icon>
+        </lib-button>
+      </div>
+
+      <div class="w-full">
+        <lib-button
+          label="Add to Cart"
+          [icon]="icons.ShoppingCart"
+          iconPos="left"
+          variant="custom"
+          customClass="w-full bg-[#A6252A] m-0 hover:bg-[#741C21] text-white py-[10px] rounded-lg flex justify-center"
+          (clicked)="addToCart()"
+        ></lib-button>
+      </div>
+    </div>
+  </div>
+</div>

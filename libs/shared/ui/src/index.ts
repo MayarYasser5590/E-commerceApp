@@ -32,3 +32,5 @@ export * from './lib/components/organisms/top-navbar-organism/top-navbar-organis
 export * from './lib/components/organisms/main-navbar-organism/main-navbar-organism';
 
 export * from './lib/data-access/interfaces/user-menu-item.interface';
+
+export * from './lib/components/organisms/slider-organism/slider-organism'

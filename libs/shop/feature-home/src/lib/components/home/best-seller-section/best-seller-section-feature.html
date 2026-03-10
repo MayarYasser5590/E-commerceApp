@@ -32,21 +32,7 @@
 
     <!-- RIGHT SLIDER -->
     <div>
-      <p-carousel
-        class="best-seller-carousel"
-        [value]="bestSellers()"
-        [numVisible]="3"
-        [circular]="false"
-        [autoplayInterval]="4000"
-        [responsiveOptions]="responsiveOptions"
-      >
-        <ng-template pTemplate="item" let-product>
-          <div class="px-3 w-full">
-            <lib-product-card-organism [product]="product">
-            </lib-product-card-organism>
-          </div>
-        </ng-template>
-      </p-carousel>
+      <lib-slider-organism [products]="bestSellers()"></lib-slider-organism>
     </div>
   </div>
 </section>
