@@ -1,7 +1,7 @@
-import { Component, input, Input } from '@angular/core';
-import { Product } from '../../../../product.service';
+import { Component, Input } from '@angular/core';
+import { ProductData } from '@shop-workspace/shared-types';
 import { LibButton } from "@shop-workspace/shared-ui";
-import { LucideAngularModule , Heart , ShoppingCart , Star, LucideIconData } from 'lucide-angular';
+import { LucideAngularModule , ShoppingCart , Star, HeartPlus , Package } from 'lucide-angular';
 
 
 @Component({
@@ -13,17 +13,20 @@ import { LucideAngularModule , Heart , ShoppingCart , Star, LucideIconData } fro
 export class DetailsSection {
   
   @Input() productId!: string | null;
-  @Input() product!: Product;
+  @Input() product!: ProductData;
 
   icons = {
-    Heart , ShoppingCart , Star};
+    ShoppingCart , Star , HeartPlus , Package };
 
   selectedImage!: string;
-  icon = input<LucideIconData | undefined>(undefined);
 
   changeImage(img: string) {
     this.selectedImage = img;
   }
+
+  get stock(): number {
+    return Math.max(this.product.quantity, 0);
+}
 
   addToWishlist(){
     console.log("wishlist");

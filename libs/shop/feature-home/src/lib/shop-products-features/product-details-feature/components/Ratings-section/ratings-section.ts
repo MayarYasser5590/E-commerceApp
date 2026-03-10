@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input} from '@angular/core';
 
 @Component({
   selector: 'lib-ratings-section',
@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './ratings-section.scss',
 })
 export class RatingsSection {
-    @Input() productId!: string | null;
+  @Input() productId!: string | null;
 
 }

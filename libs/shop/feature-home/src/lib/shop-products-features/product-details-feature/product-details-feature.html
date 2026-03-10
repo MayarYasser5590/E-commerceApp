@@ -1,10 +1,11 @@
-@if (product) {
-<lib-details-section [productId]="productId" [product]="product">
-  ></lib-details-section
->
-<lib-ratings-section [productId]="productId"></lib-ratings-section>
-<lib-related-products-section
-  [productId]="productId"
-></lib-related-products-section>
+@if (product()) {
+
+<lib-details-section [productId]="productId()" [product]="product()!">
+</lib-details-section>
+
+<lib-ratings-section [productId]="productId()!"> </lib-ratings-section>
+
+<lib-related-products-section [productId]="productId()!">
+</lib-related-products-section>
 
 }

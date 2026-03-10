@@ -7,7 +7,7 @@ import { Navbar } from '../../../core/features/navbar/navbar';
   imports: [RouterOutlet , Navbar],
   template: `
 <app-navbar></app-navbar>
-<div class="py-3 px-2">
+<div class="my-2 mx-3 sm:my-10 sm:mx-12">
   <router-outlet></router-outlet>
 </div>
  ` ,

@@ -89,3 +89,88 @@
     border-radius: 8px;
   }
 }
+
+// /* PAGINATOR CONTAINER */
+// .p-paginator {
+//   background: transparent !important;
+//   border: none !important;
+//   display: flex;
+//   justify-content: center;
+//   gap: 6px;
+// }
+
+// /* ALL BUTTONS */
+// .p-paginator .p-paginator-pages .p-paginator-page,
+// .p-paginator .p-paginator-first,
+// .p-paginator .p-paginator-prev,
+// .p-paginator .p-paginator-next,
+// .p-paginator .p-paginator-last {
+//   background: #f3f4f6 !important;
+//   border: 1px solid #e5e7eb !important;
+//   border-radius: 8px !important;
+//   min-width: 36px !important;
+//   height: 36px !important;
+//   margin: 0 2px !important;
+//   display: flex !important;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// /* HOVER */
+// .p-paginator button:hover {
+//   background: #e5e7eb !important;
+// }
+
+
+// :host .p-paginator .p-paginator-page.p-highlight {
+//   background: #A6252A !important;
+//   border-color: #A6252A !important;
+//   color: white !important;
+// }
+
+/* PAGINATOR CONTAINER */
+.p-paginator {
+  background: transparent !important;
+  border: none !important;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ALL BUTTONS */
+.p-paginator .p-paginator-pages .p-paginator-page,
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+  background: #f3f4f6 !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  min-width: 36px !important;
+  height: 36px !important;
+  margin: 0 2px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: #374151 !important;
+}
+
+/* HOVER لكل الأزرار */
+.p-paginator .p-paginator-pages .p-paginator-page:hover,
+.p-paginator .p-paginator-prev:hover,
+.p-paginator .p-paginator-next:hover,
+.p-paginator .p-paginator-first:hover,
+.p-paginator .p-paginator-last:hover {
+  background: #e5e7eb !important;
+}
+
+.p-paginator .p-paginator-page.p-paginator-page-selected {
+  background-color: #A6252A !important;
+  border-color: #A6252A !important;
+  color: #ffffff !important;
+}
+
+/* HOVER ACTIVE */
+.p-paginator .p-paginator-page.p-paginator-page-selected:hover {
+  background-color: #A6252A !important;
+}

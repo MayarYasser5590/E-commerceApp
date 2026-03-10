@@ -1,0 +1,17 @@
+<p-carousel
+  class="best-seller-carousel"
+  [value]="products()"
+  [numVisible]="numVisible()"
+  [circular]="false"
+  [autoplayInterval]="4000"
+  [responsiveOptions]="responsiveOptions"
+>
+  <ng-template pTemplate="item" let-product>
+    <div class="px-3 w-full">
+      <lib-product-card-organism
+        [product]="product"
+        [showWishlist]="false"
+      ></lib-product-card-organism>
+    </div>
+  </ng-template>
+</p-carousel>
