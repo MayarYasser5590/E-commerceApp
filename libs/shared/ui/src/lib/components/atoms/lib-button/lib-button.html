@@ -22,6 +22,8 @@
 
   <span class="button-label">{{ label() }}</span>
 
+  <ng-content></ng-content>
+
   @if (!isLoading() && icon() && iconPos() === 'right') {
   <lucide-angular [img]="icon()!" class="ml-2" [size]="18"></lucide-angular>
   }

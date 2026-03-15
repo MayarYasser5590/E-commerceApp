@@ -1,21 +1,29 @@
-import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
-import { Product } from '@shop-workspace/shared-types';
-import { LucideAngularModule, ShoppingCart } from 'lucide-angular';
+import { Product, ProductData } from '@shop-workspace/shared-types';
+import { LucideAngularModule, ShoppingCart , Heart } from 'lucide-angular';
 
 
 @Component({
   selector: 'lib-product-card-organism', 
   standalone: true,
-  imports: [CommonModule,TagModule,RatingModule,FormsModule , LucideAngularModule],
+  imports: [CommonModule,TagModule,RatingModule,FormsModule , LucideAngularModule , RouterLink],
   templateUrl: './product-card-organism.html',
   styleUrls: ['./product-card-organism.scss']
 })
 export class ProductCardOrganism {
-  @Input() product!: Product;
+  product = input.required<ProductData>();
 
-    icons = {ShoppingCart};
+    icons = {ShoppingCart , Heart};
+
+
+  showWishlist = input<boolean>(true);
+  showCart = input<boolean>(true);
+
+  addToCart = output<ProductData>();
+  toggleWishlist = output<ProductData>();
 }

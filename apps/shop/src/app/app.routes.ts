@@ -1,18 +1,8 @@
 import { Routes } from '@angular/router';
-import { guestGuard } from '@shop-workspace/shared-auth';
+import { featureRoutes } from './features/feature.routes';
+import { authRoutes } from './auth/auth.routes';
 
 export const appRoutes: Routes = [
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'home',
-  },
-  {
-    path: 'home',
-    canActivate: [guestGuard],
-    loadComponent: () =>
-      import('@shop-workspace/shop-feature-home').then(
-        (m) => m.ShopFeatureHome,
-      ),
-  },
+   ...featureRoutes,
+  ...authRoutes,
 ];

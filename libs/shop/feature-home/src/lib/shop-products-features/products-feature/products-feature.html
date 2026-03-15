@@ -1,0 +1,29 @@
+<div class="max-w-7xl mx-auto grid grid-cols-12 gap-6">
+  <!-- sidebar -->
+  <div></div>
+
+  <!-- products -->
+  <div class="col-span-9">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for(product of products(); track product._id){
+
+      <lib-product-card-organism
+        [product]="product"
+        (addToCart)="addToCart($event)"
+        (toggleWishlist)="onToggleWishlist($event)"
+      ></lib-product-card-organism>
+
+      }
+    </div>
+
+    <div class="mt-8 flex justify-center">
+      <p-paginator
+        [rows]="rows"
+        [totalRecords]="totalProducts()"
+        [first]="(page() - 1) * rows"
+        (onPageChange)="onPageChange($event)"
+      >
+      </p-paginator>
+    </div>
+  </div>
+</div>

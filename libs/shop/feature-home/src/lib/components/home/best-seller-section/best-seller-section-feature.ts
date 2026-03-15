@@ -1,15 +1,15 @@
 import { Component , input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Product } from '@shop-workspace/shared-types';
+import { Product, ProductData } from '@shop-workspace/shared-types';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { ProductCardOrganism } from '@shop-workspace/shared-ui';
+import { ProductCardOrganism, SliderOrganism } from '@shop-workspace/shared-ui';
 import {LibButton} from '@shop-workspace/shared-ui'
 
 @Component({
   selector: 'lib-best-seller-section-feature',
   standalone: true,
-  imports: [CommonModule, CarouselModule , ButtonModule , ProductCardOrganism, LibButton],
+  imports: [CommonModule, CarouselModule, ButtonModule, ProductCardOrganism, LibButton, SliderOrganism],
   templateUrl: './best-seller-section-feature.html',
   styleUrls: ['./best-seller-section-feature.scss']
 })

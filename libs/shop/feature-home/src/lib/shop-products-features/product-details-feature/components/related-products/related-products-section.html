@@ -1,0 +1,22 @@
+<section class="py-10">
+  <div class="relative inline-block mb-8">
+    <!-- big line -->
+    <span
+      class="absolute left-[3px] top-[32px] h-[17px] w-[154px] bg-[#FFE0E7] rounded-r-[20px] z-0"
+    ></span>
+
+    <!-- small line-->
+    <span
+      class="absolute left-[3px] top-[49px] h-[2px] w-[60px] bg-[#E65073] z-0"
+    ></span>
+
+    <h2 class="relative z-20 text-[36px] font-bold text-[#741C21]">
+      Related Products
+    </h2>
+  </div>
+
+  <lib-slider-organism
+    [products]="relatedProducts()"
+    [numVisible]="4"
+  ></lib-slider-organism>
+</section>
