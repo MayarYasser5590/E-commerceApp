@@ -1,6 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Product } from '@shop-workspace/shared-types';
+import { ProductData } from '@shop-workspace/shared-types';
 import { BadgeAtom } from '../../atoms/badge/badge.atom';
 import { PriceTagAtom } from '../../atoms/price/price-tag.atom';
 import { RatingAtom } from '../../atoms/rating/rating.atom';
@@ -88,10 +88,10 @@ import { Eye, HeartPlus, ShoppingCart } from 'lucide-angular';
   `,
 })
 export class ProductCardMolecule {
-  product = input.required<Product>();
+  product = input.required<ProductData>();
 
-  addToCart = output<Product>();
-  productClicked = output<Product>();
+  addToCart = output<ProductData>();
+  productClicked = output<ProductData>();
 
   protected readonly cartIcon = ShoppingCart;
   protected readonly heartIcon = HeartPlus;

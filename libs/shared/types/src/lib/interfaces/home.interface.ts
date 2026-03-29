@@ -1,11 +1,11 @@
-import { Product } from './product.interface';
 import { Category } from './category.interface';
 import { Occasion } from './occasion.interface';
+import { ProductData } from './productData.interface';
 
 export interface HomeResponse {
   message: string;
-  products: Product[];
+  products: ProductData[];
   categories: Category[];
-  bestSeller: Product[];
+  bestSeller: ProductData[];
   occasions: Occasion[];
 }

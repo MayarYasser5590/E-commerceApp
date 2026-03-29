@@ -2,6 +2,7 @@ import { Metadata } from "./metadata.interface";
 
 export interface ProductData {
   _id: string;
+  id?: string;
   title: string;
   slug: string;
   description: string;

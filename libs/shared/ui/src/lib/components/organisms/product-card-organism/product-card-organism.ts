@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
-import { Product, ProductData } from '@shop-workspace/shared-types';
+import { ProductData } from '@shop-workspace/shared-types';
 import { LucideAngularModule, ShoppingCart , Heart } from 'lucide-angular';
 
 

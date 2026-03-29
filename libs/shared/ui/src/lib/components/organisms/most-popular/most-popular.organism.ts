@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Occasion, Product } from '@shop-workspace/shared-types';
+import { Occasion, ProductData } from '@shop-workspace/shared-types';
 import { SectionHeadingAtom } from '../../atoms/heading/section-heading.atom';
 import { FilterTabsMolecule } from '../../molecules/filter-tabs/filter-tabs.molecule';
 import { ProductCardMolecule } from '../../molecules/product-card/product-card.molecule';
@@ -51,10 +51,10 @@ import { ProductCardMolecule } from '../../molecules/product-card/product-card.m
   `,
 })
 export class MostPopularOrganism {
-  products = input<Product[]>([]);
+  products = input<ProductData[]>([]);
   occasions = input<Occasion[]>([]);
   activeOccasionId = input<string | null>(null);
 
   occasionChanged = output<string | null>();
-  productClicked = output<Product>();
+  productClicked = output<ProductData>();
 }
