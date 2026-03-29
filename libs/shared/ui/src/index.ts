@@ -6,12 +6,22 @@ export * from './lib/components/atoms/toast/toast';
 export * from './lib/components/atoms/label/label';
 export * from './lib/components/atoms/custom-input/custom-input';
 export * from './lib/components/atoms/select-input/select-input';
+export * from './lib/components/atoms/badge/badge.atom';
+export * from './lib/components/atoms/rating/rating.atom';
+export * from './lib/components/atoms/price/price-tag.atom';
+export * from './lib/components/atoms/heading/section-heading.atom';
 // Molecules
 export * from './lib/components/molecules/AuthFormHeaderMolecule/AuthFormHeaderMolecule';
 export * from './lib/components/molecules/form-field/form-field';
 export * from './lib/components/molecules/phone-input/phone-input';
+export * from './lib/components/molecules/product-card/product-card.molecule';
+export * from './lib/components/molecules/filter-tabs/filter-tabs.molecule';
+export * from './lib/components/molecules/feature-item/feature-item.molecule';
 // Organisms
 export * from './lib/components/organisms/verify-otp-form-organism/verify-otp-form-oragnism';
+export * from './lib/components/organisms/most-popular/most-popular.organism';
+export * from './lib/components/organisms/promo-banner/promo-banner.organism';
+export * from './lib/components/organisms/gallery/gallery.organism';
 // Templates
 export * from './lib/components/templates/auth-layout/auth-layout';
 
