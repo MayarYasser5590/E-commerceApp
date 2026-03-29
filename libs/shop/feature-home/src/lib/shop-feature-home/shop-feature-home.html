@@ -1,3 +1,11 @@
-<lib-best-seller-section-feature [bestSellers]="bestSellers()">
-  ></lib-best-seller-section-feature
->
+<div class="home-shell">
+  <lib-best-seller-section-feature [bestSellers]="bestSellers()">
+  </lib-best-seller-section-feature>
+
+  <lib-most-popular-organism
+    [products]="filteredProducts()"
+    [occasions]="occasions()"
+    [activeOccasionId]="activeOccasionId()"
+    (occasionChanged)="onOccasionChanged($event)"
+  ></lib-most-popular-organism>
+</div>
