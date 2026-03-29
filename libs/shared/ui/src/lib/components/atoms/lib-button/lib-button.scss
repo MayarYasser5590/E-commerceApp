@@ -1,24 +1,33 @@
 @reference 'tailwindcss';
 
 .lib-button {
-  @apply inline-flex items-center justify-center font-medium transition-all duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 overflow-hidden;
+  @apply inline-flex shrink-0 items-center justify-center gap-2 font-medium transition-all duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 overflow-hidden whitespace-nowrap;
 
   // Sizes
   &.size-sm {
-    @apply px-3 py-1.5 text-sm rounded-md;
+    @apply px-3 py-1.5 text-sm;
   }
 
   &.size-md {
-    @apply px-4 py-2 text-base rounded-lg;
+    @apply px-4 py-2 text-base;
   }
 
   &.size-lg {
-    @apply px-6 py-3 text-lg rounded-xl;
+    @apply px-6 py-3 text-lg;
+  }
+
+  &.is-full-width {
+    @apply w-full;
   }
 
   // Variants
   &.variant-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700 active:scale-95 border border-transparent;
+    @apply text-white active:scale-95 border border-transparent;
+    background-color: var(--brand-primary, #A6252A);
+
+    &:hover {
+      background-color: var(--brand-primary-hover, #741C21);
+    }
   }
 
   &.variant-secondary {
@@ -30,11 +39,69 @@
   }
 
   &.variant-text {
-    @apply bg-transparent text-blue-600 hover:bg-blue-50 active:scale-95 border border-transparent;
+    @apply bg-transparent active:scale-95 border border-transparent;
+    color: var(--brand-primary, #A6252A);
+
+    &:hover {
+      background-color: var(--brand-primary-soft, #FBEAEA);
+    }
   }
 
   &.variant-danger {
     @apply bg-red-600 text-white hover:bg-red-700 active:scale-95 border border-transparent;
+  }
+
+  &.variant-icon-only {
+    @apply rounded-full border border-transparent bg-transparent text-current;
+  }
+
+  &.variant-icon-only,
+  &.variant-icon-only-neutral,
+  &.variant-icon-only-primary,
+  &.variant-icon-only-danger {
+    @apply rounded-full border border-transparent;
+  }
+
+  &.variant-icon-only {
+    @apply bg-transparent text-current hover:bg-black/5;
+  }
+
+  &.variant-icon-only-neutral {
+    @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+  }
+
+  &.variant-icon-only-primary {
+    color: var(--brand-primary, #FFFFFF);
+    background-color: var(--brand-primary-soft, #A6252A);
+
+    &:hover {
+      background-color: var(--brand-primary-soft-hover, #a62529e6);
+      scale: 1.05;
+    }
+  }
+
+  &.variant-icon-only-danger {
+    @apply bg-red-100 text-red-600 hover:bg-red-200;
+  }
+
+  &.is-icon-only.size-sm {
+    @apply h-8 w-8 p-0;
+  }
+
+  &.is-icon-only.size-md {
+    @apply h-10 w-10 p-0;
+  }
+
+  &.is-icon-only.size-lg {
+    @apply h-12 w-12 p-0;
+  }
+
+  .button-icon {
+    @apply shrink-0 text-current align-middle;
+  }
+
+  .button-label {
+    @apply leading-none;
   }
 
   &.is-loading {
