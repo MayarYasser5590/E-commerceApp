@@ -1,11 +1,11 @@
-<nav class="bg-[#741C21] w-full relative">
+<nav class="bg-[var(--shop-main-color)] w-full relative">
   <!-- Desktop -->
   <div class="hidden md:flex justify-center items-center gap-2">
     @for (item of navItems; track item.route) {
     <a
       [routerLink]="item.route"
       routerLinkActive="border-b border-b-[#FFC2D0]"
-      class="cursor-pointer py-3 px-3 text-gray-100 flex items-center gap-2 transition hover:bg-[#8d252b]"
+      class="cursor-pointer py-3 px-3 text-[var(--button-label-color)] flex items-center gap-2 transition hover:bg-[var(--main-color)]"
     >
       <lucide-icon [name]="item.icon" class="w-5 h-5"></lucide-icon>
       {{ item.label }}

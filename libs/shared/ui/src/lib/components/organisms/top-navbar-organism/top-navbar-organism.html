@@ -1,4 +1,6 @@
-<nav class="py-3 px-7 bg-white flex justify-between items-center">
+<nav
+  class="py-3 px-7 bg-[var(--bg-page)] text-[var(--text-main-color)] flex justify-between items-center"
+>
   <lib-logo-atom
     imgClass=" max-w-[45px] max-h-[40px]  md:max-w-[65px] md:max-h-[60px]"
   ></lib-logo-atom>
@@ -20,7 +22,7 @@
       ? ' md:w-[450px] lg:w-[840px]'
       : ' md:w-[350px] lg:w-[940px]'
   "
-    inputClass="flex items-center text-[#741C21] h-[52px] gap-2 rounded-[10px] border border-[#D4D4D8] p-4 outline-none focus:border-0 focus:ring-1 focus:ring-[#741C21]"
+    inputClass="flex items-center bg-[var(--input-bg)] text-[var-(--shop-main-color)] h-[52px] gap-2 rounded-[10px] border border-[#D4D4D8] p-4 outline-none focus:border-0 focus:ring-1 focus:ring-[var(--shop-main-color)]"
   ></lib-search-input-molecule>
   <div class="ations flex items-center justify-center">
     @if (isAuthenticated) {
@@ -53,6 +55,14 @@
       ></lib-nav-user-data-molecule>
     </div>
     }
-    <span class="px-3">العربية</span>
+    <button class="cursor-pointer border-e border-[#E4E4E7]">
+      <span class="px-2">العربية</span>
+    </button>
+    <button class="cursor-pointer ps-2" (click)="toggleTheme()">
+      <lucide-icon
+        [name]="isDark() ? icons.SunMoon : icons.Moon"
+        class="w-5 h-5"
+      ></lucide-icon>
+    </button>
   </div>
 </nav>

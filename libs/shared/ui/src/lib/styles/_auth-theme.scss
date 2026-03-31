@@ -1,10 +1,12 @@
 /* LIGHT MODE – default */
 :root {
   /* Backgrounds */
-  --page-bg: #ffffff;
+  --bg-page: #ffffff;
+  --bg-section: #FBEAEA;
 
   /* Text */
-  --text-main-color: #27272A;        // heading
+  --text-primary: #27272A;        // heading
+  --text-secondary: #71717A;
 
   /* Inputs */
   --input-bg: #ffffff;
@@ -14,6 +16,7 @@
 
   /* Primary */
   --main-color: #A6252A;      
+  --shop-main-color: #741C21;
 
     /*button*/
     --button-label-color: #FFFFFF;
@@ -24,13 +27,14 @@
 }
 
 
-@media (prefers-color-scheme: dark) {
-  :root {
+  html.dark {
     /* Backgrounds */
-    --page-bg: #27272A;
+    --bg-page: #27272A;
+    --bg-section: #3F3F46;
 
     /* Text */
-    --text-main-color: #FAFAFA;
+    --text-primary: #FAFAFA;
+    --text-secondary: #A1A1AA;
 
     /* Inputs */
     --input-bg: #52525B;
@@ -40,6 +44,7 @@
 
     /* Primary */
     --main-color: #ffb6c1;   
+    --shop-main-color: #FFC2D0;
 
     /*button*/
     --button-label-color: #27272A;
@@ -49,5 +54,8 @@
     --form-border: #52525B;
 
   }
-}
+
+
+
+
 
