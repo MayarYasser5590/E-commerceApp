@@ -8,3 +8,4 @@ export * from './lib/constants/endpoints.const';
 export * from './lib/pass-regex';
 
 export * from './lib/pass-error-utils';
+export * from './lib/theme.service';
