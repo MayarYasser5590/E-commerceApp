@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Product, ProductData, RelatedProduct } from '@shop-workspace/shared-types';
+import { ProductData, RelatedProduct } from '@shop-workspace/shared-types';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { ProductCardOrganism } from '../product-card-organism/product-card-organism';
@@ -12,7 +12,7 @@ import { ProductCardOrganism } from '../product-card-organism/product-card-organ
   styleUrl: './slider-organism.scss',
 })
 export class SliderOrganism {
-products = input<(ProductData | RelatedProduct | Product)[]>([]);
+products = input<(ProductData | RelatedProduct | ProductData)[]>([]);
 numVisible = input<number>(3);
   responsiveOptions = [
     {
