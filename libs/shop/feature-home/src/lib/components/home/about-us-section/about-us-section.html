@@ -1,0 +1,66 @@
+<section
+  class="grid items-center gap-8 bg-white py-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12"
+>
+  <div class="mx-auto w-full max-w-[35rem]">
+    <img
+      ngSrc="assets/about-us-panner.svg"
+      alt="About us image"
+      width="420"
+      height="520"
+      class="h-full w-full object-cover"
+      priority
+    />
+  </div>
+
+  <div class="space-y-6">
+    <div class="space-y-4">
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.38em] text-[#ff6f91]"
+      >
+        About
+      </p>
+
+      <h2
+        class="max-w-2xl text-[2rem] font-bold leading-tight text-[#741C21] lg:text-[2.35rem]"
+      >
+        Delivering the <span class="text-[#ff6f91]">Finest </span> Gift Boxes
+        for Your <span class="text-[#ff6f91]">Special </span> Moments
+      </h2>
+
+      <p class="max-w-2xl text-sm leading-6 text-stone-500 md:text-base">
+        Make every moment memorable with our premium gift boxes. Carefully
+        curated and beautifully packaged, each box is filled with handpicked
+        items designed to impress. Whether it's for a birthday, wedding, or a
+        simple “thank you,” our gift boxes are crafted to leave a lasting
+        impression because thoughtful gifting starts here.
+      </p>
+    </div>
+
+    <lib-button
+      label="Discover"
+      variant="primary"
+      size="md"
+      [rounded]="true"
+      [icon]="ArrowRightIcon"
+      iconPos="right"
+      (clicked)="goToProducts()"
+    ></lib-button>
+
+    <div class="grid gap-y-4 pt-5 md:grid-cols-2 max-w-[40rem] ">
+      @for (feature of features; track feature) {
+      <div
+        class="flex items-start gap-3 text-sm text-stone-700 md:text-[0.95rem]"
+      >
+        <span
+          class="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center text-xs font-bold text-[#A6252A]"
+        >
+          <lucide-angular
+            [img]="CheckIcon"
+          ></lucide-angular>
+        </span>
+        <span>{{ feature }}</span>
+      </div>
+      }
+    </div>
+  </div>
+</section>

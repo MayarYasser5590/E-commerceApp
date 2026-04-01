@@ -8,25 +8,17 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BestSellerSectionFeature } from '../components/home/best-seller-section/best-seller-section-feature';
+import { AboutUsSection } from '../components/home/about-us-section/about-us-section';
 import { HomeService } from '../data-access/home.service';
 import { Occasion, ProductData } from '@shop-workspace/shared-types';
-import {
-  GalleryOrganism,
-  MostPopularOrganism,
-  PromoBannerOrganism,
-} from '@shop-workspace/shared-ui';
-import {
-  HOME_GALLERY_CONTENT,
-  HOME_PROMO_CONTENT,
-} from '../data-access/home-about-us-content';
+import { MostPopularOrganism } from '@shop-workspace/shared-ui';
 
 @Component({
   selector: 'lib-shop-feature-home',
   imports: [
     BestSellerSectionFeature,
+    AboutUsSection,
     MostPopularOrganism,
-    PromoBannerOrganism,
-    GalleryOrganism,
   ],
   templateUrl: './shop-feature-home.html',
   styleUrl: './shop-feature-home.scss',
@@ -39,8 +31,6 @@ export class ShopFeatureHome implements OnInit {
   bestSellers = signal<ProductData[]>([]);
   occasions = signal<Occasion[]>([]);
   activeOccasionId = signal<string | null>(null);
-  readonly promoContent = HOME_PROMO_CONTENT;
-  readonly galleryItems = HOME_GALLERY_CONTENT;
   readonly filteredProducts = computed(() => {
     const selectedOccasionId = this.activeOccasionId();
     const products = this.products();
