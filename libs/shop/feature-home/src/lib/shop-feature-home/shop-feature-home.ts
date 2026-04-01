@@ -11,13 +11,14 @@ import { BestSellerSectionFeature } from '../components/home/best-seller-section
 import { AboutUsSection } from '../components/home/about-us-section/about-us-section';
 import { HomeService } from '../data-access/home.service';
 import { Occasion, ProductData } from '@shop-workspace/shared-types';
-import { MostPopularOrganism } from '@shop-workspace/shared-ui';
+import { GalleryOrganism, MostPopularOrganism } from '@shop-workspace/shared-ui';
 
 @Component({
   selector: 'lib-shop-feature-home',
   imports: [
     BestSellerSectionFeature,
     AboutUsSection,
+    GalleryOrganism,
     MostPopularOrganism,
   ],
   templateUrl: './shop-feature-home.html',

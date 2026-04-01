@@ -12,7 +12,7 @@ import { Component, input } from '@angular/core';
     >
       @if (subtitle()) {
         <p
-          class="text-sm font-semibold uppercase tracking-[0.28em] text-[#A6252A]"
+          class="text-sm font-semibold uppercase tracking-[0.28em] text-[#ff6f91]"
         >
           {{ subtitle() }}
         </p>

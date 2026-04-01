@@ -1,0 +1,28 @@
+<section class="mx-auto block w-full max-w-[72rem] space-y-8 px-4 md:space-y-10 md:px-6">
+  <div class="flex flex-col items-center text-center">
+    <lib-section-heading-atom
+      [subtitle]="subtitle()"
+      [title]="title()"
+      align="center"
+    ></lib-section-heading-atom>
+  </div>
+
+  @if (displayedItems().length) {
+    <div
+      class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:auto-rows-[4.75rem] md:grid-cols-12"
+    >
+      @for (item of displayedItems(); track item.src + item.title + $index) {
+        <figure [class]="getCardClass($index)">
+          <img
+            [ngSrc]="item.src"
+            [alt]="item.alt"
+            width="720"
+            height="720"
+            class="h-full w-full object-cover transition duration-300 ease-out group-hover:scale-[1.03]"
+          />
+          <figcaption class="sr-only">{{ item.title }}</figcaption>
+        </figure>
+      }
+    </div>
+  }
+</section>
