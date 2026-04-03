@@ -1,38 +1,88 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { BestSellerSectionFeature } from "../components/home/best-seller-section/best-seller-section-feature";
+import {
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BestSellerSectionFeature } from '../components/home/best-seller-section/best-seller-section-feature';
 import { HomeService } from '../data-access/home.service';
-import { Subscription } from 'rxjs';
-import { Product } from '@shop-workspace/shared-types';
+import { Occasion, ProductData } from '@shop-workspace/shared-types';
+import {
+  GalleryOrganism,
+  MostPopularOrganism,
+  PromoBannerOrganism,
+} from '@shop-workspace/shared-ui';
+import {
+  HOME_GALLERY_CONTENT,
+  HOME_PROMO_CONTENT,
+} from '../data-access/home-about-us-content';
+
 @Component({
   selector: 'lib-shop-feature-home',
-  imports: [BestSellerSectionFeature],
+  imports: [
+    BestSellerSectionFeature,
+    MostPopularOrganism,
+    PromoBannerOrganism,
+    GalleryOrganism,
+  ],
   templateUrl: './shop-feature-home.html',
   styleUrl: './shop-feature-home.scss',
 })
-export class ShopFeatureHome implements OnInit , OnDestroy {
-
+export class ShopFeatureHome implements OnInit {
   private readonly homeService = inject(HomeService);
-  bestSellers = signal<Product[]>([]);
+  private readonly destroyRef = inject(DestroyRef);
 
-  HomeSubscribe : Subscription = new Subscription();
+  products = signal<ProductData[]>([]);
+  bestSellers = signal<ProductData[]>([]);
+  occasions = signal<Occasion[]>([]);
+  activeOccasionId = signal<string | null>(null);
+  readonly promoContent = HOME_PROMO_CONTENT;
+  readonly galleryItems = HOME_GALLERY_CONTENT;
+  readonly filteredProducts = computed(() => {
+    const selectedOccasionId = this.activeOccasionId();
+    const products = this.products();
+
+    if (!selectedOccasionId) {
+      return products;
+    }
+
+    return products.filter((product) =>
+      this.productMatchesOccasion(product, selectedOccasionId),
+    );
+  });
 
   ngOnInit(): void {
-    this.getHomeData()
-  
- }
+    this.getHomeData();
+  }
 
-getHomeData(){
-  this.HomeSubscribe = this.homeService.getHomeData().subscribe({
-    next:(res)=>{
-      this.bestSellers.set(res.bestSeller);
-    },
-    error:(err)=>{
-      console.log(err);
-    }
-  })
-}
+  getHomeData(): void {
+    this.homeService
+      .getHomeData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.products.set(res.products);
+          this.occasions.set(res.occasions);
+          this.activeOccasionId.set(res.occasions[0]?._id ?? null);
+          this.bestSellers.set(res.bestSeller);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
 
-ngOnDestroy(): void {
-  this.HomeSubscribe.unsubscribe()
-}
+  onOccasionChanged(occasionId: string | null): void {
+    this.activeOccasionId.set(occasionId);
+  }
+
+  private productMatchesOccasion(
+    product: ProductData,
+    occasionId: string,
+  ): boolean {
+    return product.occasion === occasionId;
+  }
 }

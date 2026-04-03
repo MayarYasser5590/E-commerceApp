@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+.home-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 1rem 0 3rem;
+}
