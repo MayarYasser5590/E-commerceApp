@@ -38,6 +38,7 @@ export class LibButton {
   isLoading = input<boolean>(false);
   disabled = input<boolean>(false);
   fullWidth = input<boolean>(false);
+  rounded = input<boolean>(false);
   icon = input<LucideIconData | undefined>(undefined);
   iconPos = input<'left' | 'right'>('left');
   customClass = input<string>('');
@@ -52,6 +53,7 @@ export class LibButton {
     this.variant() !== 'custom' ? `variant-${this.variant()}` : '',
     this.isIconOnly() ? 'is-icon-only' : '',
     this.fullWidth() ? 'is-full-width' : '',
+    this.rounded() ? 'is-rounded' : '',
     `size-${this.size()}`,
     this.customClass(),
   ]);
