@@ -15,3 +15,4 @@ export * from './lib/shop-products-features/product-details-feature/product-deta
 export * from './lib/data-access/home.service'
 export * from './lib/components/home/best-seller-section/best-seller-section-feature'
 export * from './lib/components/home/about-us-section/about-us-section'
+export * from './lib/components/home/special-gifts-section/special-gifts-section'

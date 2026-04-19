@@ -9,6 +9,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BestSellerSectionFeature } from '../components/home/best-seller-section/best-seller-section-feature';
 import { AboutUsSection } from '../components/home/about-us-section/about-us-section';
+import { SpecialGiftsSection } from '../components/home/special-gifts-section/special-gifts-section';
 import { HomeService } from '../data-access/home.service';
 import { Occasion, ProductData } from '@shop-workspace/shared-types';
 import { GalleryOrganism, MostPopularOrganism } from '@shop-workspace/shared-ui';
@@ -17,6 +18,7 @@ import { GalleryOrganism, MostPopularOrganism } from '@shop-workspace/shared-ui'
   selector: 'lib-shop-feature-home',
   imports: [
     BestSellerSectionFeature,
+    SpecialGiftsSection,
     AboutUsSection,
     GalleryOrganism,
     MostPopularOrganism,

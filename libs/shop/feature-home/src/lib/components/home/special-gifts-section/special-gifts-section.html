@@ -1,0 +1,120 @@
+<section class="special-gifts-section">
+  <div class="section-heading">
+    <p class="eyebrow">Special Gifts Section</p>
+    <h2>Thoughtful gift ideas arranged for every moment worth celebrating.</h2>
+  </div>
+
+  <div class="special-gifts-grid">
+    <article class="gift-card gift-card--tall gift-card--deep-red">
+      <div class="gift-card__scene gift-card__scene--stack">
+        <span class="gift-box gift-box--large"></span>
+        <span class="gift-box gift-box--medium"></span>
+        <span class="gift-box gift-box--small"></span>
+      </div>
+
+      <div class="gift-card__content">
+        <span class="gift-card__badge">Starting from 10.99 EGP</span>
+        <h3>Special Gifts For The People You Love</h3>
+
+        <lib-button
+          label="Shop Now"
+          variant="custom"
+          size="md"
+          [rounded]="true"
+          [icon]="ArrowRightIcon"
+          iconPos="right"
+          customClass="special-gifts-cta special-gifts-cta--light"
+          (clicked)="goToProducts()"
+        ></lib-button>
+      </div>
+    </article>
+
+    <article class="gift-card gift-card--hero gift-card--blush">
+      <div class="gift-card__lights">
+        <span class="is-active"></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="gift-card__scene gift-card__scene--hero">
+        <span class="rose rose--one"></span>
+        <span class="rose rose--two"></span>
+        <span class="rose rose--three"></span>
+        <span class="rose rose--four"></span>
+        <span class="rose rose--five"></span>
+        <span class="rose rose--six"></span>
+
+        <div class="heart-box">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="gift-card__content gift-card__content--hero">
+        <h3>Say It with Flowers</h3>
+        <p>Elegant gifts for every special moment.</p>
+
+        <lib-button
+          label="I'm buying!"
+          variant="custom"
+          size="md"
+          [rounded]="true"
+          customClass="special-gifts-cta special-gifts-cta--soft"
+          (clicked)="goToProducts()"
+        ></lib-button>
+      </div>
+
+      <div class="gift-card__controls">
+        <button type="button" aria-label="Previous card">
+          <lucide-angular [img]="ChevronLeftIcon" [size]="18"></lucide-angular>
+        </button>
+        <button type="button" aria-label="Next card">
+          <lucide-angular [img]="ChevronRightIcon" [size]="18"></lucide-angular>
+        </button>
+      </div>
+    </article>
+
+    @for (card of occasionCards; track card.title) {
+      <article class="gift-card gift-card--occasion" [ngClass]="'gift-card--' + card.theme">
+        <div class="gift-card__scene" [ngClass]="'gift-card__scene--' + card.theme">
+          @if (card.theme === 'wedding') {
+            <span class="ring-box"></span>
+            <span class="wedding-flower wedding-flower--one"></span>
+            <span class="wedding-flower wedding-flower--two"></span>
+            <span class="wedding-flower wedding-flower--three"></span>
+          }
+
+          @if (card.theme === 'engagement') {
+            <span class="story-book"></span>
+            <span class="engagement-gift engagement-gift--main"></span>
+            <span class="engagement-gift engagement-gift--note"></span>
+            <span class="candle"></span>
+          }
+
+          @if (card.theme === 'anniversary') {
+            <span class="anniversary-gift anniversary-gift--main"></span>
+            <span class="anniversary-gift anniversary-gift--small"></span>
+            <span class="rose-bloom rose-bloom--one"></span>
+            <span class="rose-bloom rose-bloom--two"></span>
+            <span class="love-note">Happy Anniversary</span>
+            <span class="heart heart--one"></span>
+            <span class="heart heart--two"></span>
+            <span class="heart heart--three"></span>
+          }
+        </div>
+
+        <div class="gift-card__content">
+          <span class="gift-card__badge">{{ card.badge }}</span>
+          <h3>{{ card.title }}</h3>
+        </div>
+      </article>
+    }
+  </div>
+</section>

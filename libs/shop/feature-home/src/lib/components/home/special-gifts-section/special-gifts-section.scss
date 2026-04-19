@@ -1,0 +1,777 @@
+:host {
+  display: block;
+}
+
+.special-gifts-section {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section-heading {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.eyebrow {
+  color: #a6252a;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  color: #4c181b;
+  font-size: clamp(1.7rem, 2.7vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.08;
+  margin: 0;
+  max-width: 46rem;
+}
+
+.special-gifts-grid {
+  display: grid;
+  gap: 1.15rem;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.gift-card {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 30%),
+    linear-gradient(135deg, rgba(71, 16, 18, 0.96), rgba(42, 11, 12, 0.98));
+  border-radius: 1.6rem;
+  color: #fff4ef;
+  isolation: isolate;
+  min-height: 15.5rem;
+  overflow: hidden;
+  padding: 1.2rem;
+  position: relative;
+}
+
+.gift-card::after {
+  background: linear-gradient(180deg, transparent 30%, rgba(19, 8, 8, 0.58));
+  content: '';
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.gift-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.gift-card--tall {
+  grid-row: span 2;
+  min-height: 33rem;
+}
+
+.gift-card--hero {
+  background:
+    radial-gradient(circle at 22% 28%, rgba(255, 205, 193, 0.2), transparent 18%),
+    radial-gradient(circle at 55% 20%, rgba(255, 210, 200, 0.17), transparent 19%),
+    linear-gradient(120deg, #573136 0%, #8f4e49 45%, #71332f 100%);
+  grid-column: span 3;
+  min-height: 20.6rem;
+}
+
+.gift-card--wedding {
+  background:
+    linear-gradient(180deg, rgba(87, 54, 22, 0.06), rgba(44, 26, 13, 0.72)),
+    linear-gradient(120deg, #b48353, #6b4828 58%, #4f311f 100%);
+}
+
+.gift-card--engagement {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(53, 35, 18, 0.48)),
+    linear-gradient(135deg, #d3b792 0%, #ebe0d0 38%, #a2825c 100%);
+  color: #fff9f4;
+}
+
+.gift-card--anniversary {
+  background:
+    radial-gradient(circle at 80% 16%, rgba(255, 214, 214, 0.16), transparent 20%),
+    linear-gradient(125deg, #d9b18b 0%, #b65f47 42%, #611f1f 100%);
+}
+
+.gift-card__scene {
+  inset: 0;
+  position: absolute;
+}
+
+.gift-card__content {
+  align-content: end;
+  display: grid;
+  gap: 0.85rem;
+  height: 100%;
+  justify-items: start;
+}
+
+.gift-card__content h3 {
+  font-size: clamp(1.6rem, 2.5vw, 2.55rem);
+  font-weight: 700;
+  line-height: 0.95;
+  margin: 0;
+  max-width: 34rem;
+}
+
+.gift-card--occasion .gift-card__content h3,
+.gift-card--tall .gift-card__content h3 {
+  font-size: clamp(1.35rem, 1.8vw, 1.95rem);
+}
+
+.gift-card__content p {
+  color: rgba(255, 241, 237, 0.92);
+  font-size: 1rem;
+  margin: -0.35rem 0 0;
+}
+
+.gift-card__badge {
+  background: rgba(255, 245, 240, 0.96);
+  border-radius: 999px;
+  color: #b02b31;
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.35rem 0.7rem;
+}
+
+.gift-card__lights {
+  display: flex;
+  gap: 0.45rem;
+  position: absolute;
+  right: 1.6rem;
+  top: 1.35rem;
+  z-index: 2;
+}
+
+.gift-card__lights span {
+  background: rgba(255, 240, 234, 0.9);
+  border-radius: 999px;
+  display: block;
+  height: 0.45rem;
+  width: 0.45rem;
+}
+
+.gift-card__lights .is-active {
+  background: #b6252c;
+  width: 1.65rem;
+}
+
+.gift-card__controls {
+  bottom: 1.25rem;
+  display: flex;
+  gap: 0.55rem;
+  position: absolute;
+  right: 1.25rem;
+  z-index: 2;
+}
+
+.gift-card__controls button {
+  align-items: center;
+  background: rgba(255, 239, 235, 0.95);
+  border: 0;
+  border-radius: 999px;
+  color: #a6252a;
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.4rem;
+  justify-content: center;
+  transition: transform 180ms ease, background-color 180ms ease;
+  width: 2.4rem;
+}
+
+.gift-card__controls button:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+.gift-card__scene--stack {
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.1), transparent 16%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 36%);
+}
+
+.gift-box {
+  background:
+    linear-gradient(135deg, rgba(112, 22, 22, 0.98), rgba(71, 14, 15, 1)),
+    linear-gradient(90deg, rgba(255, 240, 221, 0.95), rgba(193, 148, 97, 0.8));
+  border-radius: 1rem;
+  box-shadow: 0 1.2rem 1.9rem rgba(14, 5, 5, 0.35);
+  display: block;
+  position: absolute;
+}
+
+.gift-box::before,
+.gift-box::after {
+  content: '';
+  position: absolute;
+}
+
+.gift-box::before {
+  background: linear-gradient(180deg, rgba(244, 225, 198, 0.98), rgba(181, 146, 96, 0.88));
+  border-radius: 999px;
+  height: 16%;
+  left: 44%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 14%;
+}
+
+.gift-box::after {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 243, 226, 0.98), rgba(204, 170, 120, 0.88) 58%, transparent 59%),
+    linear-gradient(135deg, transparent 42%, rgba(243, 225, 202, 0.96) 43%, rgba(186, 151, 102, 0.88) 58%, transparent 59%),
+    linear-gradient(45deg, transparent 42%, rgba(243, 225, 202, 0.96) 43%, rgba(186, 151, 102, 0.88) 58%, transparent 59%);
+  height: 42%;
+  left: 50%;
+  top: 9%;
+  transform: translateX(-50%);
+  width: 42%;
+}
+
+.gift-box--large {
+  height: 11.4rem;
+  left: 2rem;
+  top: 2rem;
+  width: 9.5rem;
+}
+
+.gift-box--medium {
+  height: 8.2rem;
+  left: 9.4rem;
+  top: 9.4rem;
+  width: 7.4rem;
+}
+
+.gift-box--small {
+  height: 4.7rem;
+  left: 9rem;
+  top: 15rem;
+  width: 5rem;
+}
+
+.gift-card__scene--hero {
+  background:
+    linear-gradient(90deg, rgba(31, 14, 16, 0.48), rgba(31, 14, 16, 0.1)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 28%);
+}
+
+.rose {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 231, 225, 0.92), rgba(233, 167, 156, 0.95) 42%, rgba(151, 82, 75, 0.8) 58%, transparent 59%),
+    radial-gradient(circle at 50% 50%, transparent 28%, rgba(129, 60, 56, 0.5) 29%, transparent 34%);
+  border-radius: 999px;
+  box-shadow: 0 0 0 1rem rgba(92, 38, 35, 0.16);
+  position: absolute;
+}
+
+.rose--one {
+  height: 6.8rem;
+  left: 7%;
+  top: 18%;
+  width: 6.8rem;
+}
+
+.rose--two {
+  height: 7.2rem;
+  left: 23%;
+  top: 6%;
+  width: 7.2rem;
+}
+
+.rose--three {
+  height: 6rem;
+  left: 34%;
+  top: 25%;
+  width: 6rem;
+}
+
+.rose--four {
+  height: 6.5rem;
+  left: 26%;
+  top: 48%;
+  width: 6.5rem;
+}
+
+.rose--five {
+  height: 6.7rem;
+  left: 43%;
+  top: 10%;
+  width: 6.7rem;
+}
+
+.rose--six {
+  height: 7rem;
+  left: 45%;
+  top: 44%;
+  width: 7rem;
+}
+
+.heart-box {
+  background:
+    linear-gradient(145deg, #592224, #2f0e12);
+  border-radius: 1.2rem;
+  box-shadow: 0 1.2rem 3rem rgba(27, 7, 8, 0.35);
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1.45rem;
+  position: absolute;
+  right: 7%;
+  top: 15%;
+  transform: rotate(-8deg);
+  width: min(15.8rem, 28%);
+}
+
+.heart-box::before {
+  background: inherit;
+  border-radius: 1.1rem 1.1rem 0.45rem 0.45rem;
+  content: '';
+  height: 55%;
+  left: 0;
+  position: absolute;
+  top: -18%;
+  transform: rotate(-45deg);
+  width: 52%;
+}
+
+.heart-box::after {
+  background: inherit;
+  border-radius: 1.1rem 1.1rem 0.45rem 0.45rem;
+  content: '';
+  height: 55%;
+  position: absolute;
+  right: 0;
+  top: -18%;
+  transform: rotate(45deg);
+  width: 52%;
+}
+
+.heart-box span {
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 209, 169, 0.35), transparent 24%),
+    linear-gradient(145deg, #6c2e23, #311111);
+  border-radius: 999px;
+  box-shadow: inset 0.2rem 0.2rem 0.4rem rgba(255, 196, 149, 0.12);
+  display: block;
+  height: 2.2rem;
+}
+
+.gift-card__scene--wedding,
+.gift-card__scene--engagement,
+.gift-card__scene--anniversary {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 36%);
+}
+
+.ring-box {
+  background: linear-gradient(145deg, #b38a5f, #90663e);
+  border-radius: 0.65rem;
+  box-shadow: 0 1rem 1.8rem rgba(46, 28, 14, 0.3);
+  height: 5rem;
+  left: 1.6rem;
+  position: absolute;
+  top: 2.1rem;
+  width: 6.4rem;
+}
+
+.ring-box::before {
+  background: linear-gradient(145deg, #d2b38b, #b1844f);
+  border-radius: 0.75rem 0.75rem 0.1rem 0.1rem;
+  content: '';
+  height: 2.2rem;
+  left: 0;
+  position: absolute;
+  top: -1.2rem;
+  width: 100%;
+}
+
+.ring-box::after {
+  border: 0.22rem solid #ebd99f;
+  border-radius: 999px;
+  content: '';
+  height: 1.3rem;
+  left: 2.5rem;
+  position: absolute;
+  top: 1.35rem;
+  width: 1.3rem;
+}
+
+.wedding-flower {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 242, 226, 0.92), rgba(239, 176, 118, 0.92) 45%, rgba(171, 112, 58, 0.52) 61%, transparent 62%);
+  border-radius: 999px;
+  position: absolute;
+}
+
+.wedding-flower--one {
+  height: 4.1rem;
+  left: 0.8rem;
+  top: 7rem;
+  width: 4.1rem;
+}
+
+.wedding-flower--two {
+  height: 3.6rem;
+  left: 5.6rem;
+  top: 1.1rem;
+  width: 3.6rem;
+}
+
+.wedding-flower--three {
+  height: 4.2rem;
+  left: 6.9rem;
+  top: 5.5rem;
+  width: 4.2rem;
+}
+
+.story-book {
+  background: linear-gradient(135deg, #f4ecde, #ccb391);
+  border-radius: 0.35rem;
+  box-shadow: 0 1rem 1.7rem rgba(92, 67, 34, 0.2);
+  height: 8.2rem;
+  left: 2rem;
+  position: absolute;
+  top: 1.3rem;
+  width: 7.1rem;
+}
+
+.story-book::before {
+  color: #a77d56;
+  content: 'Our Love Story';
+  font-family: 'Times New Roman', serif;
+  font-size: 1rem;
+  left: 1.05rem;
+  line-height: 1.1;
+  position: absolute;
+  text-align: center;
+  top: 2.1rem;
+  width: 5rem;
+}
+
+.engagement-gift {
+  background: linear-gradient(135deg, #f7ebdc, #d6b185);
+  border-radius: 0.8rem;
+  box-shadow: 0 1rem 1.8rem rgba(70, 44, 19, 0.18);
+  position: absolute;
+}
+
+.engagement-gift::before,
+.engagement-gift::after {
+  background: linear-gradient(180deg, rgba(255, 249, 235, 0.96), rgba(185, 151, 98, 0.92));
+  content: '';
+  position: absolute;
+}
+
+.engagement-gift::before {
+  border-radius: 999px;
+  height: 100%;
+  left: 49%;
+  transform: translateX(-50%);
+  width: 12%;
+}
+
+.engagement-gift::after {
+  border-radius: 999px;
+  height: 16%;
+  top: 49%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.engagement-gift--main {
+  height: 4.5rem;
+  left: 9.6rem;
+  top: 2.1rem;
+  width: 4.8rem;
+}
+
+.engagement-gift--note {
+  bottom: 1.5rem;
+  height: 3.2rem;
+  right: 1.8rem;
+  width: 4.8rem;
+}
+
+.engagement-gift--note::before,
+.engagement-gift--note::after {
+  display: none;
+}
+
+.engagement-gift--note {
+  padding: 0.65rem;
+}
+
+.engagement-gift--note::marker {
+  display: none;
+}
+
+.candle {
+  background: linear-gradient(180deg, #f6f0e8, #c9b39b);
+  border-radius: 999px;
+  height: 4.9rem;
+  left: 0.9rem;
+  position: absolute;
+  top: 0.9rem;
+  width: 3.2rem;
+}
+
+.candle::before {
+  background: radial-gradient(circle, rgba(255, 220, 149, 0.98), rgba(214, 147, 62, 0.88));
+  border-radius: 999px 999px 999px 0;
+  content: '';
+  height: 1rem;
+  left: 1.1rem;
+  position: absolute;
+  top: -0.7rem;
+  transform: rotate(45deg);
+  width: 1rem;
+}
+
+.anniversary-gift {
+  background: linear-gradient(135deg, #f7d4b6, #c5986d);
+  border-radius: 0.9rem;
+  box-shadow: 0 1rem 2rem rgba(76, 17, 19, 0.22);
+  position: absolute;
+}
+
+.anniversary-gift::before,
+.anniversary-gift::after {
+  background: linear-gradient(180deg, #c11626, #8f0811);
+  content: '';
+  position: absolute;
+}
+
+.anniversary-gift::before {
+  height: 100%;
+  left: 48%;
+  transform: translateX(-50%);
+  width: 12%;
+}
+
+.anniversary-gift::after {
+  height: 18%;
+  top: 48%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.anniversary-gift--main {
+  height: 4.9rem;
+  left: 1.35rem;
+  top: 1.3rem;
+  width: 4.9rem;
+}
+
+.anniversary-gift--small {
+  height: 3rem;
+  left: 5rem;
+  top: 0.9rem;
+  width: 3rem;
+}
+
+.rose-bloom {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(193, 22, 38, 0.98), rgba(111, 3, 10, 0.96) 58%, transparent 59%);
+  border-radius: 999px;
+  position: absolute;
+}
+
+.rose-bloom--one {
+  height: 4.3rem;
+  right: 2.5rem;
+  top: 0.9rem;
+  width: 4.3rem;
+}
+
+.rose-bloom--two {
+  height: 4.8rem;
+  right: 0.7rem;
+  top: 2.1rem;
+  width: 4.8rem;
+}
+
+.love-note {
+  color: #ffe2cb;
+  font-family: 'Times New Roman', serif;
+  font-size: 1.85rem;
+  left: 8.1rem;
+  line-height: 1;
+  position: absolute;
+  text-align: center;
+  top: 2.2rem;
+  transform: rotate(-7deg);
+}
+
+.heart {
+  background: #ca1926;
+  height: 1rem;
+  position: absolute;
+  transform: rotate(-45deg);
+  width: 1rem;
+}
+
+.heart::before,
+.heart::after {
+  background: inherit;
+  border-radius: 999px;
+  content: '';
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.heart::before {
+  left: 0;
+  top: -50%;
+}
+
+.heart::after {
+  left: 50%;
+  top: 0;
+}
+
+.heart--one {
+  left: 9rem;
+  top: 1.15rem;
+}
+
+.heart--two {
+  left: 10.3rem;
+  top: 0.7rem;
+}
+
+.heart--three {
+  left: 11.55rem;
+  top: 1.25rem;
+}
+
+:host ::ng-deep .special-gifts-cta {
+  border: 0;
+  box-shadow: 0 0.8rem 1.7rem rgba(31, 10, 11, 0.18);
+  font-weight: 700;
+}
+
+:host ::ng-deep .special-gifts-cta--light {
+  background: #fff1ec;
+  color: #a6252a;
+}
+
+:host ::ng-deep .special-gifts-cta--light:hover {
+  background: #ffffff;
+}
+
+:host ::ng-deep .special-gifts-cta--soft {
+  background: #f8dedd;
+  color: #7c2225;
+}
+
+:host ::ng-deep .special-gifts-cta--soft:hover {
+  background: #fff1ee;
+}
+
+@media (max-width: 1100px) {
+  .special-gifts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gift-card--hero {
+    grid-column: span 1;
+  }
+
+  .gift-card--tall {
+    grid-row: span 1;
+    min-height: 20rem;
+  }
+
+  .heart-box {
+    right: 4%;
+    top: 18%;
+    width: 30%;
+  }
+}
+
+@media (max-width: 768px) {
+  .special-gifts-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gift-card,
+  .gift-card--hero,
+  .gift-card--tall {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 18rem;
+  }
+
+  .gift-card--hero {
+    min-height: 26rem;
+  }
+
+  .gift-card__content--hero {
+    padding-top: 9rem;
+  }
+
+  .heart-box {
+    right: 8%;
+    top: 18%;
+    width: 35%;
+  }
+
+  .gift-card__content h3 {
+    max-width: 18rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .gift-card {
+    padding: 1rem;
+  }
+
+  .section-heading h2 {
+    max-width: 20rem;
+  }
+
+  .gift-card--hero {
+    min-height: 24rem;
+  }
+
+  .gift-card__content--hero {
+    padding-top: 10.5rem;
+  }
+
+  .heart-box {
+    padding: 1rem;
+    right: 0.8rem;
+    top: 1rem;
+    width: 8.4rem;
+  }
+
+  .heart-box span {
+    height: 1.35rem;
+  }
+
+  .gift-box--large {
+    height: 8.7rem;
+    width: 7rem;
+  }
+
+  .gift-box--medium {
+    height: 6rem;
+    left: 7.2rem;
+    top: 7.5rem;
+    width: 5.3rem;
+  }
+
+  .gift-box--small {
+    left: 6.7rem;
+    top: 12.1rem;
+  }
+
+  .love-note {
+    font-size: 1.3rem;
+    left: 7.2rem;
+    top: 2.8rem;
+  }
+}
