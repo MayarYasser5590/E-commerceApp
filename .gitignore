@@ -45,3 +45,17 @@ __screenshots__/
 vitest.config.*.timestamp*
 
 .history/
+
+# Codex local-only files
+.codex/
+.codex/local.toml
+.codex/*.local.toml
+.codex/secrets.toml
+.codex/tmp/
+.codex/cache/
+.codex/logs/
+!.codex/config.toml
+
+# Agent instructions
+AGENTS.md
+**/AGENTS.md

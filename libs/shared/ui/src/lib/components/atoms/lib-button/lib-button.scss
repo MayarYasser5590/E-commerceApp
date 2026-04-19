@@ -20,6 +20,10 @@
     @apply w-full;
   }
 
+  &.is-rounded {
+    @apply rounded-xl;
+  }
+
   // Variants
   &.variant-primary {
     @apply text-white active:scale-95 border border-transparent;

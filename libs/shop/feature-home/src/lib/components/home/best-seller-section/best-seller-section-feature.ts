@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ProductData } from '@shop-workspace/shared-types';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { ProductCardOrganism, SliderOrganism } from '@shop-workspace/shared-ui';
+import { SliderOrganism } from '@shop-workspace/shared-ui';
 import {LibButton} from '@shop-workspace/shared-ui'
 
 @Component({
   selector: 'lib-best-seller-section-feature',
   standalone: true,
-  imports: [CommonModule, CarouselModule, ButtonModule, ProductCardOrganism, LibButton, SliderOrganism],
+  imports: [CommonModule, CarouselModule, ButtonModule, LibButton, SliderOrganism],
   templateUrl: './best-seller-section-feature.html',
   styleUrls: ['./best-seller-section-feature.scss']
 })
