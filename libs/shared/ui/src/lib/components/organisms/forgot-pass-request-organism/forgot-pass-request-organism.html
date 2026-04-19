@@ -1,0 +1,44 @@
+<section>
+  <lib-auth-form-header-molecule
+    title="Forgot Password?"
+    description="Worry not, we’ll send you instructions to help you reset it."
+  >
+  </lib-auth-form-header-molecule>
+  <form
+    [formGroup]="forgotPassForm"
+    (ngSubmit)="submitForgotPassForm()"
+    class="pt-3 sm:pt-5 pb-5 sm:pb-10 form-style"
+  >
+    <div class="mb-3 w-full">
+      <lib-form-field
+        label="Eamil"
+        labelClass="form-label"
+        [error]="emailError"
+        errorClass="mt-1 text-[#A6252A]"
+      >
+        <lib-custom-input
+          inputClass="form-input auth-border w-full"
+          formControlName="email"
+          type="email"
+          placeholder="user@example.com"
+        >
+        </lib-custom-input>
+      </lib-form-field>
+    </div>
+    <div class="w-full mt-3">
+      <lib-button
+        label="Continue"
+        type="submit"
+        variant="custom"
+        customClass="w-[75%] sm:w-full h-[41px] shop-button-style"
+        [disabled]="forgotPassForm.invalid"
+        [isLoading]="isLoading()"
+      ></lib-button>
+      @if (errorMessage()) {
+      <div class="flex justify-center items-center">
+        <span class="mt-1 sm:mt-2 text-[#A6252A]">{{errorMessage()}}</span>
+      </div>
+      }
+    </div>
+  </form>
+</section>

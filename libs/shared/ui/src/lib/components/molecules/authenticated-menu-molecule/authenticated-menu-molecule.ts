@@ -1,8 +1,22 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MenuModule, Menu } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule, ChevronDown , User , MapPinHouse , ScrollText , Settings , LogOut  } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  ChevronDown,
+  User,
+  MapPinHouse,
+  ScrollText,
+  Settings,
+  LogOut,
+} from 'lucide-angular';
 import { UserMenuItemInterface } from '../../../data-access/interfaces/user-menu-item.interface';
 
 @Component({
@@ -13,7 +27,6 @@ import { UserMenuItemInterface } from '../../../data-access/interfaces/user-menu
   styleUrl: './authenticated-menu-molecule.scss',
 })
 export class AuthenticatedMenuMolecule {
-
   @Input() userName!: string;
   @Output() logout = new EventEmitter<void>();
 
@@ -21,46 +34,45 @@ export class AuthenticatedMenuMolecule {
 
   icons = { ChevronDown };
 
-items: UserMenuItemInterface[] = [
-  {
-   label: this.userName ,
-  },
-  {
-    icon: User,
-    label: 'My Profile',
-    // routerLink: '/profile'
-  },
-  {
-    icon: MapPinHouse,
-    label: 'My Addresses',
-    // routerLink: '/addresses'
-  },
-  {
-    icon: ScrollText,
-    label: 'My Orders',
-    // routerLink: '/orders'
-  },
-  {
-    icon: Settings,
-    label: 'Dashboard',
-    // routerLink: '/dashboard'
-  },
-  {
-    separator: true
-  },
-  {
-    icon: LogOut,
-    label: 'Log out',
-    command: () => this.logout.emit()
-  }
-];
+  items: UserMenuItemInterface[] = [
+    {
+      label: this.userName,
+    },
+    {
+      icon: User,
+      label: 'My Profile',
+      // routerLink: '/profile'
+    },
+    {
+      icon: MapPinHouse,
+      label: 'My Addresses',
+      // routerLink: '/addresses'
+    },
+    {
+      icon: ScrollText,
+      label: 'My Orders',
+      // routerLink: '/orders'
+    },
+    {
+      icon: Settings,
+      label: 'Dashboard',
+      // routerLink: '/dashboard'
+    },
+    {
+      separator: true,
+    },
+    {
+      icon: LogOut,
+      label: 'Log out',
+      command: () => this.logout.emit(),
+    },
+  ];
 
-get menuModel(): MenuItem[] {
-  return this.items as unknown as MenuItem[];
-}
+  get menuModel(): MenuItem[] {
+    return this.items as unknown as MenuItem[];
+  }
 
   toggle(event: Event) {
     this.menu.toggle(event);
   }
-
 }

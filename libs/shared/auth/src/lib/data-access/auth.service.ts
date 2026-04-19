@@ -16,6 +16,7 @@ import {
   UserDto,
 } from '../models/auth.models';
 import { API_ENDPOINTS } from '@shop-workspace/shared-util';
+import { setCookie, getCookie } from './auth.tokens';
 
 @Injectable({
   providedIn: 'root',
@@ -29,20 +30,25 @@ export class AuthService {
 
   // State using Signals
   currentUser = signal<User | null>(this.getStoredUser());
-  token = signal<string | null>(localStorage.getItem(this.TOKEN_KEY));
+
+  token = signal<string | null>(
+    getCookie(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY),
+  );
 
   // Computed state
   isAuthenticated = computed(() => !!this.token());
 
   signIn(credentials: LoginCredentials): Observable<AuthResponse> {
+    const { email, password } = credentials;
+
     return this.http
       .post<AuthResponseDto>(
         `${this.config.apiUrl}${API_ENDPOINTS.AUTH.signIn}`,
-        credentials,
+        { email, password },
       )
       .pipe(
         map((res) => AuthAdapter.fromResponseDto(res)),
-        tap((res) => this.setAuth(res)),
+        tap((res) => this.setAuth(res, credentials.rememberMe)),
       );
   }
 
@@ -139,36 +145,44 @@ export class AuthService {
       .pipe(map((res) => AuthAdapter.fromDto(res)));
   }
 
+  clearAuth(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+    sessionStorage.removeItem(this.TOKEN_KEY);
 
-logout(): Observable<MessageResponse> {
-  return this.http
-    .get<MessageResponse>(
-      `${this.config.apiUrl}${API_ENDPOINTS.AUTH.logout}`,
-    )
-    .pipe(
-      tap(() => this.clearAuth()),
-    );
-    
-    // TODO: REPLACE IT WITH COOKIES
-}
+    document.cookie = `${this.TOKEN_KEY}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
-  getToken(): string | null {
-    return this.token();
+    localStorage.removeItem(this.USER_KEY);
+
+    this.token.set(null);
+    this.currentUser.set(null);
   }
 
-  private setAuth(auth: AuthResponse): void {
+  logout(): Observable<MessageResponse> {
+    return this.http
+      .get<MessageResponse>(`${this.config.apiUrl}${API_ENDPOINTS.AUTH.logout}`)
+      .pipe(tap(() => this.clearAuth()));
+
     // TODO: REPLACE IT WITH COOKIES
-    localStorage.setItem(this.TOKEN_KEY, auth.token);
+  }
+
+  getToken(): string | null {
+    return (
+      this.token() ||
+      getCookie(this.TOKEN_KEY) ||
+      sessionStorage.getItem(this.TOKEN_KEY)
+    );
+  }
+
+  private setAuth(auth: AuthResponse, rememberMe?: boolean): void {
+    if (rememberMe) {
+      setCookie(this.TOKEN_KEY, auth.token, 7);
+    } else {
+      sessionStorage.setItem(this.TOKEN_KEY, auth.token);
+    }
+
     localStorage.setItem(this.USER_KEY, JSON.stringify(auth.user));
     this.token.set(auth.token);
     this.currentUser.set(auth.user);
-  }
-
-  private clearAuth(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
-    this.token.set(null);
-    this.currentUser.set(null);
   }
 
   private getStoredUser(): User | null {
@@ -181,8 +195,8 @@ logout(): Observable<MessageResponse> {
   }
 
   initUser(): void {
-  if (this.token() && !this.currentUser()) {
-    this.getLoggedUserData().subscribe();
+    if (this.token() && !this.currentUser()) {
+      this.getLoggedUserData().subscribe();
+    }
   }
-}
 }
