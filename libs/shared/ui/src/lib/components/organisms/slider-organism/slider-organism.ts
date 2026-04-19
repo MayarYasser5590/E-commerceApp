@@ -1,6 +1,5 @@
 import { Component, input, output } from '@angular/core';
 import {
-  Product,
   ProductData,
   RelatedProduct,
 } from '@shop-workspace/shared-types';
@@ -21,7 +20,7 @@ import { ProductCardMolecule } from '../../molecules/product-card/product-card.m
   styleUrl: './slider-organism.scss',
 })
 export class SliderOrganism {
-  products = input<(ProductData | RelatedProduct | Product)[]>([]);
+  products = input<(ProductData | RelatedProduct | ProductData)[]>([]);
   numVisible = input<number>(3);
   productClicked = output<ProductData>();
   responsiveOptions = [
