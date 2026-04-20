@@ -36,9 +36,6 @@ export class AuthenticatedMenuMolecule {
 
   items: UserMenuItemInterface[] = [
     {
-      label: this.userName,
-    },
-    {
       icon: User,
       label: 'My Profile',
       // routerLink: '/profile'

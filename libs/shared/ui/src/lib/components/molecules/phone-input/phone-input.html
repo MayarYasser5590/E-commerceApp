@@ -1,4 +1,4 @@
-<div [class]="'lib-phone-input ' + containerClass">
+<!-- <div [class]="'lib-phone-input ' + containerClass">
   <lib-select-input
     [options]="countryOptions()"
     optionLabel="label"
@@ -19,4 +19,27 @@
     [ngModel]="number()"
     (ngModelChange)="onPhoneNumberChange($event)"
   />
+</div> -->
+
+<div class="lib-phone-input">
+  <div class="phone-select">
+    <lib-select-input
+      [options]="countryOptions()"
+      optionLabel="label"
+      optionValue="code"
+      [ngModel]="countryCode()"
+      (ngModelChange)="onCountryCodeChange($event)"
+      [disabled]="isDisabled()"
+    />
+  </div>
+
+  <div class="phone-number">
+    <lib-custom-input
+      type="tel"
+      [placeholder]="phonePlaceholder"
+      [ngModel]="number()"
+      (ngModelChange)="onPhoneNumberChange($event)"
+      [disabled]="isDisabled()"
+    />
+  </div>
 </div>

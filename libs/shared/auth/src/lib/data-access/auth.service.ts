@@ -58,10 +58,7 @@ export class AuthService {
         `${this.config.apiUrl}${API_ENDPOINTS.AUTH.signUp}`,
         credentials,
       )
-      .pipe(
-        map((res) => AuthAdapter.fromResponseDto(res)),
-        tap((res) => this.setAuth(res)),
-      );
+      .pipe(map((res) => AuthAdapter.fromResponseDto(res)));
   }
 
   changePassword(data: ChangePasswordDto): Observable<MessageResponse> {

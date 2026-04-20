@@ -11,3 +11,4 @@ export * from './lib/pass-error-utils';
 export * from './lib/theme.service';
 
 export * from './lib/email-error-utils';
+export * from './lib/name-error-utils';

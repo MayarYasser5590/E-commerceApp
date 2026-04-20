@@ -47,3 +47,5 @@ export * from './lib/components/organisms/slider-organism/slider-organism';
 export * from './lib/components/organisms/login-form-organism/login-form-organism';
 export * from './lib/components/atoms/checkbox/checkbox';
 export * from './lib/components/organisms/forgot-pass-request-organism/forgot-pass-request-organism';
+
+export * from './lib/components/organisms/register-form-organism/register-form-organism';
