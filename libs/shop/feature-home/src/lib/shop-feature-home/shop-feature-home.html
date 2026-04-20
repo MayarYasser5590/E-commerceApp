@@ -1,4 +1,6 @@
-<div class="home-shell">
+<div class="home-shell w-full min-w-0">
+  <lib-special-gifts-section></lib-special-gifts-section>
+
   <lib-best-seller-section-feature [bestSellers]="bestSellers()">
   </lib-best-seller-section-feature>
 
@@ -8,8 +10,6 @@
     [activeOccasionId]="activeOccasionId()"
     (occasionChanged)="onOccasionChanged($event)"
   ></lib-most-popular-organism>
-
-  <lib-special-gifts-section></lib-special-gifts-section>
 
   <lib-about-us-section></lib-about-us-section>
 
