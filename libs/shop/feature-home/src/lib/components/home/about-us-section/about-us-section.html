@@ -1,7 +1,7 @@
 <section
   class="grid items-center gap-8 bg-white py-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-12"
 >
-  <div class="mx-auto w-full max-w-[35rem]">
+  <div class="w-full min-w-0">
     <img
       ngSrc="assets/about-us-panner.svg"
       alt="About us image"
@@ -46,7 +46,7 @@
       (clicked)="goToProducts()"
     ></lib-button>
 
-    <div class="grid gap-y-4 pt-5 md:grid-cols-2 max-w-[40rem] ">
+    <div class="grid max-w-[40rem] gap-y-4 pt-5 md:grid-cols-2">
       @for (feature of features; track feature) {
       <div
         class="flex items-start gap-3 text-sm text-stone-700 md:text-[0.95rem]"

@@ -13,6 +13,10 @@
   color-scheme: dark;
 }
 
+.app-container {
+  @apply mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8;
+}
+
 /* 4. Auth Utility Classes (Using variables from auth-theme) */
 .auth-page {
   background-color: var(--page-bg);
