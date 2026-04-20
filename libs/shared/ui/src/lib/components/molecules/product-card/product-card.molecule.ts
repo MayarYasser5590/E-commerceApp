@@ -1,5 +1,6 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ProductData } from '@shop-workspace/shared-types';
 import { BadgeAtom } from '../../atoms/badge/badge.atom';
 import { PriceTagAtom } from '../../atoms/price/price-tag.atom';
@@ -32,7 +33,7 @@ import { Eye, HeartPlus, ShoppingCart } from 'lucide-angular';
           <lib-button
             variant="custom"
             size="lg"
-            ariaLabel="Add to wishlist"
+            ariaLabel="Open product details"
             [icon]="heartIcon"
             customClass="h-12 w-12 rounded-full bg-white text-[#A6252A] shadow-lg transition-transform duration-200 hover:scale-105"
           ></lib-button>
@@ -43,7 +44,7 @@ import { Eye, HeartPlus, ShoppingCart } from 'lucide-angular';
             ariaLabel="View product details"
             [icon]="eyeIcon"
             customClass="h-12 w-12 rounded-full bg-white text-[#A6252A] shadow-lg transition-transform duration-200 hover:scale-105"
-            (clicked)="productClicked.emit(product())"
+            (clicked)="openProductDetails()"
           ></lib-button>
         </div>
 
@@ -88,6 +89,8 @@ import { Eye, HeartPlus, ShoppingCart } from 'lucide-angular';
   `,
 })
 export class ProductCardMolecule {
+  private readonly router = inject(Router);
+
   product = input.required<ProductData>();
 
   addToCart = output<ProductData>();
@@ -130,4 +133,9 @@ export class ProductCardMolecule {
       return 'accent';
     },
   );
+
+  openProductDetails(): void {
+    this.router.navigate(['/productdetails', this.product()._id]);
+    
+  }
 }
