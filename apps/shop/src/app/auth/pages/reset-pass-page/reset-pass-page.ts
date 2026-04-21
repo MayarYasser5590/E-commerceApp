@@ -1,22 +1,38 @@
-import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnDestroy,
+  OnInit,
+  Output,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, EmailService } from '@shop-workspace/shared-auth';
-import { AuthLayout, ResetPasswordOrganism } from '@shop-workspace/shared-ui';
+import { ResetPasswordOrganism } from '@shop-workspace/shared-ui';
+import { AuthFooterService } from '../../auth-footer.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reset-pass-page',
-  imports: [AuthLayout, ResetPasswordOrganism],
+  imports: [ResetPasswordOrganism],
   templateUrl: './reset-pass-page.html',
   styleUrl: './reset-pass-page.scss',
 })
-export class ResetPassPage {
+export class ResetPassPage implements OnInit, OnDestroy {
   @Output() done = new EventEmitter<void>();
   private authService = inject(AuthService);
+  authFooterService = inject(AuthFooterService);
   private readonly router = inject(Router);
   private emailService = inject(EmailService);
+  resetPasswordSubscribe: Subscription = new Subscription();
 
   isLoading = signal(false);
   errorMessage = signal<string | null>(null);
+
+  ngOnInit() {
+    this.authFooterService.setFooter('reset');
+  }
 
   handleResetPassword(newPassword: string) {
     this.isLoading.set(true);
@@ -28,7 +44,7 @@ export class ResetPassPage {
     }
     this.errorMessage.set(null);
 
-    this.authService
+    this.resetPasswordSubscribe = this.authService
       .resetPassword({
         email,
         newPassword,
@@ -44,5 +60,9 @@ export class ResetPassPage {
           this.errorMessage.set('Something went wrong');
         },
       });
+  }
+
+  ngOnDestroy(): void {
+    this.resetPasswordSubscribe.unsubscribe();
   }
 }

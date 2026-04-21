@@ -16,7 +16,7 @@ import {
   UserDto,
 } from '../models/auth.models';
 import { API_ENDPOINTS } from '@shop-workspace/shared-util';
-import { setCookie, getCookie } from './auth.tokens';
+import { SsrCookieService } from 'ngx-cookie-service-ssr';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +24,7 @@ import { setCookie, getCookie } from './auth.tokens';
 export class AuthService {
   private http = inject(HttpClient);
   private config = inject(APP_CONFIG);
+  private cookieService = inject(SsrCookieService);
 
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'auth_user';
@@ -32,7 +33,8 @@ export class AuthService {
   currentUser = signal<User | null>(this.getStoredUser());
 
   token = signal<string | null>(
-    getCookie(this.TOKEN_KEY) || sessionStorage.getItem(this.TOKEN_KEY),
+    this.cookieService.get(this.TOKEN_KEY) ||
+      sessionStorage.getItem(this.TOKEN_KEY),
   );
 
   // Computed state
@@ -146,7 +148,7 @@ export class AuthService {
     localStorage.removeItem(this.TOKEN_KEY);
     sessionStorage.removeItem(this.TOKEN_KEY);
 
-    document.cookie = `${this.TOKEN_KEY}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    this.cookieService.delete(this.TOKEN_KEY, '/');
 
     localStorage.removeItem(this.USER_KEY);
 
@@ -165,14 +167,17 @@ export class AuthService {
   getToken(): string | null {
     return (
       this.token() ||
-      getCookie(this.TOKEN_KEY) ||
+      this.cookieService.get(this.TOKEN_KEY) ||
       sessionStorage.getItem(this.TOKEN_KEY)
     );
   }
 
   private setAuth(auth: AuthResponse, rememberMe?: boolean): void {
     if (rememberMe) {
-      setCookie(this.TOKEN_KEY, auth.token, 7);
+      this.cookieService.set(this.TOKEN_KEY, auth.token, {
+        expires: 7,
+        path: '/',
+      });
     } else {
       sessionStorage.setItem(this.TOKEN_KEY, auth.token);
     }

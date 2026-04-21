@@ -1,19 +1,27 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, SignupCredentials } from '@shop-workspace/shared-auth';
-import { AuthLayout, RegisterFormOrganism } from '@shop-workspace/shared-ui';
+import { RegisterFormOrganism } from '@shop-workspace/shared-ui';
+import { AuthFooterService } from '../../auth-footer.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register-page',
-  imports: [AuthLayout, RegisterFormOrganism],
+  imports: [RegisterFormOrganism],
   templateUrl: './register-page.html',
   styleUrl: './register-page.scss',
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit, OnDestroy {
   private authService = inject(AuthService);
+  private authFooterService = inject(AuthFooterService);
   private readonly router = inject(Router);
   isLoading = signal(false);
   errorMessage = signal<string | null>(null);
+  registerSubscribe: Subscription = new Subscription();
+
+  ngOnInit() {
+    this.authFooterService.setFooter('register');
+  }
 
   handleRegister(data: SignupCredentials) {
     this.isLoading.set(true);
@@ -29,5 +37,9 @@ export class RegisterPage {
         this.errorMessage.set(err.error?.message);
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.registerSubscribe.unsubscribe();
   }
 }

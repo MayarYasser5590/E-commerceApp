@@ -1,19 +1,5 @@
-<lib-auth-layout bannerImage="/assets/banner.webp">
-  <div auth-form>
-    <lib-login-form-organism
-      (loginSubmit)="handleLogin($event)"
-      [isLoading]="isLoading()"
-      [errorMessage]="errorMessage()"
-    ></lib-login-form-organism>
-  </div>
-  <div auth-footer class="font-medium text-[14px]">
-    <p class="text-[var(--text-main-color)]">
-      Don’t have an account yet?
-      <a
-        class="text-[var(--main-color)] cursor-pointer"
-        routerLink="/auth/register"
-        >Create one now!</a
-      >
-    </p>
-  </div>
-</lib-auth-layout>
+<lib-login-form-organism
+  (loginSubmit)="handleLogin($event)"
+  [isLoading]="isLoading()"
+  [errorMessage]="errorMessage()"
+></lib-login-form-organism>
