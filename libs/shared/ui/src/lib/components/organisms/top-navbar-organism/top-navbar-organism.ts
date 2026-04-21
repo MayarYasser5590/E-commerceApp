@@ -12,6 +12,7 @@ import { LogoAtom } from '../../atoms/logo-atom/logo-atom';
 import { NavUserDataMolecule } from '../../molecules/nav-user-data-molecule/nav-user-data-molecule';
 import { AuthenticatedMenuMolecule } from '../../molecules/authenticated-menu-molecule/authenticated-menu-molecule';
 import { ThemeService } from '@shop-workspace/shared-util';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'lib-top-navbar-organism',
@@ -21,6 +22,7 @@ import { ThemeService } from '@shop-workspace/shared-util';
     LogoAtom,
     NavUserDataMolecule,
     AuthenticatedMenuMolecule,
+    RouterLink,
   ],
   templateUrl: './top-navbar-organism.html',
   styleUrl: './navbar-organism.scss',
