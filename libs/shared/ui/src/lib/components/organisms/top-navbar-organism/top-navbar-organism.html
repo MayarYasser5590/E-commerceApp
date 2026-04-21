@@ -19,8 +19,8 @@
     placeholder="What awesome gift are you looking for?"
     [widthClass]="
     isAuthenticated
-      ? ' md:w-[450px] lg:w-[840px]'
-      : ' md:w-[350px] lg:w-[940px]'
+      ? ' md:w-[330px] lg:w-[840px]'
+      : ' md:w-[290px] lg:w-[940px]'
   "
     inputClass="flex items-center bg-[var(--input-bg)] text-[var-(--shop-main-color)] h-[52px] gap-2 rounded-[10px] border border-[#D4D4D8] p-4 outline-none focus:border-0 focus:ring-1 focus:ring-[var(--shop-main-color)]"
   ></lib-search-input-molecule>
@@ -28,10 +28,10 @@
     @if (isAuthenticated) {
     <div class="flex items-center justify-center">
       <div
-        class="text-left px-3 flex justify-center items-center cursor-pointer"
+        class="text-left px-1 md:px-3 flex justify-center items-center cursor-pointer"
       >
         <lib-authenticated-menu-molecule
-          [userName]="user()?.firstName"
+          [userName]="user?.firstName"
           (logout)="logout.emit()"
         ></lib-authenticated-menu-molecule>
       </div>
@@ -44,6 +44,7 @@
     } @if(!isAuthenticated) {
     <div class="flex items-center justify-center">
       <a
+        routerLink="/auth/login"
         class="cursor-pointer px-3 border-e border-[#E4E4E7] flex justify-center items-center"
       >
         <lucide-icon [name]="icons.User" class="w-5 h-5"></lucide-icon>

@@ -10,23 +10,24 @@ export const featureRoutes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'home' },
       {
         path: 'home',
-        canActivate: [guestGuard],
-        loadComponent: () =>
-          import('./home/home-page').then(m => m.HomePage),
+        loadComponent: () => import('./home/home-page').then((m) => m.HomePage),
         title: 'Home',
       },
       {
         path: 'products',
-        canActivate: [guestGuard],
         loadComponent: () =>
-          import('./products/pages/products-page/products-page').then(m => m.ProductsPage),
+          import('./products/pages/products-page/products-page').then(
+            (m) => m.ProductsPage,
+          ),
         title: 'Products',
       },
       {
         path: 'productdetails/:id',
         canActivate: [guestGuard],
         loadComponent: () =>
-          import('./products/pages/product-details-page/product-details-pages').then(m => m.ProductDetailsPages),
+          import(
+            './products/pages/product-details-page/product-details-pages'
+          ).then((m) => m.ProductDetailsPages),
         title: 'Product Details',
       },
     ],

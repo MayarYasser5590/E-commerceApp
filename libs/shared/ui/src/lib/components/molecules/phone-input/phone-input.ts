@@ -46,9 +46,9 @@ export class PhoneInput implements ControlValueAccessor {
 
   countryOptions = computed(() =>
     this.countries.map((country) => ({
-      code: country.code,
-      label:
-        `${country.flag ?? ''} ${country.code}(${country.dialCode})`.trim(),
+      code: country.dialCode,
+      label: `${country.dialCode}`,
+      flag: country.flag,
     })),
   );
 

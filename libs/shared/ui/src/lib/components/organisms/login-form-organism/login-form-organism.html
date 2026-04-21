@@ -1,0 +1,66 @@
+<section>
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="submitLoginForm()"
+    class="pt-3 sm:pt-5 pb-5 sm:pb-10 form-style"
+  >
+    <div class="mb-3 w-full">
+      <lib-form-field
+        label="Email"
+        labelClass="form-label"
+        [error]="emailError"
+        errorClass="mt-1 text-[#A6252A]"
+      >
+        <lib-custom-input
+          inputClass="form-input auth-border w-full"
+          formControlName="email"
+          type="text"
+          placeholder="user@example.com"
+        >
+        </lib-custom-input>
+      </lib-form-field>
+    </div>
+    <div class="w-full mb-5">
+      <lib-form-field
+        label="Password"
+        labelClass="form-label"
+        [error]="passwordError"
+        errorClass="mt-1 text-[#A6252A]"
+      >
+        <lib-custom-input
+          inputClass="form-input w-full"
+          formControlName="password"
+          type="password"
+          placeholder="********"
+        >
+        </lib-custom-input>
+      </lib-form-field>
+      <div class="w-full flex justify-end mb-3 mt-1 text-[#A6252A]">
+        <a routerLink="/auth/forgotPasswordLayout">Forgot your password?</a>
+      </div>
+    </div>
+    <div class="w-full flex justify-start mb-3">
+      <lib-checkbox
+        formControlName="rememberMe"
+        label="Remember me"
+        boxClass="w-4 h-4 accent-[#A6252A] rounded-full cursor-pointer"
+        labelClass="text-gray-500 text-sm"
+      ></lib-checkbox>
+    </div>
+    <div class="w-full mt-3">
+      <lib-button
+        label="Login"
+        type="submit"
+        variant="custom"
+        customClass="w-[75%] sm:w-full h-[41px] shop-button-style"
+        [disabled]="loginForm.invalid"
+        [isLoading]="isLoading()"
+      ></lib-button>
+      @if (errorMessage()) {
+      <div class="flex justify-center items-center">
+        <span class="mt-1 sm:mt-2 text-[#A6252A]">{{errorMessage()}}</span>
+      </div>
+      }
+    </div>
+  </form>
+</section>

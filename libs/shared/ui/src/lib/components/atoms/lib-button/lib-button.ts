@@ -75,6 +75,7 @@ export class LibButton {
   });
 
   onClick(event: MouseEvent): void {
+    if (this.type() === 'submit') return;
     if (!this.isLoading() && !this.disabled()) {
       this.clicked.emit(event);
     }

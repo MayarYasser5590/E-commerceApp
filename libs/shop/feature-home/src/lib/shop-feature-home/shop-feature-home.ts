@@ -7,8 +7,8 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BestSellerSectionFeature } from '../components/home/best-seller-section/best-seller-section-feature';
-import { AboutUsSection } from '../components/home/about-us-section/about-us-section';
+import { BestSellerSectionFeature } from './components/best-seller-section/best-seller-section-feature';
+import { AboutUsSection } from './components/about-us-section/about-us-section';
 import { SpecialGiftsSection } from '../components/home/special-gifts-section/special-gifts-section';
 import { TestimonialsSection } from '../components/home/testimonials-section/testimonials-section';
 import { HomeService } from '../data-access/home.service';
