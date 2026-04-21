@@ -8,10 +8,10 @@
 >
   <ng-template pTemplate="item" let-product>
     <div class="px-3 w-full">
-      <lib-product-card-organism
+      <lib-product-card-molecule
         [product]="product"
-        [showWishlist]="false"
-      ></lib-product-card-organism>
+        (addToCart)="productClicked.emit($event)"
+      ></lib-product-card-molecule>
     </div>
   </ng-template>
 </p-carousel>
