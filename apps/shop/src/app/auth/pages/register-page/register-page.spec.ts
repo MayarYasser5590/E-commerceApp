@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { VerifyOtpCodeFeature } from './verify-otp-code-feature';
+import { RegisterPage } from './register-page';
 
-describe('VerifyOtpCodeFeature', () => {
-  let component: VerifyOtpCodeFeature;
-  let fixture: ComponentFixture<VerifyOtpCodeFeature>;
+describe('RegisterPage', () => {
+  let component: RegisterPage;
+  let fixture: ComponentFixture<RegisterPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VerifyOtpCodeFeature],
+      imports: [RegisterPage],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(VerifyOtpCodeFeature);
+    fixture = TestBed.createComponent(RegisterPage);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

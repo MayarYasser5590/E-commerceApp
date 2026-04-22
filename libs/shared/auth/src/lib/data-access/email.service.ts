@@ -1,8 +1,7 @@
-import { Injectable, signal } from "@angular/core";
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class EmailService {
-
   private emailSignal = signal<string | null>(null);
   email = this.emailSignal.asReadonly();
 

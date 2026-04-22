@@ -1,0 +1,123 @@
+<section>
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="submitregisterForm()"
+    class="pt-3 sm:pt-5 pb-5 sm:pb-10 form-style"
+  >
+    <div class="flex gap-2 w-full mb-1">
+      <div class="w-full">
+        <lib-form-field
+          label="First Name"
+          labelClass="form-label"
+          [error]="firstNameError"
+          errorClass="mt-1 text-[#A6252A]"
+        >
+          <lib-custom-input
+            formControlName="firstName"
+            inputClass="form-input w-full"
+            type="text"
+            placeholder="First name"
+          />
+        </lib-form-field>
+      </div>
+      <div class="w-full">
+        <lib-form-field
+          label="Last Name"
+          labelClass="form-label"
+          [error]="lastNameError"
+          errorClass="mt-1 text-[#A6252A]"
+        >
+          <lib-custom-input
+            formControlName="lastName"
+            inputClass="form-input w-full"
+            type="text"
+            placeholder="Last name"
+          />
+        </lib-form-field>
+      </div>
+    </div>
+
+    <div class="mb-1 w-full">
+      <lib-form-field
+        label="Email"
+        labelClass="form-label"
+        [error]="emailError"
+        errorClass="mt-1 text-[#A6252A]"
+      >
+        <lib-custom-input
+          inputClass="form-input auth-border w-full"
+          formControlName="email"
+          type="text"
+          placeholder="user@example.com"
+        >
+        </lib-custom-input>
+      </lib-form-field>
+    </div>
+    <div class="w-full">
+      <lib-phone-input
+        formControlName="phone"
+        appendTo="body"
+        [countries]="[
+    { code: 'EG', name: 'Egypt', dialCode: '+20', flag: '🇪🇬' }
+  ]"
+      />
+    </div>
+    <div class="mb-1 w-full">
+      <lib-form-field label="Gender" labelClass="form-label">
+        <select formControlName="gender" class="form-input w-full">
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </lib-form-field>
+    </div>
+
+    <div class="w-full mb-1">
+      <lib-form-field
+        label="Password"
+        labelClass="form-label"
+        [error]="passwordError"
+        errorClass="mt-1 text-[#A6252A]"
+      >
+        <lib-custom-input
+          inputClass="form-input w-full"
+          formControlName="password"
+          type="password"
+          placeholder="********"
+        >
+        </lib-custom-input>
+      </lib-form-field>
+    </div>
+    <div class="w-full mb-1">
+      <lib-form-field
+        label="Confirm Password"
+        labelClass="form-label"
+        [error]="confirmPasswordError"
+        errorClass="mt-1 text-[#A6252A]"
+      >
+        <lib-custom-input
+          inputClass="form-input w-full"
+          formControlName="confirmPassword"
+          type="password"
+          placeholder="********"
+        >
+        </lib-custom-input>
+      </lib-form-field>
+    </div>
+    <div class="w-full mt-2">
+      <lib-button
+        label="Register"
+        type="submit"
+        variant="custom"
+        customClass="w-[75%] sm:w-full h-[41px] shop-button-style"
+        [disabled]="registerForm.invalid"
+        [isLoading]="isLoading()"
+      ></lib-button>
+      @if (errorMessage()) {
+      <div class="flex justify-center items-center">
+        <span class="mt-1 sm:mt-1 text-[#A6252A]">{{errorMessage()}}</span>
+      </div>
+      }
+    </div>
+  </form>
+</section>
