@@ -34,7 +34,7 @@ import { LucideAngularModule, Minus, Plus, Trash2 } from 'lucide-angular';
 
           <button
             type="button"
-            class="inline-flex shrink-0 items-center gap-1 rounded-md bg-[#A6252A] px-3 py-2 text-xs font-medium text-white transition hover:bg-[#741C21] disabled:cursor-not-allowed disabled:opacity-60"
+            class="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-md bg-[#A6252A] px-3 py-2 text-xs font-medium text-white transition hover:bg-[#741C21] disabled:cursor-not-allowed disabled:opacity-60"
             [disabled]="disabled()"
             (click)="remove.emit(item().id)"
             aria-label="Remove cart item"
@@ -66,7 +66,7 @@ import { LucideAngularModule, Minus, Plus, Trash2 } from 'lucide-angular';
           >
             <button
               type="button"
-              class="grid h-10 place-items-center text-[#A6252A] transition hover:bg-[#F8D7DA] disabled:cursor-not-allowed disabled:opacity-40"
+              class="grid h-10 cursor-pointer place-items-center text-[#A6252A] transition hover:bg-[#F8D7DA] disabled:cursor-not-allowed disabled:opacity-40"
               [disabled]="disabled() || item().quantity <= 1"
               (click)="quantityChange.emit(item().quantity - 1)"
               aria-label="Decrease quantity"
@@ -87,7 +87,7 @@ import { LucideAngularModule, Minus, Plus, Trash2 } from 'lucide-angular';
 
             <button
               type="button"
-              class="grid h-10 place-items-center text-[#A6252A] transition hover:bg-[#F8D7DA] disabled:cursor-not-allowed disabled:opacity-40"
+              class="grid h-10 cursor-pointer place-items-center text-[#A6252A] transition hover:bg-[#F8D7DA] disabled:cursor-not-allowed disabled:opacity-40"
               [disabled]="disabled() || item().quantity >= item().maxQuantity"
               (click)="quantityChange.emit(item().quantity + 1)"
               aria-label="Increase quantity"

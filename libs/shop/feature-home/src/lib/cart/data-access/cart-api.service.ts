@@ -134,21 +134,14 @@ export class CartApiService {
   }
 
   private toSummary(cart: ApiRecord, items: CartItem[]): CartSummary {
-    const subtotal =
-      this.num(
-        cart['subtotal'],
-        cart['totalPriceAfterDiscount'],
-        cart['totalAfterDiscount'],
-      ) ?? this.discountedSubtotal(items);
-    const coupon = this.couponDiscount(cart, subtotal);
+    const subtotal = this.discountedSubtotal(items);
+    const coupon = this.couponDiscount(cart, subtotal, this.hasCoupon(cart));
 
     return {
       subtotal,
       discount: coupon.amount,
       discountLabel: coupon.label,
-      total:
-        this.num(cart['totalAfterCoupon'], cart['totalPriceAfterCoupon']) ??
-        Math.max(subtotal - coupon.amount, 0),
+      total: Math.max(subtotal - coupon.amount, 0),
       currency: 'EGP',
       couponCode: this.str(cart['couponCode']),
     };
@@ -162,6 +155,7 @@ export class CartApiService {
     const coupon = this.couponDiscount(
       this.unwrapData(couponResponse),
       cartResponse.summary.subtotal,
+      true,
     );
 
     return {
@@ -183,6 +177,7 @@ export class CartApiService {
   private couponDiscount(
     source: ApiRecord,
     subtotal: number,
+    inferFromTotal = false,
   ): { amount: number; label: string | null } {
     const coupon = this.asRecord(source['coupon']);
     const percentage = this.num(
@@ -193,8 +188,9 @@ export class CartApiService {
     );
     const amount =
       this.num(source['couponDiscountAmount'], source['discountAmount']) ??
-      this.amountFromTotal(source, subtotal) ??
-      (percentage ? Math.round(subtotal * this.toRate(percentage)) : 0);
+      (percentage ? Math.round(subtotal * this.toRate(percentage)) : null) ??
+      (inferFromTotal ? this.amountFromTotal(source, subtotal) : null) ??
+      0;
     const labelPercentage =
       percentage ??
       (subtotal > 0 && amount > 0
@@ -206,6 +202,22 @@ export class CartApiService {
       label:
         amount > 0 && labelPercentage ? `${labelPercentage}% Discount` : null,
     };
+  }
+
+  private hasCoupon(source: ApiRecord): boolean {
+    const coupon = this.asRecord(source['coupon']);
+
+    return Boolean(
+      this.str(source['couponCode']) ||
+        Object.keys(coupon).length ||
+        this.num(
+          source['discountPercentage'],
+          source['discountPercent'],
+          source['couponDiscount'],
+          source['couponDiscountAmount'],
+          source['discountAmount'],
+        ),
+    );
   }
 
   private amountFromTotal(source: ApiRecord, subtotal: number): number | null {

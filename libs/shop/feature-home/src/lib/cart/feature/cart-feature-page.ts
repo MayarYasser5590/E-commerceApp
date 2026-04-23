@@ -9,13 +9,14 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { ProductData } from '@shop-workspace/shared-types';
+import { CartItem, ProductData } from '@shop-workspace/shared-types';
 import { SliderOrganism } from '@shop-workspace/shared-ui';
 import {
   ArrowLeft,
   ArrowRight,
   LucideAngularModule,
   ShoppingBag,
+  TicketPercent,
   Trash2,
 } from 'lucide-angular';
 import { HomeService } from '../../data-access/home.service';
@@ -53,6 +54,7 @@ export class CartFeaturePage implements OnInit {
     ArrowLeft,
     ArrowRight,
     ShoppingBag,
+    TicketPercent,
     Trash2,
   };
 
@@ -65,6 +67,23 @@ export class CartFeaturePage implements OnInit {
     this.cart.applyCoupon(this.couponCode());
   }
 
+  protected updateItemQuantity(item: CartItem, quantity: number): void {
+    const requestedQuantity = Number.isFinite(quantity)
+      ? Math.trunc(quantity)
+      : item.quantity;
+    const maxQuantity = Math.max(item.maxQuantity, 1);
+    const nextQuantity = Math.min(
+      Math.max(requestedQuantity, 1),
+      maxQuantity,
+    );
+
+    this.cart.updateQty(this.cartItemApiId(item), nextQuantity);
+  }
+
+  protected removeItem(item: CartItem): void {
+    this.cart.removeItem(this.cartItemApiId(item));
+  }
+
   private loadRecommendations(): void {
     this.homeService
       .getHomeData()
@@ -73,5 +92,9 @@ export class CartFeaturePage implements OnInit {
         next: (response) => this.products.set(response.products),
         error: () => this.products.set([]),
       });
+  }
+
+  private cartItemApiId(item: CartItem): string {
+    return item.productId || item.id;
   }
 }
