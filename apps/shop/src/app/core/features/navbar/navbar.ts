@@ -6,6 +6,7 @@ import {
 } from '@shop-workspace/shared-ui';
 import { AuthService } from '@shop-workspace/shared-auth';
 import { Router } from '@angular/router';
+import { CartUi } from '@shop-workspace/shop-feature-home';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class Navbar {
   private authService = inject(AuthService);
+  protected readonly cart = inject(CartUi);
   isAuthenticated = this.authService.isAuthenticated();
   private readonly router = inject(Router);
 
