@@ -12,3 +12,6 @@ export * from './lib/shop-products-features/product-details-feature/product-deta
 export * from './lib/data-access/home.service';
 export * from './lib/shop-feature-home/components/best-seller-section/best-seller-section-feature';
 export * from './lib/shop-feature-home/components/about-us-section/about-us-section';
+export * from './lib/cart/data-access/cart-api.service';
+export * from './lib/cart/data-access/cart.ui';
+export * from './lib/cart/feature/cart-feature-page';

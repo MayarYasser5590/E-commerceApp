@@ -1,0 +1,164 @@
+<section class="mx-auto max-w-7xl space-y-10 bg-white text-[#27272A]">
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+    <div>
+      <div class="mb-4 flex items-center justify-between gap-4">
+        <div class="flex items-baseline gap-2">
+          <h1 class="text-3xl font-bold text-[#27272A]">Cart</h1>
+          <span class="text-sm text-[#71717A]">
+            {{ cart.itemCount() }} products
+          </span>
+        </div>
+
+        <button
+          type="button"
+          class="inline-flex items-center gap-2 rounded-md bg-[#FBEAEA] px-4 py-2 text-sm font-medium text-[#A6252A] transition hover:bg-[#F4C9CC] disabled:cursor-not-allowed disabled:opacity-60"
+          [disabled]="cart.loading() || !cart.items().length"
+          (click)="cart.clearCart()"
+        >
+          <lucide-icon [name]="icons.Trash2" class="h-4 w-4"></lucide-icon>
+          Clear Cart
+        </button>
+      </div>
+
+      @if (cart.error()) {
+      <div
+        class="mb-4 rounded-md border border-[#F4C9CC] bg-[#FEF2F2] px-4 py-3 text-sm text-[#A6252A]"
+      >
+        {{ cart.error() }}
+      </div>
+      } @if (cart.items().length) {
+      <div class="rounded-md border border-[#F4F4F5] bg-white px-4">
+        @for (item of cart.items(); track item.id) {
+        <lib-cart-item-card
+          [item]="item"
+          [currency]="cart.summary().currency"
+          [disabled]="cart.loading()"
+          (quantityChange)="cart.updateQty(item.id, $event)"
+          (remove)="cart.removeItem($event)"
+        ></lib-cart-item-card>
+        }
+      </div>
+      } @else {
+      <div
+        class="grid min-h-72 place-items-center rounded-md border border-dashed border-[#E4E4E7] bg-[#FAFAFA] px-6 py-12 text-center"
+      >
+        <div class="space-y-4">
+          <div
+            class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#FBEAEA] text-[#A6252A]"
+          >
+            <lucide-icon
+              [name]="icons.ShoppingBag"
+              class="h-7 w-7"
+            ></lucide-icon>
+          </div>
+          <p class="text-base font-semibold">Your cart is empty.</p>
+          <a
+            routerLink="/products"
+            class="inline-flex items-center gap-2 rounded-md bg-[#A6252A] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#741C21]"
+          >
+            Shop products
+            <lucide-icon
+              [name]="icons.ArrowRight"
+              class="h-4 w-4"
+            ></lucide-icon>
+          </a>
+        </div>
+      </div>
+      }
+
+      <a
+        routerLink="/products"
+        class="mt-5 inline-flex items-center gap-2 rounded-md bg-[#A6252A] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#741C21]"
+      >
+        <lucide-icon [name]="icons.ArrowLeft" class="h-4 w-4"></lucide-icon>
+        Continue Shopping
+      </a>
+    </div>
+
+    <aside class="space-y-4 lg:sticky lg:top-6">
+      <h2 class="text-xl font-bold text-[#27272A]">Summary</h2>
+
+      <div class="flex gap-2">
+        <input
+          class="h-11 min-w-0 flex-1 rounded-md border border-[#E4E4E7] px-4 text-sm outline-none transition placeholder:text-[#A1A1AA] focus:border-[#A6252A] focus:ring-2 focus:ring-[#F4C9CC]"
+          type="text"
+          placeholder="Coupon Code"
+          [value]="couponCode()"
+          [disabled]="cart.loading()"
+          (input)="couponCode.set($any($event.target).value)"
+          (keydown.enter)="applyCoupon()"
+          aria-label="Coupon code"
+        />
+        <button
+          type="button"
+          class="inline-flex h-11 items-center gap-2 rounded-md bg-[#A6252A] px-4 text-sm font-semibold text-white transition hover:bg-[#741C21] disabled:cursor-not-allowed disabled:opacity-60"
+          [disabled]="cart.loading()"
+          (click)="applyCoupon()"
+        >
+          Apply Coupon
+        </button>
+      </div>
+
+      <div
+        class="grid h-48 place-items-center rounded-md border border-[#F4F4F5] bg-[#FAFAFA] px-4 text-center text-sm"
+      >
+        @if (cart.couponMessage()) {
+        <p
+          [class]="
+              cart.couponValid()
+                ? 'font-medium text-green-700'
+                : 'font-medium text-[#A6252A]'
+            "
+        >
+          {{ cart.couponMessage() }}
+        </p>
+        } @else {
+        <p class="text-[#A1A1AA]">No coupon applied</p>
+        }
+      </div>
+
+      <div class="space-y-3 text-sm">
+        <div class="flex items-center justify-between">
+          <span>Subtotal</span>
+          <span class="font-semibold">
+            {{ cart.summary().subtotal }} {{ cart.summary().currency }}
+          </span>
+        </div>
+
+        @if (cart.summary().discountLabel) {
+        <div class="flex items-center justify-between text-[#27272A]">
+          <span>Coupon Discount</span>
+          <span class="font-semibold">{{ cart.summary().discountLabel }}</span>
+        </div>
+        }
+
+        <div
+          class="flex items-center justify-between border-t border-[#F4F4F5] pt-3 text-base font-bold"
+        >
+          <span>Total</span>
+          <span>{{ cart.summary().total }} {{ cart.summary().currency }}</span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#A6252A] px-5 text-sm font-semibold text-white transition hover:bg-[#741C21] disabled:cursor-not-allowed disabled:opacity-60"
+        [disabled]="cart.loading() || !cart.items().length"
+      >
+        Checkout
+        <lucide-icon [name]="icons.ArrowRight" class="h-4 w-4"></lucide-icon>
+      </button>
+    </aside>
+  </div>
+
+  @if (recommendedProducts().length) {
+  <section class="space-y-5">
+    <h2 class="text-2xl font-bold text-[#741C21]">Products You May Like</h2>
+    <lib-slider-organism
+      [products]="recommendedProducts()"
+      [numVisible]="4"
+      (productClicked)="cart.addItem($event)"
+    ></lib-slider-organism>
+  </section>
+  }
+</section>
