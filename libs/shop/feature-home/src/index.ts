@@ -12,4 +12,6 @@ export * from './lib/shop-products-features/product-details-feature/product-deta
 export * from './lib/data-access/home.service';
 export * from './lib/shop-feature-home/components/best-seller-section/best-seller-section-feature';
 export * from './lib/shop-feature-home/components/about-us-section/about-us-section';
+export * from './lib/shop-feature-home/components/features-bar-section/features-bar-section';
+export * from './lib/shop-feature-home/components/trusted-by-section/trusted-by-section';
 export * from './lib/components/home/special-gifts-section/special-gifts-section'

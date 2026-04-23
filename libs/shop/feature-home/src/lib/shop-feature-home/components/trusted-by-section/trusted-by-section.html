@@ -1,0 +1,23 @@
+<section class="rounded-2xl p-[24px] text-center bg-pink-100 dark:bg-gray-800">
+  <h2
+    class="text-lg md:text-2xl font-bold mb-8 text-red-900 dark:text-rose-200"
+  >
+    Trusted by over
+    <span class="text-rose-500 dark:text-red-800">4.5k+</span>
+    companies
+  </h2>
+
+  <div
+    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 items-center gap-6 md:gap-10"
+  >
+    @for (logo of logos; track $index) {
+    <div class="flex justify-center items-center">
+      <img
+        [src]="logo"
+        alt="company logo"
+        class="h-6 md:h-8 object-contain opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition duration-300"
+      />
+    </div>
+    }
+  </div>
+</section>

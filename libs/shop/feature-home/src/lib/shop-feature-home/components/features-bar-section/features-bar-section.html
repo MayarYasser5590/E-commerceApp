@@ -1,0 +1,31 @@
+<section
+  class="rounded-xl bg-red-50 p-4 flex justify-center items-center dark:bg-gray-700"
+>
+  <div class="grid grid-cols-2 md:grid-cols-4">
+    @for (feature of features; track $index) {
+    <div
+      class="flex items-center gap-4 p-5 hover:bg-red-100 dark:hover:bg-gray-800 transition"
+    >
+      <div
+        class="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-red-900 dark:bg-rose-200"
+      >
+        <lucide-icon
+          [name]="feature.icon"
+          class="w-5 h-5 md:w-6 md:h-6 text-white dark:text-gray-800"
+        ></lucide-icon>
+      </div>
+
+      <div>
+        <p
+          class="text-sm md:text-base font-semibold text-red-800 dark:text-rose-200"
+        >
+          {{ feature.title }}
+        </p>
+        <p class="text-xs md:text-sm text-gray-500 dark:text-gray-300">
+          {{ feature.desc }}
+        </p>
+      </div>
+    </div>
+    }
+  </div>
+</section>
