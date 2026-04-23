@@ -5,7 +5,8 @@ import { DetailsSection } from './components/details-section/details-section';
 import { RatingsSection } from './components/Ratings-section/ratings-section';
 import { RelatedProductsSection } from './components/related-products/related-products-section';
 import { ProductService } from '../../data-access/product.service';
-import { ProductData } from '@shop-workspace/shared-types';
+import { ProductData, RelatedProduct } from '@shop-workspace/shared-types';
+import { WishlistService } from '../../data-access/wishlist.service';
 
 @Component({
   selector: 'lib-product-details-feature',
@@ -21,6 +22,15 @@ export class ProductDetailsFeature implements OnInit, OnDestroy {
 
   activateRouteSubscribe: Subscription = new Subscription();
   specificProductSubscribe: Subscription = new Subscription();
+  private wishlistService = inject(WishlistService);
+
+  onToggleWishlist(product: ProductData | RelatedProduct) {
+    this.wishlistService.toggle(product);
+  }
+
+  isInWishlist(productId: string): boolean {
+    return this.wishlistService.isInWishlist(productId);
+  }
 
   ngOnInit(): void {
     this.getProductId();
