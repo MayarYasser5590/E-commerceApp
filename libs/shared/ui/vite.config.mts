@@ -7,7 +7,11 @@ import { resolve } from 'path';
 export default defineConfig(() => ({
   root: __dirname,
   cacheDir: '../../../node_modules/.vite/libs/shared/ui',
-  plugins: [angular(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
+  plugins: [
+    angular({ tsconfig: './tsconfig.lib.json' }),
+    nxViteTsPaths(),
+    nxCopyAssetsPlugin(['*.md']),
+  ],
   // Library build configuration
   build: {
     outDir: '../../../dist/libs/shared/ui',

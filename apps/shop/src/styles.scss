@@ -1,8 +1,8 @@
 /* 2. Theme Variables */
-@import '../../../libs/shared/ui/src/lib/styles/auth-theme';
+@use '../../../libs/shared/ui/src/lib/styles/auth-theme';
 
 /* 1. Global Shared Styles (Includes Tailwind & Plugins) */
-@import 'libs/shared/ui/src/styles.scss';
+@use 'libs/shared/ui/src/styles.scss';
 
 /* 3. Global Settings */
 :root {
