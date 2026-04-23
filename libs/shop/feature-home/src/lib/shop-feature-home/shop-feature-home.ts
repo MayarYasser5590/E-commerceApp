@@ -17,6 +17,8 @@ import {
   GalleryOrganism,
   MostPopularOrganism,
 } from '@shop-workspace/shared-ui';
+import { FeaturesBarSection } from './components/features-bar-section/features-bar-section';
+import { TrustedBySection } from './components/trusted-by-section/trusted-by-section';
 
 @Component({
   selector: 'lib-shop-feature-home',
@@ -30,6 +32,8 @@ import {
     TestimonialsSection,
     GalleryOrganism,
     MostPopularOrganism,
+    FeaturesBarSection,
+    TrustedBySection,
   ],
   templateUrl: './shop-feature-home.html',
 })
