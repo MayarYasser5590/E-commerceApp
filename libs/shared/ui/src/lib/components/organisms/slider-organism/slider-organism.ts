@@ -5,17 +5,11 @@ import {
 } from '@shop-workspace/shared-types';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
-import { ProductCardOrganism } from '../product-card-organism/product-card-organism';
 import { ProductCardMolecule } from '../../molecules/product-card/product-card.molecule';
 
 @Component({
   selector: 'lib-slider-organism',
-  imports: [
-    CommonModule,
-    CarouselModule,
-    ProductCardOrganism,
-    ProductCardMolecule,
-  ],
+  imports: [CommonModule, CarouselModule, ProductCardMolecule],
   templateUrl: './slider-organism.html',
   styleUrl: './slider-organism.scss',
 })

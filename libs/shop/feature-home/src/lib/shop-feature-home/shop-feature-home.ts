@@ -15,6 +15,7 @@ import {
   GalleryOrganism,
   MostPopularOrganism,
 } from '@shop-workspace/shared-ui';
+import { CartUi } from '../cart/data-access/cart.ui';
 
 @Component({
   selector: 'lib-shop-feature-home',
@@ -30,6 +31,7 @@ import {
 export class ShopFeatureHome implements OnInit {
   private readonly homeService = inject(HomeService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly cart = inject(CartUi);
 
   products = signal<ProductData[]>([]);
   bestSellers = signal<ProductData[]>([]);
@@ -71,6 +73,10 @@ export class ShopFeatureHome implements OnInit {
 
   onOccasionChanged(occasionId: string | null): void {
     this.activeOccasionId.set(occasionId);
+  }
+
+  addToCart(product: ProductData): void {
+    this.cart.addItem(product);
   }
 
   private productMatchesOccasion(

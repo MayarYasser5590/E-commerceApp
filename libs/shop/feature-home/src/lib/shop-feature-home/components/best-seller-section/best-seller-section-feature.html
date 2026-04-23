@@ -37,7 +37,10 @@
 
     <!-- RIGHT SLIDER -->
     <div>
-      <lib-slider-organism [products]="bestSellers()"></lib-slider-organism>
+      <lib-slider-organism
+        [products]="bestSellers()"
+        (productClicked)="productClicked.emit($event)"
+      ></lib-slider-organism>
     </div>
   </div>
 </section>
