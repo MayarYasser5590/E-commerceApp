@@ -3,7 +3,10 @@
     [bestSellers]="bestSellers()"
     (toggleWishlist)="onToggleWishlist($event)"
     [isInWishlist]="isInWishlist.bind(this)"
-  >
+  ></lib-best-seller-section-feature>
+  <lib-features-bar-section></lib-features-bar-section>
+
+  <lib-best-seller-section-feature [bestSellers]="bestSellers()">
   </lib-best-seller-section-feature>
 
   <lib-most-popular-organism
@@ -18,4 +21,6 @@
   <lib-about-us-section></lib-about-us-section>
 
   <lib-gallery-organism></lib-gallery-organism>
+
+  <lib-trusted-by-section></lib-trusted-by-section>
 </div>

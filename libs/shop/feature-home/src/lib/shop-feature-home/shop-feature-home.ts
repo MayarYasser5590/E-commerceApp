@@ -16,6 +16,8 @@ import {
   MostPopularOrganism,
 } from '@shop-workspace/shared-ui';
 import { WishlistService } from '../data-access/wishlist.service';
+import { FeaturesBarSection } from './components/features-bar-section/features-bar-section';
+import { TrustedBySection } from './components/trusted-by-section/trusted-by-section';
 
 @Component({
   selector: 'lib-shop-feature-home',
@@ -24,6 +26,8 @@ import { WishlistService } from '../data-access/wishlist.service';
     AboutUsSection,
     GalleryOrganism,
     MostPopularOrganism,
+    FeaturesBarSection,
+    TrustedBySection,
   ],
   templateUrl: './shop-feature-home.html',
   styleUrl: './shop-feature-home.scss',
