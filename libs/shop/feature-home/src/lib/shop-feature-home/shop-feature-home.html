@@ -1,5 +1,9 @@
 <div class="home-shell">
-  <lib-best-seller-section-feature [bestSellers]="bestSellers()">
+  <lib-best-seller-section-feature
+    [bestSellers]="bestSellers()"
+    (toggleWishlist)="onToggleWishlist($event)"
+    [isInWishlist]="isInWishlist.bind(this)"
+  >
   </lib-best-seller-section-feature>
 
   <lib-most-popular-organism
@@ -7,6 +11,8 @@
     [occasions]="occasions()"
     [activeOccasionId]="activeOccasionId()"
     (occasionChanged)="onOccasionChanged($event)"
+    (toggleWishlist)="onToggleWishlist($event)"
+    [isInWishlist]="isInWishlist.bind(this)"
   ></lib-most-popular-organism>
 
   <lib-about-us-section></lib-about-us-section>

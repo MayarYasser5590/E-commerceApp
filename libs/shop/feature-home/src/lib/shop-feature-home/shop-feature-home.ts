@@ -15,6 +15,7 @@ import {
   GalleryOrganism,
   MostPopularOrganism,
 } from '@shop-workspace/shared-ui';
+import { WishlistService } from '../data-access/wishlist.service';
 
 @Component({
   selector: 'lib-shop-feature-home',
@@ -30,6 +31,7 @@ import {
 export class ShopFeatureHome implements OnInit {
   private readonly homeService = inject(HomeService);
   private readonly destroyRef = inject(DestroyRef);
+  private wishlistService = inject(WishlistService);
 
   products = signal<ProductData[]>([]);
   bestSellers = signal<ProductData[]>([]);
@@ -78,5 +80,13 @@ export class ShopFeatureHome implements OnInit {
     occasionId: string,
   ): boolean {
     return product.occasion === occasionId;
+  }
+
+  isInWishlist(productId: string): boolean {
+    return this.wishlistService.isInWishlist(productId);
+  }
+
+  onToggleWishlist(product: ProductData) {
+    this.wishlistService.toggle(product);
   }
 }
