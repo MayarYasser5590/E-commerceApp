@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
-import { ProductDetailsResponse, ProductReviewsResponse, ProductsResponse } from '@shop-workspace/shared-types';
+import { ProductReviewsResponse } from '@shop-workspace/shared-types';
 
 
 
