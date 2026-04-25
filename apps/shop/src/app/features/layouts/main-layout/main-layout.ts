@@ -6,12 +6,14 @@ import { Navbar } from '../../../core/features/navbar/navbar';
   selector: 'app-auth-layout',
   imports: [RouterOutlet, Navbar],
   template: `
-    <main class="bg-[var(--bg-page)]">
+    <div class="flex min-h-screen flex-col bg-[var(--bg-page)]">
       <app-navbar></app-navbar>
-      <div class="my-2 mx-3 sm:my-10 sm:mx-12 ">
-        <router-outlet></router-outlet>
-      </div>
-    </main>
+      <main class="min-w-0 flex-1 py-2 sm:py-10">
+        <div class="mx-auto w-full max-w-screen-xl min-w-0 px-4 sm:px-6 lg:px-8">
+          <router-outlet></router-outlet>
+        </div>
+      </main>
+    </div>
   `,
 })
 export class MainLayoutComponent {}
