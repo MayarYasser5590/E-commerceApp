@@ -7,9 +7,10 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { SpecialGiftsSection } from '../components/home/special-gifts-section/special-gifts-section';
 import { BestSellerSectionFeature } from './components/best-seller-section/best-seller-section-feature';
 import { AboutUsSection } from './components/about-us-section/about-us-section';
+import { SpecialGiftsSection } from '../components/home/special-gifts-section/special-gifts-section';
+import { TestimonialsSection } from '../components/home/testimonials-section/testimonials-section';
 import { HomeService } from '../data-access/home.service';
 import { Occasion, ProductData } from '@shop-workspace/shared-types';
 import {
@@ -21,17 +22,20 @@ import { TrustedBySection } from './components/trusted-by-section/trusted-by-sec
 
 @Component({
   selector: 'lib-shop-feature-home',
+  host: {
+    class: 'block',
+  },
   imports: [
     BestSellerSectionFeature,
     SpecialGiftsSection,
     AboutUsSection,
+    TestimonialsSection,
     GalleryOrganism,
     MostPopularOrganism,
     FeaturesBarSection,
     TrustedBySection,
   ],
   templateUrl: './shop-feature-home.html',
-  styleUrl: './shop-feature-home.scss',
 })
 export class ShopFeatureHome implements OnInit {
   private readonly homeService = inject(HomeService);
