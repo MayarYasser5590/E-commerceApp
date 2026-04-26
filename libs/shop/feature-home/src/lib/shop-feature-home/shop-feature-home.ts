@@ -9,6 +9,8 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BestSellerSectionFeature } from './components/best-seller-section/best-seller-section-feature';
 import { AboutUsSection } from './components/about-us-section/about-us-section';
+import { SpecialGiftsSection } from '../components/home/special-gifts-section/special-gifts-section';
+import { TestimonialsSection } from '../components/home/testimonials-section/testimonials-section';
 import { HomeService } from '../data-access/home.service';
 import { Occasion, ProductData } from '@shop-workspace/shared-types';
 import {
@@ -18,24 +20,30 @@ import {
 import { WishlistService } from '../data-access/wishlist.service';
 import { FeaturesBarSection } from './components/features-bar-section/features-bar-section';
 import { TrustedBySection } from './components/trusted-by-section/trusted-by-section';
+import { AppToastService } from '../data-access/toast.service';
 
 @Component({
   selector: 'lib-shop-feature-home',
+  host: {
+    class: 'block',
+  },
   imports: [
     BestSellerSectionFeature,
+    SpecialGiftsSection,
     AboutUsSection,
+    TestimonialsSection,
     GalleryOrganism,
     MostPopularOrganism,
     FeaturesBarSection,
     TrustedBySection,
   ],
   templateUrl: './shop-feature-home.html',
-  styleUrl: './shop-feature-home.scss',
 })
 export class ShopFeatureHome implements OnInit {
   private readonly homeService = inject(HomeService);
   private readonly destroyRef = inject(DestroyRef);
   private wishlistService = inject(WishlistService);
+  private toast = inject(AppToastService);
 
   products = signal<ProductData[]>([]);
   bestSellers = signal<ProductData[]>([]);
@@ -91,6 +99,14 @@ export class ShopFeatureHome implements OnInit {
   }
 
   onToggleWishlist(product: ProductData) {
+    const wasInWishlist = this.wishlistService.isInWishlist(product._id);
+
     this.wishlistService.toggle(product);
+
+    if (wasInWishlist) {
+      this.toast.error('Removed from wishlist');
+    } else {
+      this.toast.success('Added to wishlist');
+    }
   }
 }

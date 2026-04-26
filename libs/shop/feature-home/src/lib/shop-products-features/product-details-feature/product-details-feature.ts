@@ -7,6 +7,7 @@ import { RelatedProductsSection } from './components/related-products/related-pr
 import { ProductService } from '../../data-access/product.service';
 import { ProductData, RelatedProduct } from '@shop-workspace/shared-types';
 import { WishlistService } from '../../data-access/wishlist.service';
+import { AppToastService } from '../../data-access/toast.service';
 
 @Component({
   selector: 'lib-product-details-feature',
@@ -17,6 +18,7 @@ import { WishlistService } from '../../data-access/wishlist.service';
 export class ProductDetailsFeature implements OnInit, OnDestroy {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly productService = inject(ProductService);
+  private toast = inject(AppToastService);
   productId = signal<string | null>(null);
   product = signal<ProductData | null>(null);
 
@@ -26,10 +28,6 @@ export class ProductDetailsFeature implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProductId();
-  }
-
-  onToggleWishlist(product: ProductData | RelatedProduct) {
-    this.wishlistService.toggle(product);
   }
 
   isInWishlist(productId: string): boolean {
@@ -59,6 +57,18 @@ export class ProductDetailsFeature implements OnInit, OnDestroy {
           console.log(res);
         },
       });
+  }
+
+  onToggleWishlist(product: ProductData | RelatedProduct) {
+    const wasInWishlist = this.wishlistService.isInWishlist(product._id);
+
+    this.wishlistService.toggle(product);
+
+    if (wasInWishlist) {
+      this.toast.error('Removed from wishlist');
+    } else {
+      this.toast.success('Added to wishlist');
+    }
   }
 
   ngOnDestroy(): void {

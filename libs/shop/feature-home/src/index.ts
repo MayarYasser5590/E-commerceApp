@@ -1,5 +1,4 @@
 export * from './lib/shop-feature-home/shop-feature-home';
-
 export * from './lib/data-access/product.service';
 
 export * from './lib/shop-products-features//product-details-feature/components/details-section/details-section';

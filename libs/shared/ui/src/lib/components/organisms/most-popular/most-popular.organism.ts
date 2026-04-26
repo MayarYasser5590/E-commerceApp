@@ -15,7 +15,7 @@ import { ProductCardMolecule } from '../../molecules/product-card/product-card.m
     ProductCardMolecule,
   ],
   template: `
-    <section class="space-y-8 rounded-[32px] px-4 py-8 md:px-8 md:py-10">
+    <section class="space-y-8 rounded-[32px] py-8 md:py-10">
       <div
         class="flex flex-col gap-30 lg:flex-row lg:items-end lg:justify-between"
       >
