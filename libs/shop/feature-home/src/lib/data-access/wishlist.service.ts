@@ -16,10 +16,8 @@ export class WishlistService {
   private readonly config = inject(APP_CONFIG);
   private readonly baseUrl = this.config.apiUrl;
 
-  private wishlistItems = signal<WishlistProduct[]>([]);
-  private wishlistIds = computed(
-    () => new Set(this.wishlistItems().map((p) => p.id)),
-  );
+  wishlistItems = signal<WishlistProduct[]>([]);
+  wishlistIds = computed(() => new Set(this.wishlistItems().map((p) => p.id)));
   wishlistCount = computed(() => this.wishlistItems().length);
 
   getWishlist(): Observable<WishlistResponse> {
@@ -64,18 +62,13 @@ export class WishlistService {
     return this.wishlistItems;
   }
 
+  setWishlist(products: WishlistProduct[]) {
+    this.wishlistItems.set(products);
+  }
+
   toggle(product: any) {
-    const items = this.wishlistItems();
-
-    let exists = false;
-
     // check if product exist
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].id === product._id) {
-        exists = true;
-        break;
-      }
-    }
+    const exists = this.wishlistIds().has(product._id);
     // update items in UI
     if (exists) {
       this.wishlistItems.update((items) =>

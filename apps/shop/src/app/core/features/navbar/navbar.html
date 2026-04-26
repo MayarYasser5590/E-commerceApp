@@ -1,13 +1,11 @@
-<lib-toast #toast />
-
 <lib-top-navbar-organism
   [isAuthenticated]="isAuthenticated"
   [user]="user()"
   [favCount]="favCount()"
-  (logout)="handleLogout(toast)"
+  (logout)="handleLogout()"
 ></lib-top-navbar-organism>
 
 <lib-main-navbar-organism
   [isAuthenticated]="isAuthenticated"
-  (logout)="handleLogout(toast)"
+  (logout)="handleLogout()"
 ></lib-main-navbar-organism>

@@ -2,7 +2,6 @@ import { Component, input, output } from '@angular/core';
 import { ProductData, RelatedProduct } from '@shop-workspace/shared-types';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
-import { ProductCardOrganism } from '../product-card-organism/product-card-organism';
 import { ProductCardMolecule } from '../../molecules/product-card/product-card.molecule';
 
 @Component({

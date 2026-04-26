@@ -5,6 +5,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { Subscription } from 'rxjs';
 import { ProductCardMolecule } from '@shop-workspace/shared-ui';
 import { WishlistService } from '../../data-access/wishlist.service';
+import { AppToastService } from '../../data-access/toast.service';
 
 @Component({
   selector: 'lib-products-feature',
@@ -15,6 +16,7 @@ import { WishlistService } from '../../data-access/wishlist.service';
 export class ProductsFeature implements OnInit, OnDestroy {
   private readonly productService = inject(ProductService);
   private wishlistService = inject(WishlistService);
+  private toast = inject(AppToastService);
   allProducts = signal<ProductData[]>([]);
   products = signal<ProductData[]>([]);
   metaData!: Metadata;
@@ -50,18 +52,16 @@ export class ProductsFeature implements OnInit, OnDestroy {
     this.products.set(this.allProducts().slice(start, end));
   }
 
-  addToCart(product: ProductData) {
-    console.log('add to cart', product);
-  }
-
   onToggleWishlist(product: ProductData) {
+    const wasInWishlist = this.wishlistService.isInWishlist(product._id);
+
     this.wishlistService.toggle(product);
-    this.allProducts.update((products) =>
-      products.map((p) =>
-        p._id === product._id ? { ...p, isInWishlist: !p.isInWishlist } : p,
-      ),
-    );
-    this.updateVisibleProducts();
+
+    if (wasInWishlist) {
+      this.toast.error('Removed from wishlist');
+    } else {
+      this.toast.success('Added to wishlist');
+    }
   }
 
   isInWishlist(productId: string) {

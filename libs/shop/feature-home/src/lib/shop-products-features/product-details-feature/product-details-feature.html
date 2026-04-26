@@ -1,13 +1,18 @@
 @if (product()) {
 
-<lib-details-section [productId]="productId()" [product]="product()!">
+<lib-details-section
+  [productId]="productId()"
+  [product]="product()!"
+  [isInWishlistFn]="isInWishlistFn"
+  (toggleWishlist)="onToggleWishlist($event)"
+>
 </lib-details-section>
 
 <lib-ratings-section [productId]="productId()!"> </lib-ratings-section>
 
 <lib-related-products-section
   [productId]="productId()!"
-  [isInWishlist]="isInWishlist.bind(this)"
+  [isInWishlist]="isInWishlistFn"
   (toggleWishlist)="onToggleWishlist($event)"
 >
 </lib-related-products-section>

@@ -9,7 +9,6 @@
 
       <lib-product-card-molecule
         [product]="product"
-        (addToCart)="addToCart($event)"
         (addToWishlist)="onToggleWishlist($event)"
         [isInWishlist]="isInWishlist(product._id)"
       ></lib-product-card-molecule>

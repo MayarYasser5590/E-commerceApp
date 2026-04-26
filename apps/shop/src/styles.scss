@@ -142,3 +142,14 @@
   background-color: #A6252A !important;
 }
 
+.p-toast .p-toast-message {
+  @apply bg-red-900 text-white border-red-900 shadow-lg rounded-xl px-6 py-4 text-xs;
+}
+
+.p-toast .p-toast-summary {
+  @apply text-sm font-medium;
+}
+
+.p-toast .p-toast-detail {
+  @apply text-xs;
+}

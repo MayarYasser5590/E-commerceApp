@@ -24,6 +24,10 @@ export class ProductDetailsFeature implements OnInit, OnDestroy {
   specificProductSubscribe: Subscription = new Subscription();
   private wishlistService = inject(WishlistService);
 
+  ngOnInit(): void {
+    this.getProductId();
+  }
+
   onToggleWishlist(product: ProductData | RelatedProduct) {
     this.wishlistService.toggle(product);
   }
@@ -32,9 +36,7 @@ export class ProductDetailsFeature implements OnInit, OnDestroy {
     return this.wishlistService.isInWishlist(productId);
   }
 
-  ngOnInit(): void {
-    this.getProductId();
-  }
+  isInWishlistFn = (id: string) => this.isInWishlist(id);
 
   getProductId() {
     this.activateRouteSubscribe = this.activatedRoute.paramMap.subscribe({

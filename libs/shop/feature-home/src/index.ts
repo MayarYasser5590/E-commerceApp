@@ -18,3 +18,4 @@ export * from './lib/shop-wishlist-feature/shop-wishlist-feature';
 export * from './lib/shop-wishlist-feature/components/wishlist-card/wishlist-card';
 export * from './lib/shop-feature-home/components/features-bar-section/features-bar-section';
 export * from './lib/shop-feature-home/components/trusted-by-section/trusted-by-section';
+export * from './lib/data-access/toast.service';

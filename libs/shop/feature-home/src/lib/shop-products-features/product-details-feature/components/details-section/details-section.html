@@ -77,9 +77,12 @@
           variant="outline"
           size="md"
           customClass="w-full flex py-[10px] items-center justify-center"
-          (clicked)="addToWishlist()"
+          (clicked)="onToggleWishlist()"
         >
-          <lucide-icon [name]="icons.HeartPlus" [size]="18"></lucide-icon>
+          <lucide-icon
+            [name]="isInWishlistFn(product._id) ? icons.HeartMinus : icons.HeartPlus"
+            [size]="18"
+          ></lucide-icon>
         </lib-button>
       </div>
 

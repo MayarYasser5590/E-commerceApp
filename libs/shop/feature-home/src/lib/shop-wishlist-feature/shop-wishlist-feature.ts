@@ -1,10 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { WishlistService } from '../data-access/wishlist.service';
-import { WishlistProduct } from '@shop-workspace/shared-types';
 import { LibButton } from '@shop-workspace/shared-ui';
 import { LucideAngularModule, Trash2, Heart, ArrowLeft } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
 import { WishlistCard } from './components/wishlist-card/wishlist-card';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'lib-shop-wishlist-feature',
@@ -12,9 +12,10 @@ import { WishlistCard } from './components/wishlist-card/wishlist-card';
   templateUrl: './shop-wishlist-feature.html',
   styleUrl: './shop-wishlist-feature.scss',
 })
-export class ShopWishlistFeature implements OnInit {
+export class ShopWishlistFeature implements OnInit, OnDestroy {
   private wishlistService = inject(WishlistService);
-  wishlist = signal<WishlistProduct[]>([]);
+  wishlistSubscriptions: Subscription = new Subscription(); //container
+  wishlist = this.wishlistService.items;
   icons = {
     Trash2,
     Heart,
@@ -22,40 +23,38 @@ export class ShopWishlistFeature implements OnInit {
   };
 
   ngOnInit(): void {
-    this.getAllWishlist();
-  }
-
-  getAllWishlist() {
-    this.wishlistService.getWishlist().subscribe({
-      next: (res) => {
-        this.wishlist.set(res.wishlist.products);
-        this.wishlistService['wishlistItems'].set(res.wishlist.products);
-      },
-      error: (err) => console.log(err),
-    });
+    this.wishlistService.loadWishlist();
   }
 
   removeFromWishlist(id: string) {
-    this.wishlistService.removeFromWishlist(id).subscribe({
+    const sub = this.wishlistService.removeFromWishlist(id).subscribe({
       next: (res) => {
         this.wishlist.set(res.wishlist.products);
-        this.wishlistService['wishlistItems'].set(res.wishlist.products);
+        this.wishlistService.setWishlist(res.wishlist.products);
       },
       error: (err) => console.log(err),
     });
+
+    this.wishlistSubscriptions.add(sub);
   }
 
   clearWishlist() {
-    this.wishlistService.clearWishlist().subscribe({
+    const sub = this.wishlistService.clearWishlist().subscribe({
       next: (res) => {
         this.wishlist.set(res.wishlist.products);
-        this.wishlistService['wishlistItems'].set(res.wishlist.products);
+        this.wishlistService.setWishlist(res.wishlist.products);
       },
       error: (err) => console.log(err),
     });
+
+    this.wishlistSubscriptions.add(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.wishlistSubscriptions.unsubscribe();
   }
 
   addToCart() {
-    //
+    // i'll do it when cart logic merged
   }
 }
