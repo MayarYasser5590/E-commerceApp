@@ -9,6 +9,16 @@ export interface WishlistProduct {
   rateAvg: number;
 }
 
+export interface WishlistToggleProduct {
+  _id: string;
+  title: string;
+  imgCover: string;
+  price: number;
+  priceAfterDiscount: number;
+  rateAvg: number;
+  discount?: number;
+}
+
 export interface WishlistResponse {
   message: string;
   count: number;

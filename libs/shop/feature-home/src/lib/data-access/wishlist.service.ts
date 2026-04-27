@@ -3,9 +3,13 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
 import {
+  BaseProduct,
   CheckWishlistResponse,
+  ProductData,
+  RelatedProduct,
   WishlistProduct,
   WishlistResponse,
+  WishlistToggleProduct,
 } from '@shop-workspace/shared-types';
 
 @Injectable({
@@ -66,7 +70,7 @@ export class WishlistService {
     this.wishlistItems.set(products);
   }
 
-  toggle(product: any) {
+  toggle(product: WishlistToggleProduct) {
     // check if product exist
     const exists = this.wishlistIds().has(product._id);
     // update items in UI
@@ -84,7 +88,7 @@ export class WishlistService {
           imgCover: product.imgCover,
           price: product.price,
           priceAfterDiscount: product.priceAfterDiscount,
-          discount: product.discount,
+          discount: product.discount ?? 0,
           rateAvg: product.rateAvg,
         },
       ]);
