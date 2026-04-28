@@ -1,22 +1,30 @@
-<div class="flex w-full min-w-0 flex-col gap-12">
-  <lib-features-bar-section></lib-features-bar-section>
-  <lib-special-gifts-section></lib-special-gifts-section>
+<div class="home-shell">
+  <div class="flex w-full min-w-0 flex-col gap-12">
+    <lib-special-gifts-section></lib-special-gifts-section>
 
-  <lib-best-seller-section-feature [bestSellers]="bestSellers()">
-  </lib-best-seller-section-feature>
+    <lib-features-bar-section></lib-features-bar-section>
 
-  <lib-most-popular-organism
-    [products]="filteredProducts()"
-    [occasions]="occasions()"
-    [activeOccasionId]="activeOccasionId()"
-    (occasionChanged)="onOccasionChanged($event)"
-  ></lib-most-popular-organism>
+    <lib-best-seller-section-feature
+      [bestSellers]="bestSellers()"
+      (toggleWishlist)="onToggleWishlist($event)"
+      [isInWishlist]="isInWishlist.bind(this)"
+    ></lib-best-seller-section-feature>
 
-  <lib-about-us-section></lib-about-us-section>
+    <lib-most-popular-organism
+      [products]="filteredProducts()"
+      [occasions]="occasions()"
+      [activeOccasionId]="activeOccasionId()"
+      (occasionChanged)="onOccasionChanged($event)"
+      (toggleWishlist)="onToggleWishlist($event)"
+      [isInWishlist]="isInWishlist.bind(this)"
+    ></lib-most-popular-organism>
 
-  <lib-gallery-organism></lib-gallery-organism>
+    <lib-about-us-section></lib-about-us-section>
 
-  <lib-testimonials-section></lib-testimonials-section>
-  
-  <lib-trusted-by-section></lib-trusted-by-section>
+    <lib-gallery-organism></lib-gallery-organism>
+
+    <lib-testimonials-section></lib-testimonials-section>
+
+    <lib-trusted-by-section></lib-trusted-by-section>
+  </div>
 </div>
