@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { ProductData } from '@shop-workspace/shared-types';
 import { LibButton } from '@shop-workspace/shared-ui';
 import {
@@ -7,6 +7,7 @@ import {
   Star,
   HeartPlus,
   Package,
+  HeartMinus,
 } from 'lucide-angular';
 import { CartUi } from '../../../../cart/data-access/cart.ui';
 
@@ -22,11 +23,15 @@ export class DetailsSection {
   @Input() productId!: string | null;
   @Input() product!: ProductData;
 
+  @Input() isInWishlistFn!: (id: string) => boolean;
+  toggleWishlist = output<ProductData>();
+
   icons = {
     ShoppingCart,
     Star,
     HeartPlus,
     Package,
+    HeartMinus,
   };
 
   selectedImage!: string;
@@ -39,9 +44,10 @@ export class DetailsSection {
     return Math.max(this.product.quantity, 0);
   }
 
-  addToWishlist() {
-    console.log('wishlist');
+  onToggleWishlist() {
+    this.toggleWishlist.emit(this.product);
   }
+
   addToCart() {
     this.cart.addItem(this.product);
   }

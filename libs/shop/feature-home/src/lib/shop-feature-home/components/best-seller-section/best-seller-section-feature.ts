@@ -22,6 +22,8 @@ import { LibButton } from '@shop-workspace/shared-ui';
 export class BestSellerSectionFeature {
   bestSellers = input<ProductData[]>([]);
   productClicked = output<ProductData>();
+  isInWishlist = input<(id: string) => boolean>(() => false);
+  toggleWishlist = output<ProductData>();
 
   responsiveOptions = [
     {

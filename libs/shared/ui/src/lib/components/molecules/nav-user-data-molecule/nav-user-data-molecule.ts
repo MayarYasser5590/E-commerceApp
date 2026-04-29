@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   LucideAngularModule,
   Heart,
@@ -6,7 +7,6 @@ import {
   Bell,
   User,
 } from 'lucide-angular';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'lib-nav-user-data-molecule',

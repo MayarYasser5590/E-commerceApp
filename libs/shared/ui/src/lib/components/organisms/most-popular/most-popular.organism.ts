@@ -15,7 +15,7 @@ import { ProductCardMolecule } from '../../molecules/product-card/product-card.m
     ProductCardMolecule,
   ],
   template: `
-    <section class="space-y-8 rounded-[32px] px-4 py-8 md:px-8 md:py-10">
+    <section class="space-y-8 rounded-[32px] py-8 md:py-10">
       <div
         class="flex flex-col gap-30 lg:flex-row lg:items-end lg:justify-between"
       >
@@ -37,6 +37,8 @@ import { ProductCardMolecule } from '../../molecules/product-card/product-card.m
             <lib-product-card-molecule
               [product]="product"
               (addToCart)="productClicked.emit($event)"
+              [isInWishlist]="isInWishlist()(product._id)"
+              (addToWishlist)="toggleWishlist.emit(product)"
             ></lib-product-card-molecule>
           }
         </div>
@@ -57,4 +59,6 @@ export class MostPopularOrganism {
 
   occasionChanged = output<string | null>();
   productClicked = output<ProductData>();
+  isInWishlist = input<(id: string) => boolean>(() => false);
+  toggleWishlist = output<ProductData>();
 }

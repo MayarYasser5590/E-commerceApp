@@ -4,18 +4,22 @@ import { ProductData, Metadata } from '@shop-workspace/shared-types';
 import { PaginatorModule } from 'primeng/paginator';
 import { PaginatorState } from 'primeng/types/paginator';
 import { Subscription } from 'rxjs';
-import { ProductCardOrganism } from "@shop-workspace/shared-ui";
+import { ProductCardMolecule } from '@shop-workspace/shared-ui';
+import { WishlistService } from '../../data-access/wishlist.service';
+import { AppToastService } from '../../data-access/toast.service';
 import { CartUi } from '../../cart/data-access/cart.ui';
 
 @Component({
   selector: 'lib-products-feature',
-  imports: [PaginatorModule, ProductCardOrganism],
+  imports: [PaginatorModule, ProductCardMolecule],
   templateUrl: './products-feature.html',
   styleUrl: './products-feature.scss',
 })
 export class ProductsFeature implements OnInit, OnDestroy {
   private readonly productService = inject(ProductService);
   private readonly cart = inject(CartUi);
+  private wishlistService = inject(WishlistService);
+  private toast = inject(AppToastService);
   allProducts = signal<ProductData[]>([]);
   products = signal<ProductData[]>([]);
   metaData!: Metadata;
@@ -32,10 +36,6 @@ export class ProductsFeature implements OnInit, OnDestroy {
     this.page.set((event.page ?? 0) + 1);
     this.updateVisibleProducts();
   }
-
-  onToggleWishlist(product: ProductData){
-  console.log("wishlist toggle", product);
-}
 
   getAllProducts() {
     this.productsSubscribe = this.productService.getAllProducts().subscribe({
@@ -55,8 +55,24 @@ export class ProductsFeature implements OnInit, OnDestroy {
     this.products.set(this.allProducts().slice(start, end));
   }
 
-  addToCart(product: ProductData){
+  addToCart(product: ProductData) {
     this.cart.addItem(product);
+  }
+
+  onToggleWishlist(product: ProductData) {
+    const wasInWishlist = this.wishlistService.isInWishlist(product._id);
+
+    this.wishlistService.toggle(product);
+
+    if (wasInWishlist) {
+      this.toast.error('Removed from wishlist');
+    } else {
+      this.toast.success('Added to wishlist');
+    }
+  }
+
+  isInWishlist(productId: string) {
+    return this.wishlistService.isInWishlist(productId);
   }
 
   ngOnDestroy(): void {

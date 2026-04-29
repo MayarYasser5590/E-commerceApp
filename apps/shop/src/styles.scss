@@ -122,7 +122,7 @@
   color: #374151 !important;
 }
 
-/* HOVER لكل الأزرار */
+/* HOVER ALL BUTTONS */
 .p-paginator .p-paginator-pages .p-paginator-page:hover,
 .p-paginator .p-paginator-prev:hover,
 .p-paginator .p-paginator-next:hover,
@@ -142,3 +142,14 @@
   background-color: #A6252A !important;
 }
 
+.p-toast .p-toast-message {
+  @apply bg-red-900 text-white border-red-900 shadow-lg rounded-xl px-2 py-0 text-xs;
+}
+
+.p-toast .p-toast-summary {
+  @apply text-sm font-medium;
+}
+
+.p-toast .p-toast-detail {
+  @apply text-xs;
+}
