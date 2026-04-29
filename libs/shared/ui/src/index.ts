@@ -21,6 +21,7 @@ export * from './lib/components/molecules/feature-item/feature-item.molecule';
 export * from './lib/components/organisms/verify-otp-form-organism/verify-otp-form-oragnism';
 export * from './lib/components/organisms/most-popular/most-popular.organism';
 export * from './lib/components/organisms/gallery/gallery.organism';
+export * from './lib/components/organisms/footer/footer.organism';
 // Templates
 export * from './lib/components/templates/auth-layout/auth-layout';
 
