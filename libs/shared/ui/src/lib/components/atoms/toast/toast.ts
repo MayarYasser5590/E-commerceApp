@@ -10,7 +10,7 @@ import { ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
 })
 export class Toast {
   position = input<ToastPositionType>('bottom-right');
-  life = input<number>(3000);
+  life = input<number>(8000);
   private readonly messageService = inject(MessageService);
 
   private readonly severityClass: Record<string, string> = {

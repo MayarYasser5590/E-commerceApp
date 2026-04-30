@@ -6,7 +6,7 @@ import { BadgeAtom } from '../../atoms/badge/badge.atom';
 import { PriceTagAtom } from '../../atoms/price/price-tag.atom';
 import { RatingAtom } from '../../atoms/rating/rating.atom';
 import { LibButton } from '../../atoms/lib-button/lib-button';
-import { Eye, HeartPlus, ShoppingCart, HeartMinus } from 'lucide-angular';
+import { Eye, HeartPlus, ShoppingCart } from 'lucide-angular';
 
 @Component({
   selector: 'lib-product-card-molecule',
@@ -34,9 +34,8 @@ import { Eye, HeartPlus, ShoppingCart, HeartMinus } from 'lucide-angular';
             variant="custom"
             size="lg"
             ariaLabel="Open product details"
-            [icon]="wishlistIcon()"
+            [icon]="heartIcon"
             customClass="h-12 w-12 rounded-full bg-white text-[#A6252A] shadow-lg transition-transform duration-200 hover:scale-105"
-            (clicked)="toggleWishlist()"
           ></lib-button>
 
           <lib-button
@@ -96,17 +95,10 @@ export class ProductCardMolecule {
 
   addToCart = output<ProductData>();
   productClicked = output<ProductData>();
-  addToWishlist = output<ProductData>();
-  isInWishlist = input<boolean>(false);
 
   protected readonly cartIcon = ShoppingCart;
   protected readonly heartIcon = HeartPlus;
   protected readonly eyeIcon = Eye;
-  protected readonly heartMinusIcon = HeartMinus;
-
-  protected readonly wishlistIcon = computed(() =>
-    this.isInWishlist() ? this.heartMinusIcon : this.heartIcon,
-  );
 
   protected readonly badgeLabel = computed(() => {
     const item = this.product();
@@ -144,9 +136,5 @@ export class ProductCardMolecule {
 
   openProductDetails(): void {
     this.router.navigate(['/productdetails', this.product()._id]);
-  }
-
-  toggleWishlist() {
-    this.addToWishlist.emit(this.product());
   }
 }
