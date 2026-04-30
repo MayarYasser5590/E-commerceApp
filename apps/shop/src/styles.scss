@@ -141,15 +141,3 @@
 .p-paginator .p-paginator-page.p-paginator-page-selected:hover {
   background-color: #A6252A !important;
 }
-
-.p-toast .p-toast-message {
-  @apply bg-red-900 text-white border-red-900 shadow-lg rounded-xl px-2 py-0 text-xs;
-}
-
-.p-toast .p-toast-summary {
-  @apply text-sm font-medium;
-}
-
-.p-toast .p-toast-detail {
-  @apply text-xs;
-}
