@@ -7,11 +7,11 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       @for(product of products(); track product._id){
 
-      <lib-product-card-molecule
+      <lib-product-card-organism
         [product]="product"
-        (addToWishlist)="onToggleWishlist($event)"
-        [isInWishlist]="isInWishlist(product._id)"
-      ></lib-product-card-molecule>
+        (addToCart)="addToCart($event)"
+        (toggleWishlist)="onToggleWishlist($event)"
+      ></lib-product-card-organism>
 
       }
     </div>

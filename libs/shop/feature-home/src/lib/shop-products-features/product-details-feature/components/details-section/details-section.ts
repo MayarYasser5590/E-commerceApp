@@ -1,35 +1,22 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProductData } from '@shop-workspace/shared-types';
-import { LibButton } from '@shop-workspace/shared-ui';
-import {
-  LucideAngularModule,
-  ShoppingCart,
-  Star,
-  HeartPlus,
-  Package,
-  HeartMinus,
-} from 'lucide-angular';
+import { LibButton } from "@shop-workspace/shared-ui";
+import { LucideAngularModule , ShoppingCart , Star, HeartPlus , Package } from 'lucide-angular';
+
 
 @Component({
   selector: 'lib-details-section',
-  imports: [LibButton, LucideAngularModule],
+  imports: [LibButton , LucideAngularModule],
   templateUrl: './details-section.html',
   styleUrl: './details-section.scss',
 })
 export class DetailsSection {
+  
   @Input() productId!: string | null;
   @Input() product!: ProductData;
 
-  @Input() isInWishlistFn!: (id: string) => boolean;
-  toggleWishlist = output<ProductData>();
-
   icons = {
-    ShoppingCart,
-    Star,
-    HeartPlus,
-    Package,
-    HeartMinus,
-  };
+    ShoppingCart , Star , HeartPlus , Package };
 
   selectedImage!: string;
 
@@ -39,13 +26,15 @@ export class DetailsSection {
 
   get stock(): number {
     return Math.max(this.product.quantity, 0);
+}
+
+  addToWishlist(){
+    console.log("wishlist");
+    
+  }
+  addToCart(){
+    console.log("cart");
+    
   }
 
-  onToggleWishlist() {
-    this.toggleWishlist.emit(this.product);
-  }
-
-  addToCart() {
-    console.log('cart');
-  }
 }

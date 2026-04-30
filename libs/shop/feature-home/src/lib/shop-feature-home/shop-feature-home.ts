@@ -17,10 +17,8 @@ import {
   GalleryOrganism,
   MostPopularOrganism,
 } from '@shop-workspace/shared-ui';
-import { WishlistService } from '../data-access/wishlist.service';
 import { FeaturesBarSection } from './components/features-bar-section/features-bar-section';
 import { TrustedBySection } from './components/trusted-by-section/trusted-by-section';
-import { AppToastService } from '../data-access/toast.service';
 
 @Component({
   selector: 'lib-shop-feature-home',
@@ -42,8 +40,6 @@ import { AppToastService } from '../data-access/toast.service';
 export class ShopFeatureHome implements OnInit {
   private readonly homeService = inject(HomeService);
   private readonly destroyRef = inject(DestroyRef);
-  private wishlistService = inject(WishlistService);
-  private toast = inject(AppToastService);
 
   products = signal<ProductData[]>([]);
   bestSellers = signal<ProductData[]>([]);
@@ -92,21 +88,5 @@ export class ShopFeatureHome implements OnInit {
     occasionId: string,
   ): boolean {
     return product.occasion === occasionId;
-  }
-
-  isInWishlist(productId: string): boolean {
-    return this.wishlistService.isInWishlist(productId);
-  }
-
-  onToggleWishlist(product: ProductData) {
-    const wasInWishlist = this.wishlistService.isInWishlist(product._id);
-
-    this.wishlistService.toggle(product);
-
-    if (wasInWishlist) {
-      this.toast.error('Removed from wishlist');
-    } else {
-      this.toast.success('Added to wishlist');
-    }
   }
 }

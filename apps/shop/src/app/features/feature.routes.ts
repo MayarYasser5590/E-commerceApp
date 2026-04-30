@@ -23,17 +23,12 @@ export const featureRoutes: Routes = [
       },
       {
         path: 'productdetails/:id',
+        canActivate: [guestGuard],
         loadComponent: () =>
           import(
             './products/pages/product-details-page/product-details-pages'
           ).then((m) => m.ProductDetailsPages),
         title: 'Product Details',
-      },
-      {
-        path: 'wishlist',
-        loadComponent: () =>
-          import('./wishlist/wishlist-page').then((m) => m.WishlistPage),
-        title: 'Your Wishlist',
       },
     ],
   },

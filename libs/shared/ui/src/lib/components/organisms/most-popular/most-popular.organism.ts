@@ -37,8 +37,6 @@ import { ProductCardMolecule } from '../../molecules/product-card/product-card.m
             <lib-product-card-molecule
               [product]="product"
               (addToCart)="productClicked.emit($event)"
-              [isInWishlist]="isInWishlist()(product._id)"
-              (addToWishlist)="toggleWishlist.emit(product)"
             ></lib-product-card-molecule>
           }
         </div>
@@ -59,6 +57,4 @@ export class MostPopularOrganism {
 
   occasionChanged = output<string | null>();
   productClicked = output<ProductData>();
-  isInWishlist = input<(id: string) => boolean>(() => false);
-  toggleWishlist = output<ProductData>();
 }

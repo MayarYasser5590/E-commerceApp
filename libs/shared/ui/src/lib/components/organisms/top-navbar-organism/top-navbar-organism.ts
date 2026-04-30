@@ -31,7 +31,6 @@ import { RouterLink } from '@angular/router';
 export class TopNavbarOrganism {
   @Input() isAuthenticated = false;
   @Input() user: any;
-  @Input() favCount = 0;
   @Output() logout = new EventEmitter<void>();
   private themeService = inject(ThemeService);
 
