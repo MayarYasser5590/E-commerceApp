@@ -21,6 +21,7 @@ import { AuthenticatedMenuMolecule } from '../../molecules/authenticated-menu-mo
 import { ThemeService } from '@shop-workspace/shared-util';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LangSwitchAtom } from '../../atoms/lang-switch-atom/lang-switch-atom';
 
 @Component({
   selector: 'lib-top-navbar-organism',
@@ -32,21 +33,17 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     AuthenticatedMenuMolecule,
     RouterLink,
     TranslateModule,
+    LangSwitchAtom,
   ],
   templateUrl: './top-navbar-organism.html',
   styleUrl: './navbar-organism.scss',
   standalone: true,
 })
-export class TopNavbarOrganism implements OnInit {
-  ngOnInit() {
-    this.translate.use('en');
-  }
-
+export class TopNavbarOrganism {
   @Input() isAuthenticated = false;
   @Input() user: any;
   @Output() logout = new EventEmitter<void>();
   private themeService = inject(ThemeService);
-  translate = inject(TranslateService);
 
   icons = {
     ChevronDown,
@@ -62,11 +59,5 @@ export class TopNavbarOrganism implements OnInit {
 
   isDark() {
     return this.themeService.theme() === 'dark';
-  }
-
-  toggleLang() {
-    const newLang = this.translate.currentLang === 'ar' ? 'en' : 'ar';
-    this.translate.use(newLang);
-    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
   }
 }
