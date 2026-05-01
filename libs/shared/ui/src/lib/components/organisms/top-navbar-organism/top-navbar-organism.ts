@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   LucideAngularModule,
   ChevronDown,
@@ -13,6 +20,7 @@ import { NavUserDataMolecule } from '../../molecules/nav-user-data-molecule/nav-
 import { AuthenticatedMenuMolecule } from '../../molecules/authenticated-menu-molecule/authenticated-menu-molecule';
 import { ThemeService } from '@shop-workspace/shared-util';
 import { RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-top-navbar-organism',
@@ -23,16 +31,22 @@ import { RouterLink } from '@angular/router';
     NavUserDataMolecule,
     AuthenticatedMenuMolecule,
     RouterLink,
+    TranslateModule,
   ],
   templateUrl: './top-navbar-organism.html',
   styleUrl: './navbar-organism.scss',
   standalone: true,
 })
-export class TopNavbarOrganism {
+export class TopNavbarOrganism implements OnInit {
+  ngOnInit() {
+    this.translate.use('en');
+  }
+
   @Input() isAuthenticated = false;
   @Input() user: any;
   @Output() logout = new EventEmitter<void>();
   private themeService = inject(ThemeService);
+  translate = inject(TranslateService);
 
   icons = {
     ChevronDown,
@@ -48,5 +62,11 @@ export class TopNavbarOrganism {
 
   isDark() {
     return this.themeService.theme() === 'dark';
+  }
+
+  toggleLang() {
+    const newLang = this.translate.currentLang === 'ar' ? 'en' : 'ar';
+    this.translate.use(newLang);
+    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
   }
 }
