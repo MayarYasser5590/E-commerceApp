@@ -3,17 +3,20 @@ import { ProductService } from '../../data-access/product.service';
 import { ProductData, Metadata } from '@shop-workspace/shared-types';
 import { PaginatorModule } from 'primeng/paginator';
 import { Subscription } from 'rxjs';
-import { ProductCardOrganism } from "@shop-workspace/shared-ui";
-
+import { ProductCardMolecule } from '@shop-workspace/shared-ui';
+import { WishlistService } from '../../data-access/wishlist.service';
+import { AppToastService } from '../../data-access/toast.service';
 
 @Component({
   selector: 'lib-products-feature',
-  imports: [PaginatorModule, ProductCardOrganism],
+  imports: [PaginatorModule, ProductCardMolecule],
   templateUrl: './products-feature.html',
   styleUrl: './products-feature.scss',
 })
 export class ProductsFeature implements OnInit, OnDestroy {
   private readonly productService = inject(ProductService);
+  private wishlistService = inject(WishlistService);
+  private toast = inject(AppToastService);
   allProducts = signal<ProductData[]>([]);
   products = signal<ProductData[]>([]);
   metaData!: Metadata;
@@ -26,18 +29,13 @@ export class ProductsFeature implements OnInit, OnDestroy {
     this.getAllProducts();
   }
 
-onPageChange(event: any) {
-  this.page.set(event.page + 1);
-  this.updateVisibleProducts();
-}
+  onPageChange(event: any) {
+    this.page.set(event.page + 1);
+    this.updateVisibleProducts();
+  }
 
-  onToggleWishlist(product: ProductData){
-  console.log("wishlist toggle", product);
-}
- 
-getAllProducts() {
-  this.productsSubscribe =
-    this.productService.getAllProducts().subscribe({
+  getAllProducts() {
+    this.productsSubscribe = this.productService.getAllProducts().subscribe({
       next: (res) => {
         this.allProducts.set(res.products);
 
@@ -46,17 +44,28 @@ getAllProducts() {
       },
       error: (err) => console.log(err),
     });
-}
-
+  }
 
   updateVisibleProducts() {
-  const start = (this.page() - 1) * this.rows;
-  const end = start + this.rows;
-  this.products.set(this.allProducts().slice(start, end));
-}
+    const start = (this.page() - 1) * this.rows;
+    const end = start + this.rows;
+    this.products.set(this.allProducts().slice(start, end));
+  }
 
-  addToCart(product: ProductData){
-    console.log("add to cart", product);
+  onToggleWishlist(product: ProductData) {
+    const wasInWishlist = this.wishlistService.isInWishlist(product._id);
+
+    this.wishlistService.toggle(product);
+
+    if (wasInWishlist) {
+      this.toast.error('Removed from wishlist');
+    } else {
+      this.toast.success('Added to wishlist');
+    }
+  }
+
+  isInWishlist(productId: string) {
+    return this.wishlistService.isInWishlist(productId);
   }
 
   ngOnDestroy(): void {
