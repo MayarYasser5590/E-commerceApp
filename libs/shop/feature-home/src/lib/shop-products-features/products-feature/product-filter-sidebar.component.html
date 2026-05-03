@@ -1,0 +1,196 @@
+<div
+  class="fixed inset-0 z-40 bg-black/35 transition-opacity lg:hidden"
+  [class.opacity-100]="isOpen()"
+  [class.pointer-events-auto]="isOpen()"
+  [class.opacity-0]="!isOpen()"
+  [class.pointer-events-none]="!isOpen()"
+  (click)="closeFilters.emit()"
+></div>
+
+<aside
+  class="fixed inset-y-0 start-0 z-50 w-[18rem] max-w-[86vw] overflow-y-auto border-e border-[#F2DCDD] bg-white p-4 shadow-xl transition-transform duration-200 lg:sticky lg:top-24 lg:z-auto lg:max-h-[calc(100vh-7rem)] lg:w-full lg:translate-x-0 lg:border lg:shadow-sm"
+  [class.translate-x-0]="isOpen()"
+  [class.-translate-x-full]="!isOpen()"
+  aria-label="Product filters"
+>
+  <div class="mb-5 flex items-center justify-between">
+    <div class="flex items-center gap-2 text-sm font-semibold text-[#741C21]">
+      <lucide-icon [name]="icons.SlidersHorizontal" size="16"></lucide-icon>
+      <span>Filters</span>
+    </div>
+
+    <button
+      type="button"
+      class="grid size-8 place-items-center rounded-full text-[#741C21] transition hover:bg-[#FBEAEA] lg:hidden"
+      aria-label="Close filters"
+      (click)="closeFilters.emit()"
+    >
+      <lucide-icon [name]="icons.X" size="18"></lucide-icon>
+    </button>
+  </div>
+
+  <section class="border-b border-[#F2DCDD] pb-5">
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <h2 class="text-sm font-semibold text-[#2F1A1B]">Category</h2>
+      <button
+        type="button"
+        class="text-xs font-medium text-[#A6252A] transition hover:text-[#741C21]"
+        (click)="resetFilterGroup('category')"
+      >
+        x Reset
+      </button>
+    </div>
+
+    <div class="space-y-2">
+      @for (category of categories(); track category.value) {
+        <button
+          type="button"
+          class="flex w-full items-center justify-between gap-3 rounded-md border px-3 py-2 text-start text-sm transition"
+          [class.border-[#A6252A]]="isCategorySelected(category.value)"
+          [class.bg-[#FBEAEA]]="isCategorySelected(category.value)"
+          [class.text-[#741C21]]="isCategorySelected(category.value)"
+          [class.border-[#E5E7EB]]="!isCategorySelected(category.value)"
+          [class.bg-[#F5F5F5]]="!isCategorySelected(category.value)"
+          [class.text-[#2F1A1B]]="!isCategorySelected(category.value)"
+          (click)="toggleCategory(category)"
+        >
+          <span class="min-w-0 truncate">{{ category.label }}</span>
+          @if (category.count !== undefined) {
+            <span class="shrink-0 text-xs text-[#7A6A6B]">{{
+              category.count
+            }}</span>
+          }
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="border-b border-[#F2DCDD] py-5">
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <h2 class="text-sm font-semibold text-[#2F1A1B]">Occasion</h2>
+      <button
+        type="button"
+        class="text-xs font-medium text-[#A6252A] transition hover:text-[#741C21]"
+        (click)="resetFilterGroup('occasion')"
+      >
+        x Reset
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2">
+      @for (occasion of occasions(); track occasion.value) {
+        <button
+          type="button"
+          class="min-h-14 rounded-md border px-2 py-3 text-center text-xs font-semibold transition"
+          [class.border-[#A6252A]]="isOccasionSelected(occasion.value)"
+          [class.bg-[#741C21]]="isOccasionSelected(occasion.value)"
+          [class.text-white]="isOccasionSelected(occasion.value)"
+          [class.border-[#E5E7EB]]="!isOccasionSelected(occasion.value)"
+          [class.bg-[#F5F5F5]]="!isOccasionSelected(occasion.value)"
+          [class.text-[#2F1A1B]]="!isOccasionSelected(occasion.value)"
+          (click)="toggleOccasion(occasion)"
+        >
+          <span class="line-clamp-2">{{ occasion.label }}</span>
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="border-b border-[#F2DCDD] py-5">
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <h2 class="text-sm font-semibold text-[#2F1A1B]">Rating</h2>
+      <button
+        type="button"
+        class="text-xs font-medium text-[#A6252A] transition hover:text-[#741C21]"
+        (click)="resetFilterGroup('rating')"
+      >
+        x Reset
+      </button>
+    </div>
+
+    <div class="space-y-2">
+      @for (rating of ratingOptions(); track rating) {
+        <button
+          type="button"
+          class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start transition hover:bg-[#FFF7E6]"
+          [attr.aria-pressed]="isRatingSelected(rating)"
+          (click)="toggleRating(rating)"
+        >
+          <span
+            class="grid size-4 place-items-center rounded border"
+            [class.border-[#A6252A]]="isRatingSelected(rating)"
+            [class.bg-[#A6252A]]="isRatingSelected(rating)"
+            [class.border-[#D1D5DB]]="!isRatingSelected(rating)"
+          >
+            @if (isRatingSelected(rating)) {
+              <span class="size-1.5 rounded-full bg-white"></span>
+            }
+          </span>
+          <span class="text-[#FBA707]" aria-hidden="true">
+            @for (star of ratingOptions(); track star) {
+              @if (star <= rating) {
+                <span>&#9733;</span>
+              } @else {
+                <span>&#9734;</span>
+              }
+            }
+          </span>
+          <span class="sr-only">{{ rating }} stars and up</span>
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <h2 class="text-sm font-semibold text-[#2F1A1B]">Price</h2>
+      <button
+        type="button"
+        class="text-xs font-medium text-[#A6252A] transition hover:text-[#741C21]"
+        (click)="resetFilterGroup('price')"
+      >
+        x Reset
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <label class="space-y-1 text-xs text-[#574546]">
+        <span>from</span>
+        <input
+          type="number"
+          inputmode="numeric"
+          class="h-10 w-full rounded-md border border-[#E5E7EB] bg-white px-3 text-sm text-[#2F1A1B] outline-none transition focus:border-[#A6252A] focus:ring-2 focus:ring-[#F2DCDD]"
+          [min]="priceRange().min ?? 0"
+          [max]="priceRange().max ?? null"
+          [value]="selectedFilters().price.min ?? ''"
+          [placeholder]="(priceRange().min ?? 0).toString()"
+          (input)="updatePriceRange('min', $event)"
+        />
+      </label>
+
+      <label class="space-y-1 text-xs text-[#574546]">
+        <span>to</span>
+        <input
+          type="number"
+          inputmode="numeric"
+          class="h-10 w-full rounded-md border border-[#E5E7EB] bg-white px-3 text-sm text-[#2F1A1B] outline-none transition focus:border-[#A6252A] focus:ring-2 focus:ring-[#F2DCDD]"
+          [min]="priceRange().min ?? 0"
+          [max]="priceRange().max ?? null"
+          [value]="selectedFilters().price.max ?? ''"
+          [placeholder]="(priceRange().max ?? 0).toString()"
+          (input)="updatePriceRange('max', $event)"
+        />
+      </label>
+    </div>
+  </section>
+
+  <button
+    type="button"
+    class="mt-1 flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#FBEAEA] text-sm font-semibold text-[#A6252A] transition hover:bg-[#F2DCDD] disabled:cursor-not-allowed disabled:opacity-50"
+    [disabled]="!hasActiveFilters()"
+    (click)="resetAllFilters()"
+  >
+    <lucide-icon [name]="icons.RotateCcw" size="16"></lucide-icon>
+    <span>Reset All</span>
+  </button>
+</aside>
