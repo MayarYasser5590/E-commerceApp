@@ -30,6 +30,12 @@ export const featureRoutes: Routes = [
           ).then((m) => m.ProductDetailsPages),
         title: 'Product Details',
       },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./orders/orders-page').then((m) => m.OrderPageComponent),
+        title: 'Orders',
+      },
     ],
   },
 ];

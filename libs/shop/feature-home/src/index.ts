@@ -13,4 +13,8 @@ export * from './lib/shop-feature-home/components/best-seller-section/best-selle
 export * from './lib/shop-feature-home/components/about-us-section/about-us-section';
 export * from './lib/shop-feature-home/components/features-bar-section/features-bar-section';
 export * from './lib/shop-feature-home/components/trusted-by-section/trusted-by-section';
-export * from './lib/components/home/special-gifts-section/special-gifts-section'
+export * from './lib/components/home/special-gifts-section/special-gifts-section';
+
+export * from './lib/shop-check-out-feature/components/shop-shipping-address-section/shop-shipping-address-section';
+export * from './lib/shop-check-out-feature/components/shop-payment-method-section/shop-payment-method-section';
+export * from './lib/shop-orders-feature//shop-orders-feature';

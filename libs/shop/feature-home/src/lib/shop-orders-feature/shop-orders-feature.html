@@ -1,0 +1,133 @@
+<div class="max-w-6xl mx-auto space-y-6">
+  <h1 class="text-2xl font-bold text-white mb-4">Orders</h1>
+
+  @for (order of orders(); track order._id) {
+  <div class="rounded-xl overflow-hidden bg-white shadow-sm">
+    <!-- HEADER -->
+    <div
+      class="bg-[#A61E22] text-white flex justify-between items-center px-5 py-3"
+    >
+      <span class="font-semibold text-lg">
+        Order #{{ order.orderNumber }}
+      </span>
+
+      <span class="text-sm opacity-90">
+        Created in: {{ order.createdAt | date:'d MMMM, y, h:mm a' }}
+      </span>
+    </div>
+
+    <!-- BODY -->
+    <div class="p-5 text-[#27272A] bg-gray-100">
+      <!-- Total + Status -->
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center gap-3">
+          <span class="text-gray-600">Total Price:</span>
+
+          <span class="text-2xl font-bold text-black">
+            {{ order.totalPrice | number }} EGP
+          </span>
+
+          @if(order.isPaid) {
+          <span
+            class="bg-green-500 text-white text-xs px-3 py-1 rounded-full flex items-center gap-1"
+          >
+            ✔ Paid
+          </span>
+          }
+        </div>
+
+        <!-- STATUS -->
+        <p class="text-[#27272A] font-semibold">
+          status :
+          <span
+            class="text-xs px-3 py-1 rounded-full font-medium"
+            [class]="getStatusClasses(order.state)"
+          >
+            {{ order.state }}
+          </span>
+        </p>
+      </div>
+
+      <!-- Payment -->
+      <div class="text-sm text-[#27272A] mb-1 flex gap-2">
+        <span class="font-medium">Payment Method:</span>
+        <span>
+          {{ order.paymentType === 'cash' ? 'Cash' : 'Credit Card' }}
+        </span>
+      </div>
+
+      <!-- Delivery -->
+      <div class="text-sm flex gap-2">
+        <span class="font-medium text-[#27272A]">Delivery Status:</span>
+
+        <span
+          [class.text-yellow-500]="!order.isDelivered && order.state !== 'canceled'"
+          [class.text-green-600]="order.isDelivered"
+          [class.text-red-500]="order.state === 'canceled'"
+        >
+          {{ order.state === 'canceled' ? 'Canceled' : order.isDelivered ?
+          'Delivered' : 'Pending' }}
+        </span>
+      </div>
+      <!-- ITEMS -->
+      <span class="font-medium text-[#27272A] text-sm">Order Items:</span>
+
+      <div class="bg-white p-4 rounded-xl border border-gray-100">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          @for (item of (isExpanded(order._id) ? order.orderItems :
+          order.orderItems.slice(0,2)); track item._id) {
+
+          <div class="flex gap-4 bg-gray-50 p-3 rounded-lg shadow-sm">
+            <img
+              [src]="item.product.imgCover"
+              [alt]="item.product.title"
+              class="w-20 h-20 object-cover rounded-md"
+            />
+
+            <div class="flex flex-col justify-between">
+              <h4 class="font-medium text-sm text-[#7A1C1C]">
+                {{ item.product.title }}
+              </h4>
+
+              <p class="text-xs text-gray-500 flex items-center gap-1">
+                <lucide-icon
+                  [name]="icons.Star"
+                  class="w-4 h-4 text-yellow-500"
+                ></lucide-icon>
+                Rating: 5/5
+                <span class="text-blue-500">(4 ratings)</span>
+              </p>
+
+              <p class="text-sm font-semibold">
+                <span class="text-red-400">(x{{ item.quantity }})</span>
+                {{ item.price }} EGP
+              </p>
+            </div>
+          </div>
+
+          }
+        </div>
+
+        <!-- Show All -->
+        @if (order.orderItems.length > 2) {
+        <button
+          class="group mx-auto mt-4 flex flex-col items-center text-[#A6252A] text-sm font-medium bg-transparent border-none outline-none"
+          (click)="toggle(order._id)"
+        >
+          <span class="group-hover:underline">
+            {{ isExpanded(order._id) ? 'Show Less' : 'Show All' }}
+          </span>
+
+          <span
+            class="transition-transform duration-200"
+            [class.rotate-180]="isExpanded(order._id)"
+          >
+            ⌄
+          </span>
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</div>

@@ -1,0 +1,74 @@
+<div class="w-full max-w-5xl mx-auto">
+  <!-- Progress -->
+  <lib-progress-bar-molecule [step]="2"></lib-progress-bar-molecule>
+  <div class="flex items-center gap-3 mb-6">
+    <!-- Back -->
+    <lib-button
+      label="← Back"
+      variant="custom"
+      (clicked)="goBack()"
+      [customClass]="'bg-gray-50 text-black border border-[#D4D4D8] px-4 py-2 rounded-lg'"
+    ></lib-button>
+
+    <!-- Title -->
+    <h2 class="text-[30px] font-semibold text-[#27272A]">Payment Method</h2>
+  </div>
+
+  <!-- Payment Options -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Cash -->
+    <button
+      type="button"
+      (click)="select('cash')"
+      class="p-6 rounded-xl border text-center transition-all flex flex-col justify-center items-center cursor-pointer"
+      [class.bg-[#A6252A]]="selectedMethod() === 'cash'"
+      [class.text-white]="selectedMethod() === 'cash'"
+      [class.border-[#A6252A]]="selectedMethod() === 'cash'"
+      [class.bg-white]="selectedMethod() !== 'cash'"
+      [class.text-[#27272A]]="selectedMethod() !== 'cash'"
+      [class.border-[#D4D4D8]]="selectedMethod() !== 'cash'"
+    >
+      <div class="text-6xl mb-4 max-h-[195px] max-w-[195px] mb-4">
+        <img class="w-full" src="/assets/checkout/cash.svg" alt="Cash method" />
+      </div>
+
+      <h3 class="text-lg font-semibold">Cash on Delivery</h3>
+      <p class="text-sm mt-2 text-[#71717A]">
+        You'll pay in cash when your order is delivered.
+      </p>
+    </button>
+
+    <!-- Credit Card -->
+    <button
+      type="button"
+      (click)="select('card')"
+      class="p-6 rounded-xl border text-center transition-all flex flex-col justify-center items-center cursor-pointer"
+      [class.bg-[#A6252A]]="selectedMethod() === 'card'"
+      [class.text-white]="selectedMethod() === 'card'"
+      [class.border-[#A6252A]]="selectedMethod() === 'card'"
+      [class.bg-gray-100]="selectedMethod() !== 'card'"
+      [class.text-[#A6252A]]="selectedMethod() !== 'card'"
+      [class.border-[#D4D4D8]]="selectedMethod() !== 'card'"
+    >
+      <div class="text-6xl max-h-[195px] max-w-[195px] mb-4">
+        <img class="w-full" src="/assets/checkout/Icon.svg" alt="Card method" />
+      </div>
+
+      <h3 class="text-lg font-semibold">Credit Card</h3>
+      <p class="text-sm mt-2 text-[#71717A]">
+        You’ll be securely redirected to Stripe to complete your payment.
+      </p>
+    </button>
+  </div>
+
+  <!-- Checkout -->
+  <div class="flex justify-end mt-8">
+    <lib-button
+      label="Checkout →"
+      variant="custom"
+      [disabled]="!selectedMethod()"
+      (clicked)="onCheckout()"
+      [customClass]="'bg-[#A6252A] text-white px-6 py-2 rounded-lg disabled:bg-gray-400'"
+    ></lib-button>
+  </div>
+</div>

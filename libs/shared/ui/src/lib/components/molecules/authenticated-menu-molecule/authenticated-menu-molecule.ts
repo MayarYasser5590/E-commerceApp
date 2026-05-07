@@ -48,7 +48,7 @@ export class AuthenticatedMenuMolecule {
     {
       icon: ScrollText,
       label: 'My Orders',
-      // routerLink: '/orders'
+      routerLink: '/orders',
     },
     {
       icon: Settings,
