@@ -17,6 +17,7 @@ export * from './lib/components/molecules/phone-input/phone-input';
 export * from './lib/components/molecules/product-card/product-card.molecule';
 export * from './lib/components/molecules/filter-tabs/filter-tabs.molecule';
 export * from './lib/components/molecules/feature-item/feature-item.molecule';
+export * from './lib/components/molecules/avatar-upload/avatar-upload';
 // Organisms
 export * from './lib/components/organisms/verify-otp-form-organism/verify-otp-form-oragnism';
 export * from './lib/components/organisms/most-popular/most-popular.organism';
