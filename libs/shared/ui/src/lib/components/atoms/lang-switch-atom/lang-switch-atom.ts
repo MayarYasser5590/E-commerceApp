@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DOCUMENT, inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LangSwitchAtom implements OnInit {
   private translate = inject(TranslateService);
+  private document = inject(DOCUMENT);
 
   get currentLang() {
     return this.translate.currentLang;
@@ -20,14 +21,14 @@ export class LangSwitchAtom implements OnInit {
   ngOnInit() {
     const savedLang = localStorage.getItem('lang') || 'en';
     this.translate.use(savedLang);
-    document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+    this.document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
   }
 
   toggleLang() {
     const newLang = this.currentLang === 'ar' ? 'en' : 'ar';
 
     this.translate.use(newLang);
-    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+    this.document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
     localStorage.setItem('lang', newLang);
   }
 }
