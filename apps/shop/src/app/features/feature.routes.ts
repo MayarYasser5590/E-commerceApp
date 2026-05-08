@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { guestGuard } from '@shop-workspace/shared-auth';
+import { authGuard, guestGuard } from '@shop-workspace/shared-auth';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout';
 
 export const featureRoutes: Routes = [
@@ -29,6 +29,33 @@ export const featureRoutes: Routes = [
             './products/pages/product-details-page/product-details-pages'
           ).then((m) => m.ProductDetailsPages),
         title: 'Product Details',
+      },
+      {
+        path: 'profile',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./profile/pages/profile-layout/profile-layout').then(
+            (m) => m.ProfileLayout,
+          ),
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'account' },
+          {
+            path: 'account',
+            loadComponent: () =>
+              import('./profile/pages/account-page/account-page').then(
+                (m) => m.AccountPage,
+              ),
+            title: 'My Account',
+          },
+          {
+            path: 'change-password',
+            loadComponent: () =>
+              import(
+                './profile/pages/change-password-page/change-password-page'
+              ).then((m) => m.ChangePasswordPage),
+            title: 'Change Password',
+          },
+        ],
       },
     ],
   },

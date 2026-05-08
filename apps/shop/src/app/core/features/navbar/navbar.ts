@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class Navbar {
   private authService = inject(AuthService);
-  isAuthenticated = this.authService.isAuthenticated();
+  isAuthenticated = this.authService.isAuthenticated;
   private readonly router = inject(Router);
 
   user = this.authService.currentUser;
