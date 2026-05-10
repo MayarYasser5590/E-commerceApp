@@ -1,14 +1,18 @@
 <div class="flex w-full min-w-0 flex-col gap-12">
   <lib-special-gifts-section></lib-special-gifts-section>
   <lib-features-bar-section></lib-features-bar-section>
-  <lib-best-seller-section-feature [bestSellers]="bestSellers()">
-  </lib-best-seller-section-feature>
+
+  <lib-best-seller-section-feature
+    [bestSellers]="bestSellers()"
+    (productClicked)="addToCart($event)"
+  ></lib-best-seller-section-feature>
 
   <lib-most-popular-organism
     [products]="filteredProducts()"
     [occasions]="occasions()"
     [activeOccasionId]="activeOccasionId()"
     (occasionChanged)="onOccasionChanged($event)"
+    (productClicked)="addToCart($event)"
   ></lib-most-popular-organism>
 
   <lib-about-us-section></lib-about-us-section>

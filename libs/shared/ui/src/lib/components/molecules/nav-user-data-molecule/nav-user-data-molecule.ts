@@ -1,9 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { LucideAngularModule , Heart , ShoppingCart  , Bell , User } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Heart,
+  ShoppingCart,
+  Bell,
+  User,
+} from 'lucide-angular';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'lib-nav-user-data-molecule',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, RouterLink],
   templateUrl: './nav-user-data-molecule.html',
   styleUrl: './nav-user-data-molecule.scss',
 })
@@ -13,6 +20,9 @@ export class NavUserDataMolecule {
   @Input() cartCount?: number;
 
   icons = {
-    Heart , ShoppingCart , Bell , User 
+    Heart,
+    ShoppingCart,
+    Bell,
+    User,
   };
 }

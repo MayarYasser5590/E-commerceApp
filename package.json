@@ -1,6 +1,7 @@
 {
   "name": "@shop-workspace/source",
   "version": "0.0.0",
+  "packageManager": "npm@11.6.4",
   "license": "MIT",
   "scripts": {
     "build:ui": "nx build shared-ui",

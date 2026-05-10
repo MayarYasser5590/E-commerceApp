@@ -13,4 +13,7 @@ export * from './lib/shop-feature-home/components/best-seller-section/best-selle
 export * from './lib/shop-feature-home/components/about-us-section/about-us-section';
 export * from './lib/shop-feature-home/components/features-bar-section/features-bar-section';
 export * from './lib/shop-feature-home/components/trusted-by-section/trusted-by-section';
-export * from './lib/components/home/special-gifts-section/special-gifts-section'
+export * from './lib/cart/data-access/cart-api.service';
+export * from './lib/cart/data-access/cart.ui';
+export * from './lib/cart/feature/cart-feature-page';
+export * from './lib/components/home/special-gifts-section/special-gifts-section';

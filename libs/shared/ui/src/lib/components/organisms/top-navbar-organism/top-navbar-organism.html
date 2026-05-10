@@ -37,8 +37,8 @@
       </div>
       <lib-nav-user-data-molecule
         [isAuthenticated]="true"
-        [favCount]="2"
-        [cartCount]="3"
+        [favCount]="favCount"
+        [cartCount]="cartCount"
       ></lib-nav-user-data-molecule>
     </div>
     } @if(!isAuthenticated) {
@@ -53,6 +53,7 @@
 
       <lib-nav-user-data-molecule
         [isAuthenticated]="false"
+        [cartCount]="cartCount"
       ></lib-nav-user-data-molecule>
     </div>
     }

@@ -42,6 +42,8 @@ import { LangSwitchAtom } from '../../atoms/lang-switch-atom/lang-switch-atom';
 export class TopNavbarOrganism {
   @Input() isAuthenticated = false;
   @Input() user: any;
+  @Input() cartCount = 0;
+  @Input() favCount = 0;
   @Output() logout = new EventEmitter<void>();
   private themeService = inject(ThemeService);
 

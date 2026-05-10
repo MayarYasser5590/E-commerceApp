@@ -1,4 +1,4 @@
-import { Component , input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductData } from '@shop-workspace/shared-types';
 import { CarouselModule } from 'primeng/carousel';
@@ -14,7 +14,8 @@ import {LibButton} from '@shop-workspace/shared-ui'
   styleUrls: ['./best-seller-section-feature.scss']
 })
 export class BestSellerSectionFeature {
-   bestSellers = input<ProductData[]>([]);
+  bestSellers = input<ProductData[]>([]);
+  productClicked = output<ProductData>();
 
   responsiveOptions = [
     {
