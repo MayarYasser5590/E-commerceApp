@@ -19,6 +19,7 @@ import {
 } from '@shop-workspace/shared-ui';
 import { FeaturesBarSection } from './components/features-bar-section/features-bar-section';
 import { TrustedBySection } from './components/trusted-by-section/trusted-by-section';
+import { CartUi } from '../cart/data-access/cart.ui';
 
 @Component({
   selector: 'lib-shop-feature-home',
@@ -40,6 +41,7 @@ import { TrustedBySection } from './components/trusted-by-section/trusted-by-sec
 export class ShopFeatureHome implements OnInit {
   private readonly homeService = inject(HomeService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly cart = inject(CartUi);
 
   products = signal<ProductData[]>([]);
   bestSellers = signal<ProductData[]>([]);
@@ -81,6 +83,10 @@ export class ShopFeatureHome implements OnInit {
 
   onOccasionChanged(occasionId: string | null): void {
     this.activeOccasionId.set(occasionId);
+  }
+
+  addToCart(product: ProductData): void {
+    this.cart.addItem(product);
   }
 
   private productMatchesOccasion(

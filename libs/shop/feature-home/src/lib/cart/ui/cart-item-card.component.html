@@ -1,0 +1,83 @@
+<article
+  class="grid grid-cols-[88px_1fr] gap-4 border-b border-[#F4F4F5] bg-white py-4 sm:grid-cols-[112px_1fr_auto]"
+>
+  <img
+    [src]="item().image"
+    [alt]="item().title"
+    class="h-24 w-22 rounded-md object-cover sm:h-28 sm:w-28"
+  />
+
+  <div class="min-w-0">
+    <div class="flex items-start justify-between gap-3">
+      <div class="min-w-0">
+        <h2 class="truncate text-base font-semibold text-[#27272A]">
+          {{ item().title }}
+        </h2>
+        <p class="mt-1 text-sm text-[#2563EB]">
+          Rate {{ item().rating }}/5 ({{ item().ratingCount }} ratings)
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-md bg-[#A6252A] px-3 py-2 text-xs font-medium text-white transition hover:bg-[#741C21] disabled:cursor-not-allowed disabled:opacity-60"
+        [disabled]="disabled()"
+        (click)="remove.emit(item().id)"
+        aria-label="Remove cart item"
+      >
+        <lucide-icon [name]="icons.Trash2" class="h-3.5 w-3.5"></lucide-icon>
+        Remove
+      </button>
+    </div>
+
+    <div
+      class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div class="flex items-baseline gap-2">
+        <span class="text-lg font-bold text-[#27272A]">
+          {{ item().price * item().quantity }} {{ currency() }}
+        </span>
+        @if (item().originalPrice > item().price) {
+          <span class="text-sm text-[#71717A] line-through">
+            {{ item().originalPrice * item().quantity }} {{ currency() }}
+          </span>
+        }
+      </div>
+
+      <div
+        class="grid w-44 grid-cols-[40px_1fr_40px] items-center overflow-hidden rounded-md border border-[#F4C9CC] bg-[#FEF2F2]"
+      >
+        <button
+          type="button"
+          class="grid h-10 cursor-pointer place-items-center text-[#A6252A] transition hover:bg-[#F8D7DA] disabled:cursor-not-allowed disabled:opacity-40"
+          [disabled]="disabled() || item().quantity <= 1"
+          (click)="quantityChange.emit(item().quantity - 1)"
+          aria-label="Decrease quantity"
+        >
+          <lucide-icon [name]="icons.Minus" class="h-4 w-4"></lucide-icon>
+        </button>
+
+        <input
+          class="h-10 w-full border-x border-[#F4C9CC] bg-white text-center text-sm font-medium text-[#27272A] outline-none focus:ring-2 focus:ring-[#A6252A]"
+          type="number"
+          min="1"
+          [max]="item().maxQuantity"
+          [value]="item().quantity"
+          [disabled]="disabled()"
+          (change)="onQuantityInput($event)"
+          aria-label="Item quantity"
+        />
+
+        <button
+          type="button"
+          class="grid h-10 cursor-pointer place-items-center text-[#A6252A] transition hover:bg-[#F8D7DA] disabled:cursor-not-allowed disabled:opacity-40"
+          [disabled]="disabled() || item().quantity >= item().maxQuantity"
+          (click)="quantityChange.emit(item().quantity + 1)"
+          aria-label="Increase quantity"
+        >
+          <lucide-icon [name]="icons.Plus" class="h-4 w-4"></lucide-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</article>

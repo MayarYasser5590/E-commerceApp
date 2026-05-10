@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   TopNavbarOrganism,
   MainNavbarOrganism,
@@ -6,6 +6,7 @@ import {
 } from '@shop-workspace/shared-ui';
 import { AuthService } from '@shop-workspace/shared-auth';
 import { Router } from '@angular/router';
+import { CartUi } from '@shop-workspace/shop-feature-home';
 
 @Component({
   selector: 'app-navbar',
@@ -13,12 +14,17 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
-export class Navbar {
+export class Navbar implements OnInit {
   private authService = inject(AuthService);
+  protected readonly cart = inject(CartUi);
   isAuthenticated = this.authService.isAuthenticated();
   private readonly router = inject(Router);
 
   user = this.authService.currentUser;
+
+  ngOnInit(): void {
+    this.cart.loadCart();
+  }
 
   handleLogout(toast: Toast) {
     this.authService.logout().subscribe({

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ForgotPassRequestPage } from './forgot-pass-request-page';
+import { appConfig } from '../../../app.config';
 
 describe('ForgotPassRequestPage', () => {
   let component: ForgotPassRequestPage;
@@ -8,6 +9,7 @@ describe('ForgotPassRequestPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ForgotPassRequestPage],
+      providers: appConfig.providers,
     }).compileComponents();
 
     fixture = TestBed.createComponent(ForgotPassRequestPage);
