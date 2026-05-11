@@ -10,8 +10,9 @@ import { AlarmClock, BadgeCheck, LucideAngularModule } from 'lucide-angular';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
 import { environment } from '../environments/environment';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import{errorInterceptor, jwtInterceptor} from '@shop-workspace/shared-auth'
+import { errorInterceptor, jwtInterceptor } from '@shop-workspace/shared-auth';
 import { MessageService } from 'primeng/api';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,9 @@ export const appConfig: ApplicationConfig = {
       LucideAngularModule.pick({
         AlarmClock,
         BadgeCheck,
+      }),
+      TranslateModule.forRoot({
+        defaultLanguage: 'en',
       }),
     ),
     provideRouter(appRoutes),
@@ -37,12 +41,7 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-    provideHttpClient(
-  withInterceptors([
-    jwtInterceptor,
-    errorInterceptor
-  ])
-),
+    provideHttpClient(withInterceptors([jwtInterceptor, errorInterceptor])),
     MessageService,
   ],
 };
