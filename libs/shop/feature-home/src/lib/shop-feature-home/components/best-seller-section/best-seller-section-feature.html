@@ -36,7 +36,8 @@
     <div>
       <lib-slider-organism
         [products]="bestSellers()"
-        (productClicked)="productClicked.emit($event)"
+        [isInWishlist]="isInWishlist()"
+        (toggleWishlist)="toggleWishlist.emit($event)"
       ></lib-slider-organism>
     </div>
   </div>

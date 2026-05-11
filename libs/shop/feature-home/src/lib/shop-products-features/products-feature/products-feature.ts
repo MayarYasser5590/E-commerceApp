@@ -6,16 +6,21 @@ import { PaginatorState } from 'primeng/types/paginator';
 import { Subscription } from 'rxjs';
 import { CartUi } from '../../cart/data-access/cart.ui';
 import { ProductCardOrganism } from '@shop-workspace/shared-ui';
+import { ProductCardMolecule } from '@shop-workspace/shared-ui';
+import { WishlistService } from '../../data-access/wishlist.service';
+import { AppToastService } from '../../data-access/toast.service';
 
 @Component({
   selector: 'lib-products-feature',
-  imports: [PaginatorModule, ProductCardOrganism],
+  imports: [PaginatorModule, ProductCardMolecule],
   templateUrl: './products-feature.html',
   styleUrl: './products-feature.scss',
 })
 export class ProductsFeature implements OnInit, OnDestroy {
   private readonly productService = inject(ProductService);
   private readonly cart = inject(CartUi);
+  private wishlistService = inject(WishlistService);
+  private toast = inject(AppToastService);
   allProducts = signal<ProductData[]>([]);
   products = signal<ProductData[]>([]);
   metaData!: Metadata;
@@ -34,7 +39,15 @@ export class ProductsFeature implements OnInit, OnDestroy {
   }
 
   onToggleWishlist(product: ProductData) {
-    console.log('wishlist toggle', product);
+    const wasInWishlist = this.wishlistService.isInWishlist(product._id);
+
+    this.wishlistService.toggle(product);
+
+    if (wasInWishlist) {
+      this.toast.error('Removed from wishlist');
+    } else {
+      this.toast.success('Added to wishlist');
+    }
   }
 
   getAllProducts() {
