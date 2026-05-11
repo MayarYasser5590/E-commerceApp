@@ -1,10 +1,36 @@
-import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, finalize, of, switchMap, throwError } from 'rxjs';
 import { AuthService, BaseUser, User } from '@shop-workspace/shared-auth';
-import { AvatarUpload, CustomInput, FormField, LibButton, Toast } from '@shop-workspace/shared-ui';
-import { getEmailError, getNameError } from '@shop-workspace/shared-util';
+import {
+  AvatarUpload,
+  CustomInput,
+  FormField,
+  LibButton,
+  Toast,
+} from '@shop-workspace/shared-ui';
+import {
+  egyptianPhoneValidator,
+  getApiErrorMessage,
+  getEgyptianPhoneError,
+  getEmailError,
+  getNameError,
+  toEgyptianInternationalPhone,
+  toEgyptianLocalPhone,
+} from '@shop-workspace/shared-util';
 
 type AccountForm = FormGroup<{
   firstName: FormControl<string>;
@@ -16,16 +42,30 @@ type AccountForm = FormGroup<{
 
 @Component({
   selector: 'app-account-page',
-  imports: [ReactiveFormsModule, AvatarUpload, CustomInput, FormField, LibButton, Toast],
+  imports: [
+    ReactiveFormsModule,
+    AvatarUpload,
+    CustomInput,
+    FormField,
+    LibButton,
+    Toast,
+  ],
   template: `
     <lib-toast #toast />
     @if (loadError()) {
-      <div class="mb-5 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+      <div
+        class="mb-5 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+        role="alert"
+      >
         {{ loadError() }}
       </div>
     }
 
-    <form [formGroup]="accountForm" (ngSubmit)="submit(toast)" class="flex flex-col gap-4">
+    <form
+      [formGroup]="accountForm"
+      (ngSubmit)="submit(toast)"
+      class="flex flex-col gap-4"
+    >
       <lib-avatar-upload
         [imageUrl]="profilePhoto()"
         [userName]="fullName()"
@@ -40,22 +80,62 @@ type AccountForm = FormGroup<{
 
       <div class="flex flex-col gap-2.5">
         <div class="grid gap-5 md:grid-cols-2">
-          <lib-form-field label="First name" labelClass="text-[14px] font-medium leading-normal text-[#27272a]" [error]="firstNameError" errorClass="mt-1 text-sm text-[#A6252A]">
-            <lib-custom-input formControlName="firstName" inputClass="h-[49px] w-full rounded-[10px] border border-[#d4d4d8] bg-white p-4 text-[14px] font-normal text-[#27272a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a6252a]" type="text" placeholder="First name" />
+          <lib-form-field
+            label="First name"
+            labelClass="text-[14px] font-medium leading-normal text-[#27272a]"
+            [error]="firstNameError"
+            errorClass="mt-1 text-sm text-[#A6252A]"
+          >
+            <lib-custom-input
+              formControlName="firstName"
+              inputClass="h-[49px] w-full rounded-[10px] border border-[#d4d4d8] bg-white p-4 text-[14px] font-normal text-[#27272a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a6252a]"
+              type="text"
+              placeholder="First name"
+            />
           </lib-form-field>
 
-          <lib-form-field label="Last name" labelClass="text-[14px] font-medium leading-normal text-[#27272a]" [error]="lastNameError" errorClass="mt-1 text-sm text-[#A6252A]">
-            <lib-custom-input formControlName="lastName" inputClass="h-[49px] w-full rounded-[10px] border border-[#d4d4d8] bg-white p-4 text-[14px] font-normal text-[#27272a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a6252a]" type="text" placeholder="Last name" />
+          <lib-form-field
+            label="Last name"
+            labelClass="text-[14px] font-medium leading-normal text-[#27272a]"
+            [error]="lastNameError"
+            errorClass="mt-1 text-sm text-[#A6252A]"
+          >
+            <lib-custom-input
+              formControlName="lastName"
+              inputClass="h-[49px] w-full rounded-[10px] border border-[#d4d4d8] bg-white p-4 text-[14px] font-normal text-[#27272a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a6252a]"
+              type="text"
+              placeholder="Last name"
+            />
           </lib-form-field>
         </div>
 
-        <lib-form-field label="Email" labelClass="text-[14px] font-medium leading-normal text-[#27272a]" [error]="emailError" errorClass="mt-1 text-sm text-[#A6252A]">
-          <lib-custom-input formControlName="email" inputClass="h-[49px] w-full rounded-[10px] border border-[#d4d4d8] bg-white p-4 text-[14px] font-normal text-[#27272a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a6252a]" type="email" placeholder="user@example.com" />
+        <lib-form-field
+          label="Email"
+          labelClass="text-[14px] font-medium leading-normal text-[#27272a]"
+          [error]="emailError"
+          errorClass="mt-1 text-sm text-[#A6252A]"
+        >
+          <lib-custom-input
+            formControlName="email"
+            inputClass="h-[49px] w-full rounded-[10px] border border-[#d4d4d8] bg-white p-4 text-[14px] font-normal text-[#27272a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a6252a]"
+            type="email"
+            placeholder="user@example.com"
+          />
         </lib-form-field>
 
-        <lib-form-field label="Phone" labelClass="text-[14px] font-medium leading-normal text-[#27272a]" [error]="phoneError" errorClass="mt-1 text-sm text-[#A6252A]">
-          <div class="flex h-[49px] items-center gap-2 rounded-[10px] border border-[#d4d4d8] bg-white p-4 focus-within:ring-1 focus-within:ring-[#a6252a]">
-            <span class="shrink-0 text-[14px] font-medium leading-[21px] text-[#323639]">EG(+20)</span>
+        <lib-form-field
+          label="Phone"
+          labelClass="text-[14px] font-medium leading-normal text-[#27272a]"
+          [error]="phoneError"
+          errorClass="mt-1 text-sm text-[#A6252A]"
+        >
+          <div
+            class="flex h-[49px] items-center gap-2 rounded-[10px] border border-[#d4d4d8] bg-white p-4 focus-within:ring-1 focus-within:ring-[#a6252a]"
+          >
+            <span
+              class="shrink-0 text-[14px] font-medium leading-[21px] text-[#323639]"
+              >EG(+20)</span
+            >
             <input
               formControlName="phone"
               type="tel"
@@ -65,18 +145,31 @@ type AccountForm = FormGroup<{
           </div>
         </lib-form-field>
 
-        <lib-form-field label="Gender" labelClass="text-[14px] font-medium leading-normal text-[#a1a1aa]">
-          <lib-custom-input formControlName="gender" inputClass="h-[49px] w-full rounded-[10px] border-0 bg-[#f4f4f5] p-4 text-[14px] font-normal text-[#a1a1aa] disabled:bg-[#f4f4f5] disabled:text-[#a1a1aa]" type="text" placeholder="Gender" />
+        <lib-form-field
+          label="Gender"
+          labelClass="text-[14px] font-medium leading-normal text-[#a1a1aa]"
+        >
+          <lib-custom-input
+            formControlName="gender"
+            inputClass="h-[49px] w-full rounded-[10px] border-0 bg-[#f4f4f5] p-4 text-[14px] font-normal text-[#a1a1aa] disabled:bg-[#f4f4f5] disabled:text-[#a1a1aa]"
+            type="text"
+            placeholder="Gender"
+          />
         </lib-form-field>
       </div>
 
       @if (submitError()) {
-        <div class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+        <div
+          class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+          role="alert"
+        >
           {{ submitError() }}
         </div>
       }
 
-      <div class="flex flex-col-reverse gap-3 pt-[60px] sm:flex-row sm:items-center sm:justify-between">
+      <div
+        class="flex flex-col-reverse gap-3 pt-[60px] sm:flex-row sm:items-center sm:justify-between"
+      >
         <button
           type="button"
           class="text-left text-[16px] font-medium leading-none text-[#cd2e33] hover:underline disabled:cursor-not-allowed disabled:opacity-60"
@@ -114,7 +207,9 @@ export class AccountPage implements OnInit {
   protected readonly profilePhoto = computed(() => this.user()?.photo ?? null);
   protected readonly fullName = computed(() => {
     const currentUser = this.user();
-    return currentUser ? `${currentUser.firstName} ${currentUser.lastName}`.trim() : '';
+    return currentUser
+      ? `${currentUser.firstName} ${currentUser.lastName}`.trim()
+      : '';
   });
 
   protected readonly accountForm: AccountForm = new FormGroup({
@@ -132,9 +227,12 @@ export class AccountPage implements OnInit {
     }),
     phone: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, this.egyptianPhoneValidator],
+      validators: [Validators.required, egyptianPhoneValidator],
     }),
-    gender: new FormControl({ value: '', disabled: true }, { nonNullable: true }),
+    gender: new FormControl(
+      { value: '', disabled: true },
+      { nonNullable: true },
+    ),
   });
 
   ngOnInit(): void {
@@ -158,11 +256,7 @@ export class AccountPage implements OnInit {
   }
 
   protected get phoneError(): string | null {
-    const control = this.accountForm.controls.phone;
-    if (!control.touched) return null;
-    if (control.hasError('required')) return 'Phone is required';
-    if (control.hasError('invalidPhone')) return 'Enter a valid Egyptian phone number';
-    return null;
+    return getEgyptianPhoneError(this.accountForm.controls.phone);
   }
 
   protected submit(toast: Toast): void {
@@ -178,7 +272,7 @@ export class AccountPage implements OnInit {
     const payload: Partial<BaseUser> = {
       firstName: value.firstName.trim(),
       lastName: value.lastName.trim(),
-      phone: this.toEgyptianInternationalPhone(value.phone),
+      phone: toEgyptianInternationalPhone(value.phone),
     };
     const photo = this.selectedPhoto();
     const profileChanged = this.hasEditableProfileChanges(payload);
@@ -211,13 +305,22 @@ export class AccountPage implements OnInit {
           toast.showSuccess('Profile updated successfully');
         },
         error: (error) => {
-          this.submitError.set(this.getErrorMessage(error, 'Could not update your profile. Try again later.'));
+          this.submitError.set(
+            getApiErrorMessage(
+              error,
+              'Could not update your profile. Try again later.',
+            ),
+          );
         },
       });
   }
 
   protected deleteAccount(toast: Toast): void {
-    if (!globalThis.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+    if (
+      !globalThis.confirm(
+        'Are you sure you want to delete your account? This action cannot be undone.',
+      )
+    ) {
       return;
     }
 
@@ -231,7 +334,12 @@ export class AccountPage implements OnInit {
           this.router.navigate(['/auth/register']);
         },
         error: (error) => {
-          toast.showError(this.getErrorMessage(error, 'Could not delete your account. Try again later.'));
+          toast.showError(
+            getApiErrorMessage(
+              error,
+              'Could not delete your account. Try again later.',
+            ),
+          );
         },
       });
   }
@@ -249,7 +357,9 @@ export class AccountPage implements OnInit {
       .getLoggedUserData()
       .pipe(
         catchError((error) => {
-          this.loadError.set(this.getErrorMessage(error, 'Could not load your profile.'));
+          this.loadError.set(
+            getApiErrorMessage(error, 'Could not load your profile.'),
+          );
           return throwError(() => error);
         }),
         finalize(() => this.isLoading.set(false)),
@@ -266,23 +376,10 @@ export class AccountPage implements OnInit {
       lastName: user.lastName ?? this.accountForm.controls.lastName.value,
       email: user.email ?? this.accountForm.controls.email.value,
       phone: user.phone
-        ? this.toEgyptianLocalPhone(user.phone)
+        ? toEgyptianLocalPhone(user.phone)
         : this.accountForm.controls.phone.value,
       gender: user.gender ?? this.accountForm.controls.gender.value,
     });
-  }
-
-  private egyptianPhoneValidator(control: AbstractControl<string>): { invalidPhone: true } | null {
-    const localPhone = AccountPage.toEgyptianLocalPhoneValue(control.value);
-    return /^1[0125]\d{8}$/.test(localPhone) ? null : { invalidPhone: true };
-  }
-
-  private toEgyptianInternationalPhone(phone: string | null | undefined): string {
-    return `+20${AccountPage.toEgyptianLocalPhoneValue(phone)}`;
-  }
-
-  private toEgyptianLocalPhone(phone: string | null | undefined): string {
-    return AccountPage.toEgyptianLocalPhoneValue(phone);
   }
 
   private hasEditableProfileChanges(payload: Partial<BaseUser>): boolean {
@@ -297,31 +394,5 @@ export class AccountPage implements OnInit {
       payload.lastName !== currentUser.lastName ||
       payload.phone !== currentUser.phone
     );
-  }
-
-  private static toEgyptianLocalPhoneValue(phone: string | null | undefined): string {
-    const digits = (phone ?? '').replace(/\D/g, '');
-
-    if (digits.startsWith('0020')) {
-      return digits.slice(4);
-    }
-
-    if (digits.startsWith('20')) {
-      return digits.slice(2);
-    }
-
-    if (digits.startsWith('0')) {
-      return digits.slice(1);
-    }
-
-    return digits;
-  }
-
-  private getErrorMessage(error: unknown, fallback: string): string {
-    if (typeof error === 'object' && error && 'error' in error) {
-      const response = (error as { error?: { message?: string } }).error;
-      return response?.message || fallback;
-    }
-    return fallback;
   }
 }

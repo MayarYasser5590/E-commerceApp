@@ -1,8 +1,27 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '@shop-workspace/shared-auth';
-import { CustomInput, FormField, LibButton, Toast } from '@shop-workspace/shared-ui';
-import { confirmPasswordValidator, getConfirmPasswordError } from '@shop-workspace/shared-util';
+import {
+  CustomInput,
+  FormField,
+  LibButton,
+  Toast,
+} from '@shop-workspace/shared-ui';
+import {
+  confirmPasswordValidator,
+  getApiErrorMessage,
+  getConfirmPasswordError,
+} from '@shop-workspace/shared-util';
 import { finalize } from 'rxjs';
 
 type ChangePasswordForm = FormGroup<{
@@ -16,8 +35,17 @@ type ChangePasswordForm = FormGroup<{
   imports: [ReactiveFormsModule, CustomInput, FormField, LibButton, Toast],
   template: `
     <lib-toast #toast />
-    <form [formGroup]="passwordForm" (ngSubmit)="submit(toast)" class="flex w-full flex-col gap-2.5">
-      <lib-form-field label="Old Password" labelClass="text-[14px] font-medium leading-normal text-[#27272a]" [error]="oldPasswordError" errorClass="mt-1 text-sm text-[#A6252A]">
+    <form
+      [formGroup]="passwordForm"
+      (ngSubmit)="submit(toast)"
+      class="flex w-full flex-col gap-2.5"
+    >
+      <lib-form-field
+        label="Old Password"
+        labelClass="text-[14px] font-medium leading-normal text-[#27272a]"
+        [error]="oldPasswordError"
+        errorClass="mt-1 text-sm text-[#A6252A]"
+      >
         <lib-custom-input
           formControlName="oldPassword"
           inputClass="h-[49px] w-full rounded-[10px] border border-[#d4d4d8] bg-white p-4 pr-12 text-[14px] font-normal text-[#27272a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a6252a]"
@@ -31,7 +59,12 @@ type ChangePasswordForm = FormGroup<{
         <div class="h-px w-full bg-[#e4e4e7]"></div>
       </div>
 
-      <lib-form-field label="New Password" labelClass="text-[14px] font-medium leading-normal text-[#27272a]" [error]="newPasswordError" errorClass="mt-1 text-sm text-[#A6252A]">
+      <lib-form-field
+        label="New Password"
+        labelClass="text-[14px] font-medium leading-normal text-[#27272a]"
+        [error]="newPasswordError"
+        errorClass="mt-1 text-sm text-[#A6252A]"
+      >
         <lib-custom-input
           formControlName="newPassword"
           inputClass="h-[49px] w-full rounded-[10px] border border-[#d4d4d8] bg-white p-4 pr-12 text-[14px] font-normal text-[#27272a] placeholder:text-[#a1a1aa] focus:outline-none focus:ring-1 focus:ring-[#a6252a]"
@@ -57,7 +90,10 @@ type ChangePasswordForm = FormGroup<{
       </lib-form-field>
 
       @if (submitError()) {
-        <div class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+        <div
+          class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+          role="alert"
+        >
           {{ submitError() }}
         </div>
       }
@@ -110,7 +146,8 @@ export class ChangePasswordPage {
     const control = this.passwordForm.controls.newPassword;
     if (!control.touched) return null;
     if (control.hasError('required')) return 'New password is required';
-    if (control.hasError('minlength')) return 'New password must be at least 8 characters';
+    if (control.hasError('minlength'))
+      return 'New password must be at least 8 characters';
     return null;
   }
 
@@ -137,16 +174,13 @@ export class ChangePasswordPage {
           toast.showSuccess('Password changed successfully');
         },
         error: (error) => {
-          this.submitError.set(this.getErrorMessage(error));
+          this.submitError.set(
+            getApiErrorMessage(
+              error,
+              'Could not change your password. Try again later.',
+            ),
+          );
         },
       });
-  }
-
-  private getErrorMessage(error: unknown): string {
-    if (typeof error === 'object' && error && 'error' in error) {
-      const response = (error as { error?: { message?: string } }).error;
-      return response?.message || 'Could not change your password. Try again later.';
-    }
-    return 'Could not change your password. Try again later.';
   }
 }
