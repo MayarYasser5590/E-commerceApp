@@ -50,3 +50,4 @@ export * from './lib/components/atoms/checkbox/checkbox';
 export * from './lib/components/organisms/forgot-pass-request-organism/forgot-pass-request-organism';
 
 export * from './lib/components/organisms/register-form-organism/register-form-organism';
+export * from './lib/components/atoms/lang-switch-atom/lang-switch-atom';

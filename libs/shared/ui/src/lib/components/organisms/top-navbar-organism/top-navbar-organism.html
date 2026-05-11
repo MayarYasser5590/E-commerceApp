@@ -57,9 +57,9 @@
       ></lib-nav-user-data-molecule>
     </div>
     }
-    <button class="cursor-pointer border-e border-[#E4E4E7]">
-      <span class="px-2">العربية</span>
-    </button>
+    <lib-lang-switch-atom
+      class="border-e border-[#E4E4E7] px-2"
+    ></lib-lang-switch-atom>
     <button class="cursor-pointer ps-2" (click)="toggleTheme()">
       <lucide-icon
         [name]="isDark() ? icons.SunMoon : icons.Moon"
