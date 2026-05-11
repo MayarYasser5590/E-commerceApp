@@ -17,10 +17,12 @@ import {
   ProductFilterGroup,
   ProductFilterState,
 } from './product-filter.models';
+import { ProductFilterSectionComponent } from './product-filter-section.component';
+import { LibButton } from '@shop-workspace/shared-ui';
 
 @Component({
   selector: 'lib-product-filter-sidebar',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, LibButton, ProductFilterSectionComponent],
   templateUrl: './product-filter-sidebar.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

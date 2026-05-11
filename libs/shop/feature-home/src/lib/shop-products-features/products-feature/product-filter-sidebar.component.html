@@ -1,10 +1,15 @@
 <div
   class="fixed inset-0 z-40 bg-black/35 transition-opacity lg:hidden"
+  role="button"
+  aria-label="Close filters"
+  [attr.tabindex]="isOpen() ? 0 : -1"
   [class.opacity-100]="isOpen()"
   [class.pointer-events-auto]="isOpen()"
   [class.opacity-0]="!isOpen()"
   [class.pointer-events-none]="!isOpen()"
   (click)="closeFilters.emit()"
+  (keydown.enter)="closeFilters.emit()"
+  (keydown.space)="closeFilters.emit()"
 ></div>
 
 <aside
@@ -19,28 +24,21 @@
       <span>Filters</span>
     </div>
 
-    <button
-      type="button"
-      class="grid size-8 place-items-center rounded-full text-[#741C21] transition hover:bg-[#FBEAEA] lg:hidden"
-      aria-label="Close filters"
-      (click)="closeFilters.emit()"
-    >
-      <lucide-icon [name]="icons.X" size="18"></lucide-icon>
-    </button>
+    <lib-button
+      ariaLabel="Close filters"
+      variant="icon-only"
+      size="sm"
+      customClass="text-[#741C21] hover:bg-[#FBEAEA] lg:hidden"
+      [icon]="icons.X"
+      (clicked)="closeFilters.emit()"
+    ></lib-button>
   </div>
 
-  <section class="border-b border-[#F2DCDD] pb-5">
-    <div class="mb-3 flex items-center justify-between gap-3">
-      <h2 class="text-sm font-semibold text-[#2F1A1B]">Category</h2>
-      <button
-        type="button"
-        class="text-xs font-medium text-[#A6252A] transition hover:text-[#741C21]"
-        (click)="resetFilterGroup('category')"
-      >
-        x Reset
-      </button>
-    </div>
-
+  <lib-product-filter-section
+    title="Category"
+    [withTopPadding]="false"
+    (resetClicked)="resetFilterGroup('category')"
+  >
     <div class="space-y-2">
       @for (category of categories(); track category.value) {
         <button
@@ -63,20 +61,12 @@
         </button>
       }
     </div>
-  </section>
+  </lib-product-filter-section>
 
-  <section class="border-b border-[#F2DCDD] py-5">
-    <div class="mb-3 flex items-center justify-between gap-3">
-      <h2 class="text-sm font-semibold text-[#2F1A1B]">Occasion</h2>
-      <button
-        type="button"
-        class="text-xs font-medium text-[#A6252A] transition hover:text-[#741C21]"
-        (click)="resetFilterGroup('occasion')"
-      >
-        x Reset
-      </button>
-    </div>
-
+  <lib-product-filter-section
+    title="Occasion"
+    (resetClicked)="resetFilterGroup('occasion')"
+  >
     <div class="grid grid-cols-2 gap-2">
       @for (occasion of occasions(); track occasion.value) {
         <button
@@ -94,20 +84,12 @@
         </button>
       }
     </div>
-  </section>
+  </lib-product-filter-section>
 
-  <section class="border-b border-[#F2DCDD] py-5">
-    <div class="mb-3 flex items-center justify-between gap-3">
-      <h2 class="text-sm font-semibold text-[#2F1A1B]">Rating</h2>
-      <button
-        type="button"
-        class="text-xs font-medium text-[#A6252A] transition hover:text-[#741C21]"
-        (click)="resetFilterGroup('rating')"
-      >
-        x Reset
-      </button>
-    </div>
-
+  <lib-product-filter-section
+    title="Rating"
+    (resetClicked)="resetFilterGroup('rating')"
+  >
     <div class="space-y-2">
       @for (rating of ratingOptions(); track rating) {
         <button
@@ -139,20 +121,13 @@
         </button>
       }
     </div>
-  </section>
+  </lib-product-filter-section>
 
-  <section class="py-5">
-    <div class="mb-3 flex items-center justify-between gap-3">
-      <h2 class="text-sm font-semibold text-[#2F1A1B]">Price</h2>
-      <button
-        type="button"
-        class="text-xs font-medium text-[#A6252A] transition hover:text-[#741C21]"
-        (click)="resetFilterGroup('price')"
-      >
-        x Reset
-      </button>
-    </div>
-
+  <lib-product-filter-section
+    title="Price"
+    [bordered]="false"
+    (resetClicked)="resetFilterGroup('price')"
+  >
     <div class="grid grid-cols-2 gap-3">
       <label class="space-y-1 text-xs text-[#574546]">
         <span>from</span>
@@ -182,15 +157,16 @@
         />
       </label>
     </div>
-  </section>
+  </lib-product-filter-section>
 
-  <button
-    type="button"
-    class="mt-1 flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#FBEAEA] text-sm font-semibold text-[#A6252A] transition hover:bg-[#F2DCDD] disabled:cursor-not-allowed disabled:opacity-50"
+  <lib-button
+    label="Reset All"
+    variant="custom"
+    size="md"
+    customClass="mt-1 h-11 w-full rounded-md bg-[#FBEAEA] text-sm font-semibold text-[#A6252A] hover:bg-[#F2DCDD] disabled:cursor-not-allowed disabled:opacity-50"
+    [fullWidth]="true"
+    [icon]="icons.RotateCcw"
     [disabled]="!hasActiveFilters()"
-    (click)="resetAllFilters()"
-  >
-    <lucide-icon [name]="icons.RotateCcw" size="16"></lucide-icon>
-    <span>Reset All</span>
-  </button>
+    (clicked)="resetAllFilters()"
+  ></lib-button>
 </aside>
