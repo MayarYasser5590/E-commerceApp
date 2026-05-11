@@ -8,11 +8,12 @@
       @for(product of products(); track product._id){
 
       <lib-product-card-organism
-         [product]="product"
-         (addToCart)="addToCart($event)"
-       ></lib-product-card-organism>
+        [product]="product"
+        (addToCart)="addToCart($event)"
+        (toggleWishlist)="onToggleWishlist($event)"
+      ></lib-product-card-organism>
 
-       }
+      }
     </div>
 
     <div class="mt-8 flex justify-center">

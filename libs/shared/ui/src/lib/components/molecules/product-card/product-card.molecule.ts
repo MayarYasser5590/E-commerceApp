@@ -7,7 +7,6 @@ import { PriceTagAtom } from '../../atoms/price/price-tag.atom';
 import { RatingAtom } from '../../atoms/rating/rating.atom';
 import { LibButton } from '../../atoms/lib-button/lib-button';
 import { Eye, HeartPlus, ShoppingCart } from 'lucide-angular';
-
 @Component({
   selector: 'lib-product-card-molecule',
   standalone: true,

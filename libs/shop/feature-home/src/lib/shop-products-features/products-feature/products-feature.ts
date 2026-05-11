@@ -33,6 +33,10 @@ export class ProductsFeature implements OnInit, OnDestroy {
     this.updateVisibleProducts();
   }
 
+  onToggleWishlist(product: ProductData) {
+    console.log('wishlist toggle', product);
+  }
+
   getAllProducts() {
     this.productsSubscribe = this.productService.getAllProducts().subscribe({
       next: (res) => {
@@ -44,7 +48,6 @@ export class ProductsFeature implements OnInit, OnDestroy {
       error: (err) => console.log(err),
     });
   }
-
 
   updateVisibleProducts() {
     const start = (this.page() - 1) * this.rows;

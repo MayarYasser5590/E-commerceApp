@@ -12,7 +12,7 @@ import { CartUi } from '../../../../cart/data-access/cart.ui';
 
 @Component({
   selector: 'lib-details-section',
-  imports: [LibButton , LucideAngularModule],
+  imports: [LibButton, LucideAngularModule],
   templateUrl: './details-section.html',
   styleUrl: './details-section.scss',
 })
@@ -22,7 +22,11 @@ export class DetailsSection {
   @Input() product!: ProductData;
 
   icons = {
-    ShoppingCart , Star , HeartPlus , Package };
+    ShoppingCart,
+    Star,
+    HeartPlus,
+    Package,
+  };
 
   selectedImage!: string;
 
@@ -34,11 +38,11 @@ export class DetailsSection {
     return Math.max(this.product.quantity, 0);
   }
 
-  addToWishlist() {
-    console.log('wishlist');
-  }
-
   addToCart() {
     this.cart.addItem(this.product);
+  }
+
+  addToWishlist() {
+    console.log('wishlist');
   }
 }
