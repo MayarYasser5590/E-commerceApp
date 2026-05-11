@@ -1,0 +1,67 @@
+<section class="mx-auto max-w-7xl space-y-10 bg-white text-[#27272A]">
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)]">
+    <div>
+      <!-- Header -->
+      <div class="mb-4 flex items-center justify-between gap-4">
+        <div class="flex items-baseline gap-2">
+          <h1 class="text-3xl font-bold text-[#27272A]">Wishlist</h1>
+          <span class="text-sm text-[#71717A]">
+            {{ wishlist().length }} products
+          </span>
+        </div>
+
+        <lib-button
+          label="Clear Wishlist"
+          variant="custom"
+          size="sm"
+          [icon]="icons.Trash2"
+          iconPos="left"
+          [disabled]="!wishlist().length"
+          [fullWidth]="false"
+          customClass="inline-flex cursor-pointer items-center gap-2 rounded-md bg-rose-100 px-6 py-4 text-sm font-medium text-red-800 transition hover:bg-rose-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          (clicked)="clearWishlist()"
+        ></lib-button>
+      </div>
+
+      <!-- List -->
+      @if (wishlist().length) { @for (product of wishlist(); track product._id)
+      {
+      <lib-wishlist-card
+        [product]="product"
+        (remove)="removeFromWishlist($event)"
+      ></lib-wishlist-card>
+      } } @else {
+      <!-- Empty State -->
+      <div
+        class="grid min-h-72 place-items-center rounded-md border border-dashed border-[#E4E4E7] bg-[#FAFAFA] px-6 py-12 text-center"
+      >
+        <div class="space-y-4">
+          <div
+            class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#FBEAEA] text-[#A6252A]"
+          >
+            <lucide-icon [name]="icons.Heart" class="h-7 w-7"></lucide-icon>
+          </div>
+
+          <p class="text-base font-semibold">Your wishlist is empty.</p>
+
+          <a
+            routerLink="/products"
+            class="inline-flex items-center gap-2 rounded-md bg-[#A6252A] px-5 py-3 text-sm font-semibold text-white hover:bg-[#741C21]"
+          >
+            Browse products
+          </a>
+        </div>
+      </div>
+      }
+
+      <!-- Continue -->
+      <a
+        routerLink="/products"
+        class="mt-5 inline-flex items-center gap-2 rounded-md bg-[#A6252A] px-5 py-3 text-sm font-semibold text-white hover:bg-[#741C21]"
+      >
+        <lucide-icon [name]="icons.ArrowLeft" class="h-4 w-4"></lucide-icon>
+        Continue Shopping
+      </a>
+    </div>
+  </div>
+</section>

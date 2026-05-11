@@ -18,5 +18,7 @@
   <lib-slider-organism
     [products]="relatedProducts()"
     [numVisible]="4"
+    [isInWishlist]="isInWishlist()"
+    (toggleWishlist)="toggleWishlist.emit($event)"
   ></lib-slider-organism>
 </section>

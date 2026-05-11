@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductCardOrganism } from './product-card-organism';
+import { WishlistCard } from './wishlist-card';
 
-describe('ProductCardOrganism', () => {
-  let component: ProductCardOrganism;
-  let fixture: ComponentFixture<ProductCardOrganism>;
+describe('WishlistCard', () => {
+  let component: WishlistCard;
+  let fixture: ComponentFixture<WishlistCard>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductCardOrganism],
+      imports: [WishlistCard],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProductCardOrganism);
+    fixture = TestBed.createComponent(WishlistCard);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
