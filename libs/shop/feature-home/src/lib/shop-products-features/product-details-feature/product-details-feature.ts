@@ -49,14 +49,13 @@ export class ProductDetailsFeature implements OnInit, OnDestroy {
   }
 
   getSpecificProduct(id: string) {
-    this.specificProductSubscribe = this.productService
-      .getProductById(id)
-      .subscribe({
-        next: (res) => {
-          this.product.set(res.product);
-          console.log(res);
-        },
-      });
+    this.specificProductSubscribe = this.productService.getProductById(id).subscribe({
+      next: (res) => {
+        this.product.set(res.product);
+              console.log(res);
+
+      }
+    });
   }
 
   onToggleWishlist(product: ProductData | RelatedProduct) {

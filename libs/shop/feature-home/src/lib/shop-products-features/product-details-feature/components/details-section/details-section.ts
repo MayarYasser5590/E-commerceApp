@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { ProductData } from '@shop-workspace/shared-types';
 import { LibButton } from '@shop-workspace/shared-ui';
 import {
@@ -9,6 +9,7 @@ import {
   Package,
   HeartMinus,
 } from 'lucide-angular';
+import { CartUi } from '../../../../cart/data-access/cart.ui';
 
 @Component({
   selector: 'lib-details-section',
@@ -17,6 +18,7 @@ import {
   styleUrl: './details-section.scss',
 })
 export class DetailsSection {
+  private readonly cart = inject(CartUi);
   @Input() productId!: string | null;
   @Input() product!: ProductData;
 
@@ -41,11 +43,10 @@ export class DetailsSection {
     return Math.max(this.product.quantity, 0);
   }
 
+    addToCart() {
+    this.cart.addItem(this.product);
+  }
   onToggleWishlist() {
     this.toggleWishlist.emit(this.product);
-  }
-
-  addToCart() {
-    console.log('cart');
   }
 }

@@ -5,6 +5,7 @@ import {
 } from '@shop-workspace/shared-ui';
 import { AuthService } from '@shop-workspace/shared-auth';
 import { Router } from '@angular/router';
+import { CartUi } from '@shop-workspace/shop-feature-home';
 import { WishlistService } from '@shop-workspace/shop-feature-home';
 import { Subscription } from 'rxjs';
 
@@ -16,6 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class Navbar implements OnInit, OnDestroy {
   private authService = inject(AuthService);
+  protected readonly cart = inject(CartUi);
   isAuthenticated = this.authService.isAuthenticated();
   private readonly router = inject(Router);
   private wishlistService = inject(WishlistService);

@@ -20,6 +20,7 @@ import {
 import { WishlistService } from '../data-access/wishlist.service';
 import { FeaturesBarSection } from './components/features-bar-section/features-bar-section';
 import { TrustedBySection } from './components/trusted-by-section/trusted-by-section';
+import { CartUi } from '../cart/data-access/cart.ui';
 import { AppToastService } from '../data-access/toast.service';
 
 @Component({
@@ -42,6 +43,7 @@ import { AppToastService } from '../data-access/toast.service';
 export class ShopFeatureHome implements OnInit {
   private readonly homeService = inject(HomeService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly cart = inject(CartUi);
   private wishlistService = inject(WishlistService);
   private toast = inject(AppToastService);
 
@@ -85,6 +87,10 @@ export class ShopFeatureHome implements OnInit {
 
   onOccasionChanged(occasionId: string | null): void {
     this.activeOccasionId.set(occasionId);
+  }
+
+  addToCart(product: ProductData): void {
+    this.cart.addItem(product);
   }
 
   private productMatchesOccasion(

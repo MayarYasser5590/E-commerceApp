@@ -9,3 +9,4 @@ export * from './lib/interfaces/metadata.interface';
 export * from './lib/interfaces/review.interface';
 export * from './lib/interfaces/relatedProducts.interface';
 export * from './lib/interfaces/wishlist.interface';
+export * from './lib/interfaces/cart.interface';

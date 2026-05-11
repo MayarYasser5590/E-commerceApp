@@ -1,6 +1,7 @@
 <lib-top-navbar-organism
   [isAuthenticated]="isAuthenticated"
   [user]="user()"
+  [cartCount]="cart.itemCount()"
   [favCount]="favCount()"
   (logout)="handleLogout()"
 ></lib-top-navbar-organism>
