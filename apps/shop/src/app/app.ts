@@ -8,11 +8,11 @@ import { AuthService } from '@shop-workspace/shared-auth';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
+export class App implements OnInit {
   protected title = 'shop';
   private authService = inject(AuthService);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.authService.initUser();
   }
 }

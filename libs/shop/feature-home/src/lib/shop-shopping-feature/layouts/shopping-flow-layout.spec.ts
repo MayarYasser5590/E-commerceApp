@@ -1,18 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Navbar } from './navbar';
-import { appConfig } from '../../../app.config';
+import { ShoppingFlowLayout } from './shopping-flow-layout';
 
-describe('Navbar', () => {
-  let component: Navbar;
-  let fixture: ComponentFixture<Navbar>;
+describe('ShoppingFlowLayout', () => {
+  let component: ShoppingFlowLayout;
+  let fixture: ComponentFixture<ShoppingFlowLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Navbar],
-      providers: appConfig.providers,
+      imports: [ShoppingFlowLayout],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Navbar);
+    fixture = TestBed.createComponent(ShoppingFlowLayout);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

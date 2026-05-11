@@ -31,6 +31,12 @@ export const featureRoutes: Routes = [
         title: 'Product Details',
       },
       {
+        path: 'shopping',
+        loadComponent: () =>
+          import('./shopping/shopping-page').then((m) => m.ShoppingPage),
+        title: 'shopping',
+      },
+      {
         path: 'orders',
         loadComponent: () =>
           import('./orders/orders-page').then((m) => m.OrderPageComponent),

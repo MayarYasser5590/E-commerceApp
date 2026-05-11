@@ -3,6 +3,7 @@
 <lib-top-navbar-organism
   [isAuthenticated]="isAuthenticated"
   [user]="user()"
+  [cartCount]="cart.itemCount()"
   (logout)="handleLogout(toast)"
 ></lib-top-navbar-organism>
 

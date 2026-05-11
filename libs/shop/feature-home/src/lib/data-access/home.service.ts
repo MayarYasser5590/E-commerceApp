@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HomeResponse } from '@shop-workspace/shared-types';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from '@shop-workspace/shared-util';

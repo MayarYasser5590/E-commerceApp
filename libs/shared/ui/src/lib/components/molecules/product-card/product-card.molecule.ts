@@ -136,6 +136,5 @@ export class ProductCardMolecule {
 
   openProductDetails(): void {
     this.router.navigate(['/productdetails', this.product()._id]);
-    
   }
 }

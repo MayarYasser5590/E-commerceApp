@@ -16,13 +16,13 @@
     }
   </a>
 
-  <a class="cursor-pointer relative">
+  <a routerLink="/shopping" class="cursor-pointer relative">
     <lucide-icon
       [name]="icons.ShoppingCart"
       class="w-3 h-3 md:w-5 md:h-5"
     ></lucide-icon>
 
-    @if (isAuthenticated) {
+    @if (cartCount !== undefined) {
     <span
       class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 rounded-full"
     >

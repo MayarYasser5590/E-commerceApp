@@ -44,7 +44,7 @@ export class ProductDetailsFeature implements OnInit , OnDestroy{
     this.specificProductSubscribe = this.productService.getProductById(id).subscribe({
       next: (res) => {
         this.product.set(res.product);
-              console.log(res); 
+              console.log(res);
 
       }
     });

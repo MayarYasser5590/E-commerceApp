@@ -2,9 +2,10 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../data-access/product.service';
 import { ProductData, Metadata } from '@shop-workspace/shared-types';
 import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorState } from 'primeng/types/paginator';
 import { Subscription } from 'rxjs';
-import { ProductCardOrganism } from "@shop-workspace/shared-ui";
-
+import { CartUi } from '../../cart/data-access/cart.ui';
+import { ProductCardOrganism } from '@shop-workspace/shared-ui';
 
 @Component({
   selector: 'lib-products-feature',
@@ -14,6 +15,7 @@ import { ProductCardOrganism } from "@shop-workspace/shared-ui";
 })
 export class ProductsFeature implements OnInit, OnDestroy {
   private readonly productService = inject(ProductService);
+  private readonly cart = inject(CartUi);
   allProducts = signal<ProductData[]>([]);
   products = signal<ProductData[]>([]);
   metaData!: Metadata;
@@ -26,18 +28,13 @@ export class ProductsFeature implements OnInit, OnDestroy {
     this.getAllProducts();
   }
 
-onPageChange(event: any) {
-  this.page.set(event.page + 1);
-  this.updateVisibleProducts();
-}
+  onPageChange(event: PaginatorState) {
+    this.page.set((event.page ?? 0) + 1);
+    this.updateVisibleProducts();
+  }
 
-  onToggleWishlist(product: ProductData){
-  console.log("wishlist toggle", product);
-}
- 
-getAllProducts() {
-  this.productsSubscribe =
-    this.productService.getAllProducts().subscribe({
+  getAllProducts() {
+    this.productsSubscribe = this.productService.getAllProducts().subscribe({
       next: (res) => {
         this.allProducts.set(res.products);
 
@@ -46,17 +43,17 @@ getAllProducts() {
       },
       error: (err) => console.log(err),
     });
-}
+  }
 
 
   updateVisibleProducts() {
-  const start = (this.page() - 1) * this.rows;
-  const end = start + this.rows;
-  this.products.set(this.allProducts().slice(start, end));
-}
+    const start = (this.page() - 1) * this.rows;
+    const end = start + this.rows;
+    this.products.set(this.allProducts().slice(start, end));
+  }
 
-  addToCart(product: ProductData){
-    console.log("add to cart", product);
+  addToCart(product: ProductData) {
+    this.cart.addItem(product);
   }
 
   ngOnDestroy(): void {

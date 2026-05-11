@@ -2,14 +2,17 @@
   <lib-features-bar-section></lib-features-bar-section>
   <lib-special-gifts-section></lib-special-gifts-section>
 
-  <lib-best-seller-section-feature [bestSellers]="bestSellers()">
-  </lib-best-seller-section-feature>
+  <lib-best-seller-section-feature
+    [bestSellers]="bestSellers()"
+    (productClicked)="addToCart($event)"
+  ></lib-best-seller-section-feature>
 
   <lib-most-popular-organism
     [products]="filteredProducts()"
     [occasions]="occasions()"
     [activeOccasionId]="activeOccasionId()"
     (occasionChanged)="onOccasionChanged($event)"
+    (productClicked)="addToCart($event)"
   ></lib-most-popular-organism>
 
   <lib-about-us-section></lib-about-us-section>
@@ -17,6 +20,6 @@
   <lib-gallery-organism></lib-gallery-organism>
 
   <lib-testimonials-section></lib-testimonials-section>
-  
+
   <lib-trusted-by-section></lib-trusted-by-section>
 </div>

@@ -4,6 +4,6 @@
     "outDir": "../../dist/out-tsc",
     "types": []
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../../libs/shop/feature-home/src/lib/shop-shopping-feature/Shopping-flow-container.ts"],
   "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
 }

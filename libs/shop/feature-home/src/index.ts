@@ -18,3 +18,9 @@ export * from './lib/components/home/special-gifts-section/special-gifts-section
 export * from './lib/shop-check-out-feature/components/shop-shipping-address-section/shop-shipping-address-section';
 export * from './lib/shop-check-out-feature/components/shop-payment-method-section/shop-payment-method-section';
 export * from './lib/shop-orders-feature//shop-orders-feature';
+export * from './lib/cart/data-access/cart-api.service';
+export * from './lib/cart/data-access/cart.ui';
+export * from './lib/components/home/special-gifts-section/special-gifts-section';
+export * from './lib/shop-shopping-feature/layouts/shopping-flow-layout';
+export * from './lib/shop-shopping-feature/Shopping-flow-container';
+export * from './lib/cart/feature/cart-feature-page';

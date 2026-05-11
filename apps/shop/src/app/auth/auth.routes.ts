@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout';
-import { authGuard, guestGuard } from '@shop-workspace/shared-auth';
+import { guestGuard } from '@shop-workspace/shared-auth';
 
 export const authRoutes: Routes = [
   {

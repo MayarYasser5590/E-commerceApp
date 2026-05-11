@@ -10,3 +10,4 @@ export * from './lib/interfaces/review.interface';
 export * from './lib/interfaces/relatedProducts.interface';
 export * from './lib/interfaces/user-address.interface';
 export * from './lib/interfaces/order.interface';
+export * from './lib/interfaces/cart.interface';

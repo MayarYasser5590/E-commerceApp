@@ -1,0 +1,68 @@
+<div>
+  <div class="mb-4 flex items-center justify-between gap-4">
+    <div class="flex items-baseline gap-2">
+      <h1 class="text-3xl font-bold text-[#27272A]">Cart</h1>
+      <span class="text-sm text-[#71717A]">
+        {{ cart.itemCount() }} products
+      </span>
+    </div>
+
+    <button
+      type="button"
+      class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-[#FBEAEA] px-4 py-2 text-sm font-medium text-[#A6252A] transition hover:bg-[#F4C9CC] disabled:cursor-not-allowed disabled:opacity-60"
+      [disabled]="cart.loading() || !cart.items().length"
+      (click)="cart.clearCart()"
+    >
+      <lucide-icon [name]="icons.Trash2" class="h-4 w-4"></lucide-icon>
+      Clear Cart
+    </button>
+  </div>
+
+  @if (cart.error()) {
+  <div
+    class="mb-4 rounded-md border border-[#F4C9CC] bg-[#FEF2F2] px-4 py-3 text-sm text-[#A6252A]"
+  >
+    {{ cart.error() }}
+  </div>
+  } @if (cart.items().length) {
+  <div class="rounded-md border border-[#F4F4F5] bg-white px-4">
+    @for (item of cart.items(); track item.id) {
+    <lib-cart-item-card
+      [item]="item"
+      [currency]="cart.summary().currency"
+      [disabled]="cart.loading()"
+      (quantityChange)="updateItemQuantity(item, $event)"
+      (remove)="removeItem(item)"
+    ></lib-cart-item-card>
+    }
+  </div>
+  } @else {
+  <div
+    class="grid min-h-72 place-items-center rounded-md border border-dashed border-[#E4E4E7] bg-[#FAFAFA] px-6 py-12 text-center"
+  >
+    <div class="space-y-4">
+      <div
+        class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#FBEAEA] text-[#A6252A]"
+      >
+        <lucide-icon [name]="icons.ShoppingBag" class="h-7 w-7"></lucide-icon>
+      </div>
+      <p class="text-base font-semibold">Your cart is empty.</p>
+      <a
+        routerLink="/products"
+        class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-[#A6252A] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#741C21]"
+      >
+        Shop products
+        <lucide-icon [name]="icons.ArrowRight" class="h-4 w-4"></lucide-icon>
+      </a>
+    </div>
+  </div>
+  }
+
+  <a
+    routerLink="/products"
+    class="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-md bg-[#A6252A] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#741C21]"
+  >
+    <lucide-icon [name]="icons.ArrowLeft" class="h-4 w-4"></lucide-icon>
+    Continue Shopping
+  </a>
+</div>
