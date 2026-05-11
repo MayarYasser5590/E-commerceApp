@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ShoppingFlowLayout } from '@shop-workspace/shop-feature-home';
+import { ShoppingFlowContainer } from '@shop-workspace/shop-feature-home';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [ShoppingFlowLayout],
+  imports: [ShoppingFlowContainer],
   templateUrl: './shopping-page.html',
 })
 export class ShoppingPage {}

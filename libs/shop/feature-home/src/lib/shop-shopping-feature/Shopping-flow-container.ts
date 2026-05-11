@@ -18,10 +18,6 @@ import { ShoppingFlowLayout } from './layouts/shopping-flow-layout';
       (next)="goToAddress()"
       [currentStep]="currentStep()"
     >
-      <p>step = {{ currentStep() }}</p>
-
-      <h2>hello world</h2>
-      <p>kkkkkkkkkkkkkkkkkkkkkkkkkk</p>
       @if (currentStep() === 'cart') {
         <lib-cart-feature-page></lib-cart-feature-page>
       }
@@ -45,10 +41,6 @@ import { ShoppingFlowLayout } from './layouts/shopping-flow-layout';
 export class ShoppingFlowContainer {
   currentStep = signal<'cart' | 'address' | 'payment'>('cart');
   selectedAddress = signal<UserAddress | null>(null);
-
-  constructor() {
-    console.log(this.currentStep()); // لازم تطبع cart
-  }
 
   goToAddress() {
     this.currentStep.set('address');

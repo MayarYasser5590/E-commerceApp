@@ -11,6 +11,7 @@ import { LibButton, ProgressBarMolecule } from '@shop-workspace/shared-ui';
 import { OrderService } from '../../../data-access/order.service';
 import { Subscription } from 'rxjs';
 import { UserAddress } from '@shop-workspace/shared-types';
+import { Router } from '@angular/router';
 
 type PaymentMethod = 'cash' | 'card';
 
@@ -24,6 +25,7 @@ export class ShopPaymentMethodSection implements OnDestroy {
   @Output() done = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
   private readonly orderService = inject(OrderService);
+  private readonly router = inject(Router);
   orderSubscribe: Subscription = new Subscription();
   selectedMethod = signal<PaymentMethod | null>(null);
   address = input<UserAddress | null>(null);
@@ -53,7 +55,7 @@ export class ShopPaymentMethodSection implements OnDestroy {
         this.orderService.createCashOrder(body).subscribe({
           next: (res) => {
             console.log('Order created:', res);
-            this.done.emit();
+            this.router.navigate(['/allOrders']);
           },
           error: (err) => {
             console.error(err);

@@ -37,10 +37,10 @@ export const featureRoutes: Routes = [
         title: 'shopping',
       },
       {
-        path: 'orders',
+        path: 'allOrders',
         loadComponent: () =>
           import('./orders/orders-page').then((m) => m.OrderPageComponent),
-        title: 'Orders',
+        title: 'All Orders',
       },
     ],
   },

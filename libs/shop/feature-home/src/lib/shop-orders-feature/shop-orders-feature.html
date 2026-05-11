@@ -51,9 +51,7 @@
       <!-- Payment -->
       <div class="text-sm text-[#27272A] mb-1 flex gap-2">
         <span class="font-medium">Payment Method:</span>
-        <span>
-          {{ order.paymentType === 'cash' ? 'Cash' : 'Credit Card' }}
-        </span>
+        <span> {{order.paymentType}} </span>
       </div>
 
       <!-- Delivery -->
@@ -65,8 +63,7 @@
           [class.text-green-600]="order.isDelivered"
           [class.text-red-500]="order.state === 'canceled'"
         >
-          {{ order.state === 'canceled' ? 'Canceled' : order.isDelivered ?
-          'Delivered' : 'Pending' }}
+          {{order.state}}
         </span>
       </div>
       <!-- ITEMS -->
