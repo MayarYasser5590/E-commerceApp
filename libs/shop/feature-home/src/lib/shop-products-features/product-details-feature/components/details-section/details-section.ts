@@ -12,18 +12,21 @@ import { CartUi } from '../../../../cart/data-access/cart.ui';
 
 @Component({
   selector: 'lib-details-section',
-  imports: [LibButton , LucideAngularModule],
+  imports: [LibButton, LucideAngularModule],
   templateUrl: './details-section.html',
   styleUrl: './details-section.scss',
 })
 export class DetailsSection {
   private readonly cart = inject(CartUi);
-
   @Input() productId!: string | null;
   @Input() product!: ProductData;
 
   icons = {
-    ShoppingCart , Star , HeartPlus , Package };
+    ShoppingCart,
+    Star,
+    HeartPlus,
+    Package,
+  };
 
   selectedImage!: string;
 
