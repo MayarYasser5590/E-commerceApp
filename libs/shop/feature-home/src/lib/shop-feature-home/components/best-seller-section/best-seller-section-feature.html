@@ -34,7 +34,11 @@
 
     <!-- RIGHT SLIDER -->
     <div>
-      <lib-slider-organism [products]="bestSellers()"></lib-slider-organism>
+      <lib-slider-organism
+        [products]="bestSellers()"
+        [isInWishlist]="isInWishlist()"
+        (toggleWishlist)="toggleWishlist.emit($event)"
+      ></lib-slider-organism>
     </div>
   </div>
 </section>

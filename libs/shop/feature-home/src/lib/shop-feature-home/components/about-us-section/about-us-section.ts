@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LibButton } from '@shop-workspace/shared-ui';
 import { ArrowRight, Check, LucideAngularModule } from 'lucide-angular';

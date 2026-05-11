@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomePage } from './home-page';
+import { appConfig } from '../../app.config';
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -8,6 +9,7 @@ describe('HomePage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HomePage],
+      providers: appConfig.providers,
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePage);

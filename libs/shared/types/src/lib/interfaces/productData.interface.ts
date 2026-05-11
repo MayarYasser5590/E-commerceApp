@@ -1,32 +1,31 @@
-import { Metadata } from "./metadata.interface";
+import { Metadata } from './metadata.interface';
 
-export interface ProductData {
+export interface BaseProduct {
   _id: string;
-  id?: string;
   title: string;
-  slug: string;
-  description: string;
   imgCover: string;
-  images: string[];
-
   price: number;
   priceAfterDiscount: number;
-  discount?: number;
+  rateAvg: number;
+  rateCount: number;
+}
+
+export interface ProductData extends BaseProduct {
+  id: string;
+  slug: string;
+  description: string;
+  images: string[];
   quantity: number;
   category: string;
   occasion: string;
   createdAt: string;
   updatedAt: string;
   sold: number;
-  rateAvg: number;
-  rateCount: number;
   favoriteId: string | null;
   isInWishlist: boolean;
   isSuperAdmin: boolean;
   __v: number;
 }
-
-
 
 export interface ProductsResponse {
   message: string;

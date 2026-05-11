@@ -1,21 +1,28 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from '../../../core/features/navbar/navbar';
+import { FooterOrganism } from '@shop-workspace/shared-ui';
+import { Toast } from '@shop-workspace/shared-ui';
 import { Footer } from '../../../core/features/footer/footer';
 
 @Component({
   selector: 'app-auth-layout',
-  imports: [RouterOutlet, Navbar, Footer],
+  imports: [RouterOutlet, Navbar, FooterOrganism, Toast, Footer],
   template: `
-    <div class="flex min-h-screen flex-col bg-white">
-      <app-navbar></app-navbar>
-      <main class="min-w-0 flex-1 py-2 sm:py-10">
-        <div class="mx-auto w-full max-w-screen-xl min-w-0 px-4 sm:px-6 lg:px-8">
-          <router-outlet></router-outlet>
-        </div>
-      </main>
-      <app-footer></app-footer>
-    </div>
+    <main class="bg-[var(--bg-page)]">
+      <lib-toast #toast />
+      <div class="flex min-h-screen flex-col bg-[var(--bg-page)]">
+        <app-navbar></app-navbar>
+        <main class="min-w-0 flex-1 py-2 sm:py-10">
+          <div
+            class="mx-auto w-full max-w-screen-xl min-w-0 px-4 sm:px-6 lg:px-8"
+          >
+            <router-outlet></router-outlet>
+          </div>
+        </main>
+        <lib-footer-organism></lib-footer-organism>
+      </div>
+    </main>
   `,
 })
 export class MainLayoutComponent {}

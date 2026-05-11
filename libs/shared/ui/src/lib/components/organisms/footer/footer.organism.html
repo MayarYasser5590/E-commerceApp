@@ -1,0 +1,95 @@
+<footer class="bg-[#222326] text-white" aria-labelledby="site-footer-title">
+  <h2 id="site-footer-title" class="sr-only">Site footer</h2>
+
+  <div
+    class="mx-auto grid w-full max-w-screen-xl gap-10 px-6 py-12 sm:px-8 md:grid-cols-[1fr_1fr] lg:grid-cols-[1.05fr_1fr_1.15fr] lg:gap-16 lg:px-8 lg:py-14"
+  >
+    <section
+      class="flex flex-col items-center text-center md:items-start md:text-left"
+    >
+      <a
+        routerLink="/home"
+        aria-label="Rose home"
+        class="inline-flex w-36 transition hover:opacity-90 sm:w-40 lg:w-44"
+      >
+        <img
+          src="/assets/Logo.webp"
+          alt="Rose"
+          width="176"
+          height="116"
+          class="h-auto w-full object-contain"
+        />
+      </a>
+
+      <div class="mt-5 text-[12px] leading-5 text-[#f3d1d7]">
+        <p class="font-semibold text-white">Rose E-Commerce App</p>
+        <p>Version 0.0.0</p>
+      </div>
+    </section>
+
+    <nav
+      class="text-center md:text-left"
+      aria-labelledby="footer-discover-heading"
+    >
+      <h3
+        id="footer-discover-heading"
+        class="text-[14px] font-semibold text-[#f0a5b1]"
+      >
+        Discover our website
+      </h3>
+
+      <ul class="mt-4 grid gap-1.5 text-[13px] leading-5 text-[#f2f2f2]">
+        @for (link of footerLinks; track link.label) {
+        <li>
+          <a
+            [routerLink]="link.route"
+            class="inline-flex transition hover:text-[#f0a5b1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f0a5b1]"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+        }
+      </ul>
+    </nav>
+
+    <section
+      class="md:col-span-2 lg:col-span-1"
+      aria-labelledby="newsletter-heading"
+    >
+      <div class="mx-auto max-w-md text-center md:mx-0 md:text-left">
+        <h3
+          id="newsletter-heading"
+          class="text-[14px] font-semibold text-[#f0a5b1]"
+        >
+          Get 20% Off Discount Coupon
+        </h3>
+        <p class="mt-2 text-[12px] leading-5 text-[#babdc4]">
+          By subscribing to our newsletter
+        </p>
+
+        <form
+          class="mt-5 flex w-full flex-col gap-3 sm:flex-row sm:items-center"
+          aria-label="Newsletter subscription"
+          (submit)="$event.preventDefault()"
+        >
+          <label for="footer-newsletter-email" class="sr-only">
+            Email address
+          </label>
+          <input
+            id="footer-newsletter-email"
+            type="email"
+            autocomplete="email"
+            placeholder="Enter Your Email"
+            class="min-h-10 min-w-0 flex-1 rounded-full border border-transparent bg-white px-5 text-[13px] text-[#222326] outline-none placeholder:text-[#8c8f96] focus:border-[#f0a5b1] focus:ring-2 focus:ring-[#f0a5b1]/40"
+          />
+          <button
+            type="submit"
+            class="min-h-10 shrink-0 rounded-full bg-white px-6 text-[12px] font-semibold text-[#b23644] transition hover:bg-[#f8dce2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f0a5b1]"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+</footer>

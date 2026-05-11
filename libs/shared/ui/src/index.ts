@@ -22,6 +22,7 @@ export * from './lib/components/molecules/avatar-upload/avatar-upload';
 export * from './lib/components/organisms/verify-otp-form-organism/verify-otp-form-oragnism';
 export * from './lib/components/organisms/most-popular/most-popular.organism';
 export * from './lib/components/organisms/gallery/gallery.organism';
+export * from './lib/components/organisms/footer/footer.organism';
 // Templates
 export * from './lib/components/templates/auth-layout/auth-layout';
 
@@ -33,7 +34,6 @@ export * from './lib/components/atoms/password-toggle/password-toggle';
 
 export * from './lib/components/molecules/form-field/form-field';
 
-export * from './lib/components/organisms/product-card-organism/product-card-organism';
 export * from './lib/components/atoms/logo-atom/logo-atom';
 export * from './lib/components/molecules/search-input-molecule/search-input-molecule';
 export * from './lib/components/molecules/nav-user-data-molecule/nav-user-data-molecule';
@@ -50,3 +50,4 @@ export * from './lib/components/atoms/checkbox/checkbox';
 export * from './lib/components/organisms/forgot-pass-request-organism/forgot-pass-request-organism';
 
 export * from './lib/components/organisms/register-form-organism/register-form-organism';
+export * from './lib/components/atoms/lang-switch-atom/lang-switch-atom';
