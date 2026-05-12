@@ -13,12 +13,12 @@
 ></div>
 
 <aside
-  class="fixed inset-y-0 start-0 z-50 w-[18rem] max-w-[86vw] overflow-y-auto border-e border-[#F2DCDD] bg-white p-4 shadow-xl transition-transform duration-200 lg:sticky lg:top-24 lg:z-auto lg:max-h-[calc(100vh-7rem)] lg:w-full lg:translate-x-0 lg:border lg:shadow-sm"
+  class="fixed inset-y-0 start-0 z-50 w-[18rem] max-w-[86vw] overflow-x-hidden overflow-y-auto border-e border-[#F4F4F5] bg-white p-0 shadow-xl transition-transform duration-200 lg:sticky lg:inset-auto lg:top-4 lg:z-auto lg:h-auto lg:max-h-none lg:w-full lg:max-w-none lg:self-start lg:translate-x-0 lg:overflow-visible lg:border-0 lg:shadow-none"
   [class.translate-x-0]="isOpen()"
   [class.-translate-x-full]="!isOpen()"
   aria-label="Product filters"
 >
-  <div class="mb-5 flex items-center justify-between">
+  <div class="mb-5 flex items-center justify-between px-4 pt-4 pr-6 lg:hidden">
     <div class="flex items-center gap-2 text-sm font-semibold text-[#741C21]">
       <lucide-icon [name]="icons.SlidersHorizontal" size="16"></lucide-icon>
       <span>Filters</span>
@@ -34,107 +34,123 @@
     ></lib-button>
   </div>
 
-  <lib-product-filter-section
-    title="Category"
-    [withTopPadding]="false"
-    (resetClicked)="resetFilterGroup('category')"
-  >
-    <div class="space-y-2">
-      @for (category of categories(); track category.value) {
+  <div class="px-4 pr-6 lg:w-[277px] lg:px-0 lg:pr-0">
+    <lib-product-filter-section
+      title="Category"
+      [withTopPadding]="false"
+      (resetClicked)="resetFilterGroup('category')"
+    >
+      <div class="flex max-h-[199px] flex-col gap-1">
+      @for (category of visibleCategories(); track category.value) {
         <button
           type="button"
-          class="flex w-full items-center justify-between gap-3 rounded-md border px-3 py-2 text-start text-sm transition"
-          [class.border-[#A6252A]]="isCategorySelected(category.value)"
+          class="flex h-7 w-full cursor-pointer items-center overflow-hidden rounded-[4px] pr-2 text-start transition hover:bg-[#FBEAEA] hover:shadow-sm"
           [class.bg-[#FBEAEA]]="isCategorySelected(category.value)"
-          [class.text-[#741C21]]="isCategorySelected(category.value)"
-          [class.border-[#E5E7EB]]="!isCategorySelected(category.value)"
-          [class.bg-[#F5F5F5]]="!isCategorySelected(category.value)"
-          [class.text-[#2F1A1B]]="!isCategorySelected(category.value)"
+          [class.bg-[#E4E4E7]]="!isCategorySelected(category.value)"
+          [attr.aria-pressed]="isCategorySelected(category.value)"
           (click)="toggleCategory(category)"
         >
-          <span class="min-w-0 truncate">{{ category.label }}</span>
+          <span
+            class="grid size-9 shrink-0 place-items-center overflow-hidden"
+            [class.bg-[#A6252A]]="isCategorySelected(category.value)"
+            [class.bg-[#71717A]]="!isCategorySelected(category.value)"
+          >
+            @if (category.image) {
+              <img
+                [src]="category.image"
+                [alt]="category.label"
+                class="size-full object-cover opacity-90 mix-blend-luminosity"
+              />
+            } @else {
+              <span class="text-xs font-semibold text-white">{{
+                category.label.charAt(0)
+              }}</span>
+            }
+          </span>
+          <span
+            class="ms-2 min-w-0 truncate text-sm font-medium leading-none text-[#27272A]"
+          >
+            {{ category.label }}
+          </span>
           @if (category.count !== undefined) {
-            <span class="shrink-0 text-xs text-[#7A6A6B]">{{
+            <span class="ms-auto shrink-0 text-xs text-[#71717A]">{{
               category.count
             }}</span>
           }
         </button>
       }
     </div>
-  </lib-product-filter-section>
+    </lib-product-filter-section>
 
-  <lib-product-filter-section
-    title="Occasion"
-    (resetClicked)="resetFilterGroup('occasion')"
-  >
-    <div class="grid grid-cols-2 gap-2">
-      @for (occasion of occasions(); track occasion.value) {
+    <lib-product-filter-section
+      title="Occasion"
+      (resetClicked)="resetFilterGroup('occasion')"
+    >
+      <div class="grid max-h-[242px] grid-cols-2 gap-2.5">
+      @for (occasion of visibleOccasions(); track occasion.value) {
         <button
           type="button"
-          class="min-h-14 rounded-md border px-2 py-3 text-center text-xs font-semibold transition"
-          [class.border-[#A6252A]]="isOccasionSelected(occasion.value)"
-          [class.bg-[#741C21]]="isOccasionSelected(occasion.value)"
-          [class.text-white]="isOccasionSelected(occasion.value)"
-          [class.border-[#E5E7EB]]="!isOccasionSelected(occasion.value)"
-          [class.bg-[#F5F5F5]]="!isOccasionSelected(occasion.value)"
-          [class.text-[#2F1A1B]]="!isOccasionSelected(occasion.value)"
+          class="relative h-[74px] cursor-pointer overflow-hidden rounded-lg text-center text-base font-medium leading-none text-[#FAFAFA] transition hover:scale-[1.02] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#A6252A]"
+          [class.ring-2]="isOccasionSelected(occasion.value)"
+          [class.ring-[#A6252A]]="isOccasionSelected(occasion.value)"
+          [attr.aria-pressed]="isOccasionSelected(occasion.value)"
           (click)="toggleOccasion(occasion)"
         >
-          <span class="line-clamp-2">{{ occasion.label }}</span>
+          @if (occasion.image) {
+            <img
+              [src]="occasion.image"
+              [alt]="occasion.label"
+              class="absolute inset-0 size-full object-cover"
+            />
+          }
+          <span
+            [class]="
+              isOccasionSelected(occasion.value)
+                ? 'absolute inset-0 bg-gradient-to-b from-black/30 to-[#A6252A]/70'
+                : 'absolute inset-0 bg-gradient-to-b from-black/30 to-black/80'
+            "
+          ></span>
+          <span class="relative line-clamp-2 px-2">{{ occasion.label }}</span>
         </button>
       }
     </div>
-  </lib-product-filter-section>
+    </lib-product-filter-section>
 
-  <lib-product-filter-section
-    title="Rating"
-    (resetClicked)="resetFilterGroup('rating')"
-  >
-    <div class="space-y-2">
+    <lib-product-filter-section
+      title="Rating"
+      (resetClicked)="resetFilterGroup('rating')"
+    >
+      <div class="flex items-center gap-2">
       @for (rating of ratingOptions(); track rating) {
         <button
           type="button"
-          class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-start transition hover:bg-[#FFF7E6]"
+          class="cursor-pointer text-[#FBA707] transition hover:scale-110"
           [attr.aria-pressed]="isRatingSelected(rating)"
           (click)="toggleRating(rating)"
         >
-          <span
-            class="grid size-4 place-items-center rounded border"
-            [class.border-[#A6252A]]="isRatingSelected(rating)"
-            [class.bg-[#A6252A]]="isRatingSelected(rating)"
-            [class.border-[#D1D5DB]]="!isRatingSelected(rating)"
-          >
-            @if (isRatingSelected(rating)) {
-              <span class="size-1.5 rounded-full bg-white"></span>
-            }
-          </span>
-          <span class="text-[#FBA707]" aria-hidden="true">
-            @for (star of ratingOptions(); track star) {
-              @if (star <= rating) {
-                <span>&#9733;</span>
-              } @else {
-                <span>&#9734;</span>
-              }
-            }
-          </span>
+          <lucide-icon
+            [name]="icons.Star"
+            size="25"
+            [class.fill-[#FBA707]]="isRatingSelected(rating)"
+          ></lucide-icon>
           <span class="sr-only">{{ rating }} stars and up</span>
         </button>
       }
     </div>
-  </lib-product-filter-section>
+    </lib-product-filter-section>
 
-  <lib-product-filter-section
-    title="Price"
-    [bordered]="false"
-    (resetClicked)="resetFilterGroup('price')"
-  >
-    <div class="grid grid-cols-2 gap-3">
-      <label class="space-y-1 text-xs text-[#574546]">
+    <lib-product-filter-section
+      title="Price"
+      [bordered]="false"
+      (resetClicked)="resetFilterGroup('price')"
+    >
+      <div class="grid grid-cols-2 gap-2">
+      <label class="space-y-1.5 text-sm font-medium text-[#27272A]">
         <span>from</span>
         <input
           type="number"
           inputmode="numeric"
-          class="h-10 w-full rounded-md border border-[#E5E7EB] bg-white px-3 text-sm text-[#2F1A1B] outline-none transition focus:border-[#A6252A] focus:ring-2 focus:ring-[#F2DCDD]"
+          class="h-[52px] w-full rounded-[10px] border border-[#D4D4D8] bg-white px-4 text-sm text-[#27272A] outline-none transition placeholder:text-[#A1A1AA] focus:border-[#A6252A] focus:ring-2 focus:ring-[#FBEAEA]"
           [min]="priceRange().min ?? 0"
           [max]="priceRange().max ?? null"
           [value]="selectedFilters().price.min ?? ''"
@@ -143,12 +159,12 @@
         />
       </label>
 
-      <label class="space-y-1 text-xs text-[#574546]">
+      <label class="space-y-1.5 text-sm font-medium text-[#27272A]">
         <span>to</span>
         <input
           type="number"
           inputmode="numeric"
-          class="h-10 w-full rounded-md border border-[#E5E7EB] bg-white px-3 text-sm text-[#2F1A1B] outline-none transition focus:border-[#A6252A] focus:ring-2 focus:ring-[#F2DCDD]"
+          class="h-[52px] w-full rounded-[10px] border border-[#D4D4D8] bg-white px-4 text-sm text-[#27272A] outline-none transition placeholder:text-[#A1A1AA] focus:border-[#A6252A] focus:ring-2 focus:ring-[#FBEAEA]"
           [min]="priceRange().min ?? 0"
           [max]="priceRange().max ?? null"
           [value]="selectedFilters().price.max ?? ''"
@@ -157,16 +173,19 @@
         />
       </label>
     </div>
-  </lib-product-filter-section>
+    </lib-product-filter-section>
 
-  <lib-button
-    label="Reset All"
-    variant="custom"
-    size="md"
-    customClass="mt-1 h-11 w-full rounded-md bg-[#FBEAEA] text-sm font-semibold text-[#A6252A] hover:bg-[#F2DCDD] disabled:cursor-not-allowed disabled:opacity-50"
-    [fullWidth]="true"
-    [icon]="icons.RotateCcw"
-    [disabled]="!hasActiveFilters()"
-    (clicked)="resetAllFilters()"
-  ></lib-button>
+    <div class="py-4">
+    <lib-button
+      label="Reset All"
+      variant="custom"
+      size="md"
+      customClass="h-[41px] w-full rounded-[10px] bg-[#FBEAEA] text-sm font-semibold text-[#A6252A] hover:bg-[#F2DCDD] disabled:cursor-not-allowed disabled:opacity-50"
+      [fullWidth]="true"
+      [icon]="icons.RotateCcw"
+      [disabled]="!hasActiveFilters()"
+      (clicked)="resetAllFilters()"
+    ></lib-button>
+    </div>
+  </div>
 </aside>

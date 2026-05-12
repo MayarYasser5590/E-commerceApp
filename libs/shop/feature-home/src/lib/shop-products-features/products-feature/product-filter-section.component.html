@@ -1,16 +1,19 @@
 <section
-  class="border-[#F2DCDD]"
+  class="border-[#F4F4F5]"
   [class.border-b]="bordered()"
-  [class.pb-5]="!withTopPadding()"
-  [class.py-5]="withTopPadding()"
+  [class.pb-5]="true"
+  [class.pt-2.5]="true"
 >
   <div class="mb-3 flex items-center justify-between gap-3">
-    <h2 class="text-sm font-semibold text-[#2F1A1B]">{{ title() }}</h2>
+    <h2 class="text-lg font-semibold leading-none text-[#27272A]">
+      {{ title() }}
+    </h2>
     <lib-button
-      label="x Reset"
+      label="Reset"
       variant="text"
       size="sm"
-      customClass="text-xs font-medium text-[#A6252A] hover:text-[#741C21]"
+      customClass="cursor-pointer gap-1 rounded px-1 text-sm font-normal text-[#DC2626] transition hover:bg-[#FBEAEA] hover:text-[#A6252A]"
+      [icon]="X"
       (clicked)="resetClicked.emit()"
     ></lib-button>
   </div>

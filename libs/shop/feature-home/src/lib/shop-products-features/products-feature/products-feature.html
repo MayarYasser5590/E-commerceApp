@@ -31,12 +31,12 @@
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         @for(product of products(); track product._id){
 
-          <lib-product-card-molecule
-            [product]="product"
-            (addToCart)="addToCart($event)"
-            (addToWishlist)="onToggleWishlist($event)"
-          ></lib-product-card-molecule>
-          
+        <lib-product-card-molecule
+          [product]="product"
+          (addToCart)="addToCart($event)"
+          (addToWishlist)="onToggleWishlist($event)"
+        ></lib-product-card-molecule>
+
         }
       </div>
       } @else {

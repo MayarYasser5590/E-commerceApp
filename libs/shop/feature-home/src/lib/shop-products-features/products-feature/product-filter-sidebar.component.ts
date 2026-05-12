@@ -9,6 +9,7 @@ import {
   LucideAngularModule,
   RotateCcw,
   SlidersHorizontal,
+  Star,
   X,
 } from 'lucide-angular';
 import {
@@ -27,6 +28,9 @@ import { LibButton } from '@shop-workspace/shared-ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductFilterSidebarComponent {
+  private readonly visibleCategoryCount = 6;
+  private readonly visibleOccasionCount = 6;
+
   categories = input<FilterOption[]>([]);
   occasions = input<FilterOption[]>([]);
   selectedFilters = input.required<ProductFilterState>();
@@ -42,6 +46,7 @@ export class ProductFilterSidebarComponent {
   icons = {
     RotateCcw,
     SlidersHorizontal,
+    Star,
     X,
   };
 
@@ -57,6 +62,14 @@ export class ProductFilterSidebarComponent {
     );
   });
 
+  visibleCategories = computed(() =>
+    this.categories().slice(0, this.visibleCategoryCount),
+  );
+
+  visibleOccasions = computed(() =>
+    this.occasions().slice(0, this.visibleOccasionCount),
+  );
+
   isCategorySelected(value: string): boolean {
     return this.selectedFilters().categories.includes(value);
   }
@@ -71,28 +84,37 @@ export class ProductFilterSidebarComponent {
 
   toggleCategory(option: FilterOption): void {
     const filters = this.selectedFilters();
+    const categories = filters.categories.includes(option.value)
+      ? filters.categories.filter((category) => category !== option.value)
+      : [...filters.categories, option.value];
 
     this.filtersChange.emit({
       ...filters,
-      categories: toggleValue(filters.categories, option.value),
+      categories,
     });
   }
 
   toggleOccasion(option: FilterOption): void {
     const filters = this.selectedFilters();
+    const occasions = filters.occasions.includes(option.value)
+      ? filters.occasions.filter((occasion) => occasion !== option.value)
+      : [...filters.occasions, option.value];
 
     this.filtersChange.emit({
       ...filters,
-      occasions: toggleValue(filters.occasions, option.value),
+      occasions,
     });
   }
 
   toggleRating(rating: number): void {
     const filters = this.selectedFilters();
+    const ratings = filters.ratings.includes(rating)
+      ? filters.ratings.filter((current) => current !== rating)
+      : [...filters.ratings, rating];
 
     this.filtersChange.emit({
       ...filters,
-      ratings: toggleValue(filters.ratings, rating),
+      ratings,
     });
   }
 
@@ -117,10 +139,4 @@ export class ProductFilterSidebarComponent {
   resetAllFilters(): void {
     this.resetAll.emit();
   }
-}
-
-function toggleValue<T>(values: T[], value: T): T[] {
-  return values.includes(value)
-    ? values.filter((currentValue) => currentValue !== value)
-    : [...values, value];
 }
