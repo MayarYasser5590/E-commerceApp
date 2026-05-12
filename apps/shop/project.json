@@ -7,11 +7,12 @@
   "tags": ["scope:shop", "type:app"],
   "targets": {
     "build": {
-      "executor": "@angular/build:application",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/shop",
-        "browser": "apps/shop/src/main.ts",
+        "index": "apps/shop/src/index.html",
+        "main": "apps/shop/src/main.ts",
         "tsConfig": "apps/shop/tsconfig.app.json",
         "assets": [
           {
@@ -22,6 +23,9 @@
         "styles": ["apps/shop/src/styles.scss"],
         "stylePreprocessorOptions": {
           "includePaths": ["."]
+        },
+        "customWebpackConfig": {
+          "path": "apps/shop/webpack.config.ts"
         }
       },
       "configurations": {
@@ -44,7 +48,10 @@
               "maximumError": "12kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/shop/webpack.prod.config.ts"
+          }
         },
         "development": {
           "optimization": false,
@@ -56,7 +63,7 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular/build:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
       "configurations": {
         "production": {
           "buildTarget": "shop:build:production"
@@ -65,7 +72,10 @@
           "buildTarget": "shop:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "publicHost": "http://localhost:4200"
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
