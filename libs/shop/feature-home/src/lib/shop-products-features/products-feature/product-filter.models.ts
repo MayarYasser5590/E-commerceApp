@@ -1,6 +1,7 @@
 export interface FilterOption {
   label: string;
   value: string;
+  image?: string;
   count?: number;
 }
 
