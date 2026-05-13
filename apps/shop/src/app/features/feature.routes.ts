@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { guestGuard } from '@shop-workspace/shared-auth';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout';
 
 export const featureRoutes: Routes = [

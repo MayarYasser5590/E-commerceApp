@@ -57,17 +57,15 @@ export class PhoneInput implements ControlValueAccessor {
       this.countryOptions().find((country) => country.code === 'EG')?.label ??
       '',
   );
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = (_value: PhoneInputValue) => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTouched = () => {};
+  onChange: (value: PhoneInputValue) => void = () => undefined;
+  onTouched: () => void = () => undefined;
 
   writeValue(value: PhoneInputValue | null): void {
     this.countryCode.set(value?.countryCode ?? null);
     this.number.set(value?.number ?? '');
   }
 
-  registerOnChange(fn: (_value: PhoneInputValue) => void): void {
+  registerOnChange(fn: (value: PhoneInputValue) => void): void {
     this.onChange = fn;
   }
 

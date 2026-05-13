@@ -4,11 +4,13 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 import { resolve } from 'path';
 
-export default defineConfig(() => ({
+export default defineConfig(({ mode }) => ({
   root: __dirname,
   cacheDir: '../../../node_modules/.vite/libs/shared/ui',
   plugins: [
-    angular({ tsconfig: './tsconfig.lib.json' }),
+    angular({
+      tsconfig: mode === 'test' ? './tsconfig.spec.json' : './tsconfig.lib.json',
+    }),
     nxViteTsPaths(),
     nxCopyAssetsPlugin(['*.md']),
   ],
@@ -20,7 +22,7 @@ export default defineConfig(() => ({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'shared-ui',
       fileName: 'index',
-      formats: ['es'] as any,
+      formats: ['es'],
     },
     rollupOptions: {
       external: [

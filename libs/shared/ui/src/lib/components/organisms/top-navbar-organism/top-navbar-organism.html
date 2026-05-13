@@ -31,7 +31,7 @@
         class="text-left px-1 md:px-3 flex justify-center items-center cursor-pointer"
       >
         <lib-authenticated-menu-molecule
-          [userName]="user?.firstName"
+          [userName]="user?.firstName ?? ''"
           (logout)="logout.emit()"
         ></lib-authenticated-menu-molecule>
       </div>
