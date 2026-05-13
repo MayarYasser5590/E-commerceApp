@@ -33,7 +33,6 @@ export * from './lib/components/atoms/password-toggle/password-toggle';
 
 export * from './lib/components/molecules/form-field/form-field';
 
-export * from './lib/components/organisms/product-card-organism/product-card-organism';
 export * from './lib/components/atoms/logo-atom/logo-atom';
 export * from './lib/components/molecules/search-input-molecule/search-input-molecule';
 export * from './lib/components/molecules/nav-user-data-molecule/nav-user-data-molecule';

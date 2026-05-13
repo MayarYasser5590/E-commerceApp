@@ -7,10 +7,15 @@ import {
   signal,
 } from '@angular/core';
 import { ProductService } from '../../data-access/product.service';
-import { ProductData, Metadata } from '@shop-workspace/shared-types';
+import {
+  Category,
+  Metadata,
+  Occasion,
+  ProductData,
+} from '@shop-workspace/shared-types';
 import { PaginatorModule } from 'primeng/paginator';
 import { PaginatorState } from 'primeng/types/paginator';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { CartUi } from '../../cart/data-access/cart.ui';
 import { ProductCardMolecule } from '@shop-workspace/shared-ui';
 import { WishlistService } from '../../data-access/wishlist.service';
@@ -22,7 +27,7 @@ import {
 } from './product-filter.models';
 import {
   applyFilters,
-  buildFilterOptions,
+  buildTaxonomyFilterOptions,
   createProductFilterState,
   getProductPriceRange,
   resetProductFilterGroup,
@@ -44,6 +49,8 @@ export class ProductsFeature implements OnInit, OnDestroy {
   private wishlistService = inject(WishlistService);
   private toast = inject(AppToastService);
   allProducts = signal<ProductData[]>([]);
+  categoryCatalog = signal<Category[]>([]);
+  occasionCatalog = signal<Occasion[]>([]);
   products = signal<ProductData[]>([]);
   selectedFilters = signal<ProductFilterState>(createProductFilterState());
   filtersOpen = signal(false);
@@ -52,10 +59,18 @@ export class ProductsFeature implements OnInit, OnDestroy {
     applyFilters(this.allProducts(), this.selectedFilters()),
   );
   categories = computed(() =>
-    buildFilterOptions(this.allProducts(), 'category'),
+    buildTaxonomyFilterOptions(
+      this.categoryCatalog(),
+      this.allProducts(),
+      'category',
+    ),
   );
   occasions = computed(() =>
-    buildFilterOptions(this.allProducts(), 'occasion'),
+    buildTaxonomyFilterOptions(
+      this.occasionCatalog(),
+      this.allProducts(),
+      'occasion',
+    ),
   );
   priceRange = computed(() => getProductPriceRange(this.allProducts()));
   metaData!: Metadata;
@@ -86,10 +101,15 @@ export class ProductsFeature implements OnInit, OnDestroy {
   }
 
   getAllProducts() {
-    this.productsSubscribe = this.productService.getAllProducts().subscribe({
-      next: (res) => {
-        this.allProducts.set(res.products);
-
+    this.productsSubscribe = forkJoin({
+      products: this.productService.getAllProducts(),
+      categories: this.productService.getCategories(),
+      occasions: this.productService.getOccasions(),
+    }).subscribe({
+      next: ({ products, categories, occasions }) => {
+        this.categoryCatalog.set(categories);
+        this.occasionCatalog.set(occasions);
+        this.allProducts.set(products.products);
         this.totalProducts.set(this.filteredProducts().length);
         this.updateVisibleProducts();
       },
