@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import {
   LucideAngularModule,
   ChevronDown,
@@ -20,8 +13,12 @@ import { NavUserDataMolecule } from '../../molecules/nav-user-data-molecule/nav-
 import { AuthenticatedMenuMolecule } from '../../molecules/authenticated-menu-molecule/authenticated-menu-molecule';
 import { ThemeService } from '@shop-workspace/shared-util';
 import { RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { LangSwitchAtom } from '../../atoms/lang-switch-atom/lang-switch-atom';
+
+interface NavbarUser {
+  firstName?: string;
+}
 
 @Component({
   selector: 'lib-top-navbar-organism',
@@ -41,7 +38,7 @@ import { LangSwitchAtom } from '../../atoms/lang-switch-atom/lang-switch-atom';
 })
 export class TopNavbarOrganism {
   @Input() isAuthenticated = false;
-  @Input() user: any;
+  @Input() user?: NavbarUser | null;
   @Input() cartCount = 0;
   @Input() favCount = 0;
   @Output() logout = new EventEmitter<void>();
