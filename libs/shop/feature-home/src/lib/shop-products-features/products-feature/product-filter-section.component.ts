@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
+import { X } from 'lucide-angular';
 import { LibButton } from '@shop-workspace/shared-ui';
 
 @Component({
@@ -8,6 +14,8 @@ import { LibButton } from '@shop-workspace/shared-ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductFilterSectionComponent {
+  protected readonly X = X;
+
   title = input.required<string>();
   bordered = input(true);
   withTopPadding = input(true);

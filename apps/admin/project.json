@@ -7,11 +7,12 @@
   "tags": ["scope:admin", "type:app"],
   "targets": {
     "build": {
-      "executor": "@angular/build:application",
+      "executor": "@nx/angular:webpack-browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/admin",
-        "browser": "apps/admin/src/main.ts",
+        "index": "apps/admin/src/index.html",
+        "main": "apps/admin/src/main.ts",
         "tsConfig": "apps/admin/tsconfig.app.json",
         "assets": [
           {
@@ -19,7 +20,10 @@
             "input": "apps/admin/public"
           }
         ],
-        "styles": ["apps/admin/src/styles.scss"]
+        "styles": ["apps/admin/src/styles.scss"],
+        "customWebpackConfig": {
+          "path": "apps/admin/webpack.config.ts"
+        }
       },
       "configurations": {
         "production": {
@@ -41,7 +45,10 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/admin/webpack.prod.config.ts"
+          }
         },
         "development": {
           "optimization": false,
@@ -53,7 +60,7 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular/build:dev-server",
+      "executor": "@nx/angular:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "admin:build:production"
@@ -62,7 +69,11 @@
           "buildTarget": "admin:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
@@ -74,11 +85,19 @@
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
       "options": {
         "buildTarget": "admin:build",
-        "port": 4200,
-        "staticFilePath": "dist/apps/admin/browser",
-        "spa": true
+        "port": 4201,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "admin:build:development"
+        },
+        "production": {
+          "buildTarget": "admin:build:production"
+        }
       }
     }
   }

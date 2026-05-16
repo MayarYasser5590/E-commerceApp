@@ -6,6 +6,14 @@ import {
   defaultProductFilterState,
 } from './product-filter.models';
 
+interface TaxonomyItem {
+  _id: string;
+  name: string;
+  slug?: string;
+  image?: string;
+  productsCount?: number;
+}
+
 type TaxonomyValue =
   | string
   | {
@@ -35,31 +43,27 @@ export function resetProductFilterGroup(
   }
 }
 
-export function buildFilterOptions(
+export function buildTaxonomyFilterOptions(
+  taxonomyItems: TaxonomyItem[],
   products: ProductData[],
   field: 'category' | 'occasion',
 ): FilterOption[] {
-  const counts = new Map<string, { label: string; count: number }>();
+  const counts = new Map<string, number>();
 
   for (const product of products) {
     const option = getTaxonomyOption(product[field]);
 
-    if (!option) {
-      continue;
+    if (option) {
+      counts.set(option.value, (counts.get(option.value) ?? 0) + 1);
     }
-
-    const existing = counts.get(option.value);
-    counts.set(option.value, {
-      label: option.label,
-      count: (existing?.count ?? 0) + 1,
-    });
   }
 
-  return Array.from(counts, ([value, option]) => ({
-    value,
-    label: option.label,
-    count: option.count,
-  })).sort((first, second) => first.label.localeCompare(second.label));
+  return taxonomyItems.map((item) => ({
+    value: item._id,
+    label: toTitle(item.name),
+    image: item.image,
+    count: item.productsCount ?? counts.get(item._id) ?? 0,
+  }));
 }
 
 export function getProductPriceRange(products: ProductData[]): {

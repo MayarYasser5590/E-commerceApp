@@ -1,6 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { toObservable } from '@angular/core/rxjs-interop';
 import {
   CartItem,
   CartResponse,
@@ -35,12 +34,6 @@ export class CartUi {
   readonly itemCount = computed(() =>
     this.items().reduce((count, item) => count + item.quantity, 0),
   );
-
-  readonly items$ = toObservable(this.items);
-  readonly summary$ = toObservable(this.summary);
-  readonly loading$ = toObservable(this.loading);
-  readonly error$ = toObservable(this.error);
-  readonly itemCount$ = toObservable(this.itemCount);
 
   loadCart(): void {
     this.runCartAction(this.cartApi.loadCart());

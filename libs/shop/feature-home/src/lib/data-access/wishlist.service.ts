@@ -3,10 +3,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from '@shop-workspace/shared-util';
 import {
-  BaseProduct,
   CheckWishlistResponse,
-  ProductData,
-  RelatedProduct,
   WishlistProduct,
   WishlistResponse,
   WishlistToggleProduct,

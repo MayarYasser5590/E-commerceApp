@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, input, OnDestroy, Output, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  input,
+  OnDestroy,
+  Output,
+  signal,
+} from '@angular/core';
 import { InputOtpModule } from 'primeng/inputotp';
 import { FormControl, FormGroup, FormsModule , ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthFormHeaderMolecule } from "../../molecules/AuthFormHeaderMolecule/AuthFormHeaderMolecule";
@@ -15,7 +22,7 @@ export class VerifyOtpFormOragnism implements OnDestroy {
   length = 6;
   countdown = signal(0);
   disableResend = signal(false);
-  intervalId: any;
+  intervalId: ReturnType<typeof setInterval> | null = null;
   resendSuccess = false;
   isLoading = input<boolean>(false);
   @Output() resend = new EventEmitter<void>(); 
@@ -49,11 +56,13 @@ export class VerifyOtpFormOragnism implements OnDestroy {
     this.disableResend.set(true);
 
     this.intervalId = setInterval(() => {
-      this.countdown.update(v => v - 1);
+      this.countdown.update((v) => v - 1);
 
       if (this.countdown() <= 0) {
         this.disableResend.set(false);
-        clearInterval(this.intervalId);
+        if (this.intervalId) {
+          clearInterval(this.intervalId);
+        }
         this.intervalId = null;
       }
     }, 1000);

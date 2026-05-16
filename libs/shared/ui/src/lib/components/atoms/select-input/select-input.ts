@@ -29,16 +29,14 @@ export class SelectInput implements ControlValueAccessor {
   value = signal<unknown>(null);
   isDisabled = signal(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = (_value: unknown) => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTouched = () => {};
+  onChange: (value: unknown) => void = () => undefined;
+  onTouched: () => void = () => undefined;
 
   writeValue(value: unknown): void {
     this.value.set(value ?? null);
   }
 
-  registerOnChange(fn: (_value: unknown) => void): void {
+  registerOnChange(fn: (value: unknown) => void): void {
     this.onChange = fn;
   }
 
