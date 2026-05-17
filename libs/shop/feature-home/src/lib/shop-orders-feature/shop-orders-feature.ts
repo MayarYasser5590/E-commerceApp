@@ -40,21 +40,22 @@ export class ShopOrdersFeature implements OnInit {
     return this.expandedOrderId() === orderId;
   }
 
-  getStatusClasses(state: string) {
-    switch (state.toLowerCase()) {
-      case 'pending':
-        return 'bg-blue-100 text-blue-600';
+// --> in status.ts
+export const STATUS_CLASSES: Record<string, string> = {
+  pending:    'bg-blue-100 text-blue-600',
+  done:       'bg-green-600 text-white',
+  canceled:   'bg-red-600 text-white',
+  inprogress: 'bg-blue-600 text-white',
+};
 
-      case 'done':
-        return 'bg-green-600 text-white';
+export const DEFAULT_STATUS_CLASS = 'bg-gray-100 text-gray-600';
 
-      case 'canceled':
-        return 'bg-red-600 text-white';
-      case 'inProgress':
-        return 'bg-blue-600 text-white';
 
-      default:
-        return 'bg-gray-100 text-gray-600';
-    }
-  }
+// --> in shop-orders-feature.ts component: 
+import { STATUS_CLASSES, DEFAULT_STATUS_CLASS } from './status-classes.config';
+
+getStatusClasses(state: string): string {
+  return STATUS_CLASSES[state.toLowerCase()] ?? DEFAULT_STATUS_CLASS;
+}
+
 }
