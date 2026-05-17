@@ -29,6 +29,7 @@ export default async (webpackConfig) => {
     ...updatedConfig,
     output: {
       ...updatedConfig.output,
+      publicPath: 'auto',
       scriptType: 'module',
     },
   };
