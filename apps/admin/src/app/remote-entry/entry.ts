@@ -1,256 +1,393 @@
-import { NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
-import {
-  CalendarHeart,
-  ClipboardList,
-  Flower,
-  LayoutDashboard,
-  LucideAngularModule,
-  Menu,
-  Package,
-  Search,
-} from 'lucide-angular';
-import { filter } from 'rxjs';
-import { DrawerModule } from 'primeng/drawer';
-
-interface AdminNavItem {
-  label: string;
-  path: string;
-  icon: typeof LayoutDashboard;
-  exact: boolean;
-}
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-admin-entry',
-  imports: [
-    DrawerModule,
-    LucideAngularModule,
-    NgTemplateOutlet,
-    RouterLink,
-    RouterLinkActive,
-    RouterOutlet,
-  ],
+  imports: [RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="min-h-screen bg-[#f8f6f3] text-[#231f20]">
-      <p-drawer
-        styleClass="admin-dashboard-drawer !w-[min(19rem,86vw)]"
-        position="left"
-        [visible]="sidebarVisible()"
-        (visibleChange)="sidebarVisible.set($event)"
-      >
-        <ng-container [ngTemplateOutlet]="sidebarContent"></ng-container>
-      </p-drawer>
+    <div class="admin-layout">
+      <aside class="admin-sidebar" aria-label="Admin navigation">
+        <a class="admin-brand" href="." aria-label="Rose admin dashboard">
+          <span class="admin-brand__mark" aria-hidden="true">R</span>
+          <span>
+            <strong>Rose</strong>
+            <small>Admin</small>
+          </span>
+        </a>
 
-      <div class="grid min-h-screen lg:grid-cols-[18rem_minmax(0,1fr)]">
-        <aside
-          class="sticky top-0 hidden h-screen flex-col border-r border-[#f1dfda] bg-white px-6 py-6 lg:flex"
-          aria-label="Admin navigation"
-        >
-          <ng-container [ngTemplateOutlet]="sidebarContent"></ng-container>
-        </aside>
-
-        <main class="min-w-0 px-4 py-4 sm:px-6 lg:px-8">
-          <header
-            class="grid min-h-[4.5rem] grid-cols-[auto_minmax(0,1fr)] items-center gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,22rem)]"
-          >
-            <button
-              type="button"
-              class="inline-flex size-11 items-center justify-center rounded-full border border-[#f1dfda] bg-white text-[#635960] shadow-sm lg:hidden"
-              aria-label="Open navigation"
-              (click)="sidebarVisible.set(true)"
+        <nav class="admin-nav" aria-label="Primary">
+          @for (item of navItems; track item.label) {
+            <a
+              class="admin-nav__item"
+              href="."
+              [class.admin-nav__item--active]="item.active"
+              [attr.aria-current]="item.active ? 'page' : null"
             >
-              <lucide-icon
-                [name]="icons.Menu"
-                class="size-5"
-                aria-hidden="true"
-              ></lucide-icon>
-            </button>
+              <span class="admin-nav__icon" aria-hidden="true">{{ item.icon }}</span>
+              <span>{{ item.label }}</span>
+            </a>
+          }
+        </nav>
 
-            <div class="min-w-0">
-              <p class="mb-1 text-xs font-extrabold uppercase text-[#f82ba9]">
-                Dashboard
-              </p>
-              <h1
-                class="truncate text-2xl font-bold leading-tight sm:text-[2rem]"
-              >
-                {{ pageTitle() }}
-              </h1>
-            </div>
+        <div class="admin-profile">
+          <span class="admin-profile__avatar" aria-hidden="true">A</span>
+          <span>
+            <strong>Admin</strong>
+            <small>Operations</small>
+          </span>
+        </div>
+      </aside>
 
-            <label
-              class="col-span-2 flex h-11 items-center gap-2 rounded-full border border-[#f1dfda] bg-white px-4 text-[#8d8088] lg:col-span-1"
-            >
-              <lucide-icon
-                [name]="icons.Search"
-                class="size-4"
-                aria-hidden="true"
-              ></lucide-icon>
-              <span class="sr-only">Search admin pages</span>
-              <input
-                type="search"
-                placeholder="Search"
-                class="min-w-0 flex-1 border-0 bg-transparent text-sm text-[#231f20] outline-none placeholder:text-[#8d8088]"
-              />
+      <main class="admin-main">
+        <header class="admin-header">
+          <div>
+            <p class="admin-eyebrow">Remote workspace</p>
+            <h1>Admin Dashboard</h1>
+          </div>
+
+          <div class="admin-actions" aria-label="Dashboard actions">
+            <label class="admin-search">
+              <span class="sr-only">Search dashboard</span>
+              <input type="search" placeholder="Search" />
             </label>
-          </header>
+            <button type="button">Export</button>
+          </div>
+        </header>
 
-          <nav
-            class="mt-3 flex items-center gap-2 text-sm text-[#847780]"
-            aria-label="Breadcrumb"
-          >
-            <a routerLink="./overview" class="font-semibold text-[#635960]"
-              >Home</a
-            >
-            <span aria-hidden="true">/</span>
-            <span class="font-semibold text-[#f82ba9]">{{ pageTitle() }}</span>
-          </nav>
+        <section class="admin-content" aria-label="Admin dashboard overview">
+          <div class="admin-panel admin-panel--summary">
+            <p class="admin-eyebrow">Today</p>
+            <h2>Orders Overview</h2>
+            <div class="admin-metrics">
+              @for (metric of metrics; track metric.label) {
+                <article class="admin-metric">
+                  <span>{{ metric.label }}</span>
+                  <strong>{{ metric.value }}</strong>
+                  <small>{{ metric.delta }}</small>
+                </article>
+              }
+            </div>
+          </div>
 
-          <section
-            class="mt-6 min-h-[calc(100vh-11rem)] rounded-[14px] border border-[#f1dfda] bg-white p-4 sm:p-6 lg:min-h-[calc(100vh-9rem)]"
-            aria-label="Admin page content"
-          >
-            <router-outlet></router-outlet>
-          </section>
-        </main>
-      </div>
+          <div class="admin-panel">
+            <p class="admin-eyebrow">Runtime source</p>
+            <h2>Admin remote feature</h2>
+            <p>
+              This layout is rendered by the admin remote and loaded by the shop
+              host at runtime.
+            </p>
+          </div>
+
+          <router-outlet></router-outlet>
+        </section>
+      </main>
     </div>
-
-    <ng-template #sidebarContent>
-      <a
-        class="flex items-center gap-3 text-[#231f20] no-underline"
-        routerLink="./overview"
-        aria-label="Rose admin dashboard"
-        (click)="sidebarVisible.set(false)"
-      >
-        <span
-          class="grid size-[3.125rem] shrink-0 place-items-center rounded-2xl bg-[#f82ba9] text-white"
-          aria-hidden="true"
-        >
-          <lucide-icon [name]="icons.Flower" class="size-7"></lucide-icon>
-        </span>
-        <span class="min-w-0">
-          <strong class="block text-base leading-tight">Rose</strong>
-          <small class="block text-[0.8rem] text-[#847780]">Admin</small>
-        </span>
-      </a>
-
-      <nav class="mt-8 grid gap-1.5" aria-label="Primary">
-        @for (item of navItems; track item.path) {
-          <a
-            class="flex min-h-[3.25rem] items-center gap-3 rounded-[14px] px-4 font-bold text-[#635960] no-underline transition-colors hover:bg-[#fff0fa] hover:text-[#f82ba9]"
-            [routerLink]="item.path"
-            routerLinkActive="bg-[#fff0fa] text-[#f82ba9]"
-            [routerLinkActiveOptions]="{ exact: item.exact }"
-            (click)="sidebarVisible.set(false)"
-          >
-            <lucide-icon
-              [name]="item.icon"
-              class="size-5 shrink-0"
-              aria-hidden="true"
-            ></lucide-icon>
-            <span>{{ item.label }}</span>
-          </a>
-        }
-      </nav>
-
-      <a
-        class="mt-auto flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#f82ba9] px-4 font-extrabold text-white no-underline"
-        routerLink="/"
-        (click)="sidebarVisible.set(false)"
-      >
-        <lucide-icon
-          [name]="icons.Flower"
-          class="size-5"
-          aria-hidden="true"
-        ></lucide-icon>
-        <span>Preview website</span>
-      </a>
-    </ng-template>
   `,
   styles: [
     `
-      :host ::ng-deep .admin-dashboard-drawer .p-drawer-content {
+      :host {
+        display: block;
+        min-height: 100vh;
+        color: #1f2933;
+        background: #f7f4f2;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+      }
+
+      .admin-layout {
+        display: grid;
+        grid-template-columns: 17.5rem minmax(0, 1fr);
+        min-height: 100vh;
+      }
+
+      .admin-sidebar {
+        position: sticky;
+        top: 0;
         display: flex;
         flex-direction: column;
-        gap: 0;
+        gap: 2rem;
+        height: 100vh;
         padding: 1.5rem;
+        background: #ffffff;
+        border-right: 1px solid #eadfd9;
+      }
+
+      .admin-brand,
+      .admin-profile,
+      .admin-nav__item {
+        display: flex;
+        align-items: center;
+      }
+
+      .admin-brand {
+        gap: 0.75rem;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .admin-brand__mark,
+      .admin-profile__avatar,
+      .admin-nav__icon {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+      }
+
+      .admin-brand__mark {
+        width: 2.75rem;
+        height: 2.75rem;
+        color: #ffffff;
+        background: #a6255f;
+        border-radius: 0.875rem;
+        font-weight: 800;
+      }
+
+      .admin-brand strong,
+      .admin-profile strong {
+        display: block;
+        font-size: 0.95rem;
+      }
+
+      .admin-brand small,
+      .admin-profile small,
+      .admin-metric small {
+        display: block;
+        color: #7b6f68;
+        font-size: 0.78rem;
+      }
+
+      .admin-nav {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .admin-nav__item {
+        gap: 0.75rem;
+        min-height: 2.75rem;
+        padding: 0 0.85rem;
+        color: #62554f;
+        border-radius: 0.75rem;
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 600;
+      }
+
+      .admin-nav__item:hover,
+      .admin-nav__item--active {
+        color: #a6255f;
+        background: #f8e9f0;
+      }
+
+      .admin-nav__icon {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .admin-profile {
+        gap: 0.75rem;
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid #eadfd9;
+      }
+
+      .admin-profile__avatar {
+        width: 2.25rem;
+        height: 2.25rem;
+        color: #a6255f;
+        background: #f8e9f0;
+        border-radius: 50%;
+        font-weight: 800;
+      }
+
+      .admin-main {
+        min-width: 0;
+        padding: 1.5rem;
+      }
+
+      .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .admin-eyebrow {
+        margin: 0 0 0.35rem;
+        color: #a6255f;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin: 0;
+        color: #231f20;
+        font-size: 1.85rem;
+        line-height: 1.2;
+      }
+
+      h2 {
+        margin-bottom: 1rem;
+        color: #231f20;
+        font-size: 1.15rem;
+        line-height: 1.35;
+      }
+
+      .admin-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .admin-search input {
+        width: min(16rem, 35vw);
+        height: 2.5rem;
+        padding: 0 0.9rem;
+        color: #231f20;
+        background: #ffffff;
+        border: 1px solid #eadfd9;
+        border-radius: 0.75rem;
+      }
+
+      button {
+        height: 2.5rem;
+        padding: 0 1rem;
+        color: #ffffff;
+        background: #a6255f;
+        border: 0;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #8f1f51;
+      }
+
+      .admin-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(20rem, 0.85fr);
+        gap: 1rem;
+      }
+
+      .admin-panel {
+        min-width: 0;
+        padding: 1.25rem;
+        background: #ffffff;
+        border: 1px solid #eadfd9;
+        border-radius: 1rem;
+        box-shadow: 0 1rem 2.5rem rgb(54 38 28 / 0.07);
+      }
+
+      .admin-panel--summary {
+        grid-column: span 2;
+      }
+
+      .admin-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+
+      .admin-metric {
+        display: grid;
+        gap: 0.35rem;
+        padding: 1rem;
+        background: #fbf7f5;
+        border: 1px solid #f0e6e1;
+        border-radius: 0.85rem;
+      }
+
+      .admin-metric span {
+        color: #62554f;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .admin-metric strong {
+        color: #231f20;
+        font-size: 1.5rem;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+      }
+
+      @media (max-width: 900px) {
+        .admin-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .admin-sidebar {
+          position: static;
+          height: auto;
+          gap: 1rem;
+        }
+
+        .admin-nav {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .admin-profile {
+          display: none;
+        }
+
+        .admin-header,
+        .admin-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .admin-search input {
+          width: 100%;
+        }
+
+        .admin-content,
+        .admin-metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .admin-panel--summary {
+          grid-column: auto;
+        }
       }
     `,
   ],
 })
 export class RemoteEntry {
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
-
-  protected readonly sidebarVisible = signal(false);
-  private readonly activeTitle = signal(this.resolvePageTitle());
-
-  protected readonly pageTitle = computed(() => this.activeTitle());
-
-  protected readonly icons = {
-    Flower,
-    Menu,
-    Search,
-  };
-
-  protected readonly navItems: AdminNavItem[] = [
-    {
-      label: 'Overview',
-      path: './overview',
-      icon: LayoutDashboard,
-      exact: true,
-    },
-    {
-      label: 'Categories',
-      path: './categories',
-      icon: ClipboardList,
-      exact: true,
-    },
-    {
-      label: 'Occasions',
-      path: './occasions',
-      icon: CalendarHeart,
-      exact: true,
-    },
-    {
-      label: 'Products',
-      path: './products',
-      icon: Package,
-      exact: true,
-    },
+  protected readonly navItems = [
+    { label: 'Dashboard', icon: 'D', active: true },
+    { label: 'Orders', icon: 'O', active: false },
+    { label: 'Products', icon: 'P', active: false },
+    { label: 'Customers', icon: 'C', active: false },
+    { label: 'Reports', icon: 'R', active: false },
   ];
 
-  constructor() {
-    this.router.events
-      .pipe(
-        filter(
-          (event): event is NavigationEnd => event instanceof NavigationEnd,
-        ),
-      )
-      .subscribe(() => this.activeTitle.set(this.resolvePageTitle()));
-  }
-
-  private resolvePageTitle(): string {
-    let child = this.route.firstChild;
-
-    while (child?.firstChild) {
-      child = child.firstChild;
-    }    
-    return child?.snapshot?.data?.['breadcrumb'] ?? 'Overview';
-  }
+  protected readonly metrics = [
+    { label: 'Orders', value: '128', delta: '+12.5%' },
+    { label: 'Revenue', value: '$8.4k', delta: '+8.2%' },
+    { label: 'Products', value: '436', delta: '+18 new' },
+  ];
 }
