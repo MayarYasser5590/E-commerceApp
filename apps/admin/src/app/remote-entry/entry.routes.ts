@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { AdminFeatureDashboard } from '@shop-workspace/admin-feature-dashboard';
 import { AdminDashboardPlaceholder } from './dashboard-placeholder';
 import { RemoteEntry } from './entry';
 
@@ -14,7 +15,7 @@ export const remoteRoutes: Route[] = [
       },
       {
         path: 'overview',
-        component: AdminDashboardPlaceholder,
+        component: AdminFeatureDashboard,
         data: { breadcrumb: 'Overview' },
         title: 'Admin Overview',
       },
