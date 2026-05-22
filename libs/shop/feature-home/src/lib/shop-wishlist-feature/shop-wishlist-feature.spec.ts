@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductCardOrganism } from './product-card-organism';
+import { ShopWishlistFeature } from './shop-wishlist-feature';
 
-describe('ProductCardOrganism', () => {
-  let component: ProductCardOrganism;
-  let fixture: ComponentFixture<ProductCardOrganism>;
+describe('ShopWishlistFeature', () => {
+  let component: ShopWishlistFeature;
+  let fixture: ComponentFixture<ShopWishlistFeature>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductCardOrganism],
+      imports: [ShopWishlistFeature],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProductCardOrganism);
+    fixture = TestBed.createComponent(ShopWishlistFeature);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

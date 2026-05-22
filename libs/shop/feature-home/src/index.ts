@@ -11,6 +11,9 @@ export * from './lib/shop-products-features/product-details-feature/product-deta
 export * from './lib/data-access/home.service';
 export * from './lib/shop-feature-home/components/best-seller-section/best-seller-section-feature';
 export * from './lib/shop-feature-home/components/about-us-section/about-us-section';
+export * from './lib/data-access/wishlist.service';
+export * from './lib/shop-wishlist-feature/shop-wishlist-feature';
+export * from './lib/shop-wishlist-feature/components/wishlist-card/wishlist-card';
 export * from './lib/shop-feature-home/components/features-bar-section/features-bar-section';
 export * from './lib/shop-feature-home/components/trusted-by-section/trusted-by-section';
 export * from './lib/components/home/special-gifts-section/special-gifts-section';
@@ -24,3 +27,6 @@ export * from './lib/components/home/special-gifts-section/special-gifts-section
 export * from './lib/shop-shopping-feature/layouts/shopping-flow-layout';
 export * from './lib/shop-shopping-feature/Shopping-flow-container';
 export * from './lib/cart/feature/cart-feature-page';
+export * from './lib/cart/feature/cart-feature-page';
+export * from './lib/components/home/special-gifts-section/special-gifts-section';
+export * from './lib/data-access/toast.service';

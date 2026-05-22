@@ -1,25 +1,24 @@
-import { Component ,   computed,forwardRef,Input,signal } from '@angular/core';
+import { Component, computed, forwardRef, Input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PasswordToggle } from "../password-toggle/password-toggle";
-
+import { PasswordToggle } from '../password-toggle/password-toggle';
 
 @Component({
   selector: 'lib-custom-input',
   imports: [PasswordToggle],
   templateUrl: './custom-input.html',
   styleUrl: './custom-input.scss',
-   providers: [
+  providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CustomInput),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class CustomInput implements ControlValueAccessor {
   @Input() type: 'text' | 'email' | 'password' | 'tel' = 'text';
   @Input() placeholder = '';
-  @Input() inputId?: string;  
+  @Input() inputId?: string;
   @Input() autocomplete?: string;
   @Input() inputClass = '';
 
@@ -34,20 +33,18 @@ export class CustomInput implements ControlValueAccessor {
     return this.type;
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = (value: string) => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onTouched = () => {};
+  onChange: (value: string) => void = () => undefined;
+  onTouched: () => void = () => undefined;
 
   writeValue(value: string): void {
     this.value.set(value ?? '');
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
@@ -62,7 +59,6 @@ export class CustomInput implements ControlValueAccessor {
 
   togglePassword(): void {
     if (this.type !== 'password') return;
-    this.showPassword.update(v => !v);
+    this.showPassword.update((v) => !v);
   }
-
 }

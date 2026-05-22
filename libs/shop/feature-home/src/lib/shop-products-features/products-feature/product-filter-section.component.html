@@ -1,0 +1,22 @@
+<section
+  class="border-[#F4F4F5]"
+  [class.border-b]="bordered()"
+  [class.pb-5]="true"
+  [class.pt-2.5]="true"
+>
+  <div class="mb-3 flex items-center justify-between gap-3">
+    <h2 class="text-lg font-semibold leading-none text-[#27272A]">
+      {{ title() }}
+    </h2>
+    <lib-button
+      label="Reset"
+      variant="text"
+      size="sm"
+      customClass="cursor-pointer gap-1 rounded px-1 text-sm font-normal text-[#DC2626] transition hover:bg-[#FBEAEA] hover:text-[#A6252A]"
+      [icon]="X"
+      (clicked)="resetClicked.emit()"
+    ></lib-button>
+  </div>
+
+  <ng-content></ng-content>
+</section>

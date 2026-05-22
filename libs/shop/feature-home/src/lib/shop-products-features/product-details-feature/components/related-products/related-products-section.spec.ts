@@ -11,6 +11,7 @@ describe('RelatedProductsSection', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(RelatedProductsSection);
+    fixture.componentRef.setInput('productId', 'product-1');
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

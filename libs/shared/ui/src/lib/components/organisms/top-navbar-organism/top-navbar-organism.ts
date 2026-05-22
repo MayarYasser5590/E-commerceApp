@@ -13,6 +13,12 @@ import { NavUserDataMolecule } from '../../molecules/nav-user-data-molecule/nav-
 import { AuthenticatedMenuMolecule } from '../../molecules/authenticated-menu-molecule/authenticated-menu-molecule';
 import { ThemeService } from '@shop-workspace/shared-util';
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LangSwitchAtom } from '../../atoms/lang-switch-atom/lang-switch-atom';
+
+interface NavbarUser {
+  firstName?: string;
+}
 
 @Component({
   selector: 'lib-top-navbar-organism',
@@ -23,6 +29,8 @@ import { RouterLink } from '@angular/router';
     NavUserDataMolecule,
     AuthenticatedMenuMolecule,
     RouterLink,
+    TranslateModule,
+    LangSwitchAtom,
   ],
   templateUrl: './top-navbar-organism.html',
   styleUrl: './navbar-organism.scss',
@@ -30,7 +38,7 @@ import { RouterLink } from '@angular/router';
 })
 export class TopNavbarOrganism {
   @Input() isAuthenticated = false;
-  @Input() user: any;
+  @Input() user?: NavbarUser | null;
   @Input() cartCount = 0;
   @Input() favCount = 0;
   @Output() logout = new EventEmitter<void>();

@@ -3,6 +3,14 @@ import { Component, inject, input } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
 import { ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
 
+interface ToastMessagePassThroughOptions {
+  context?: {
+    message?: {
+      severity?: string;
+    };
+  };
+}
+
 @Component({
   selector: 'lib-toast',
   imports: [ToastModule],
@@ -10,7 +18,7 @@ import { ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
 })
 export class Toast {
   position = input<ToastPositionType>('bottom-right');
-  life = input<number>(8000);
+  life = input<number>(3000);
   private readonly messageService = inject(MessageService);
 
   private readonly severityClass: Record<string, string> = {
@@ -20,7 +28,7 @@ export class Toast {
   };
 
   protected readonly pt: ToastPassThrough = {
-    message: (options: any) => ({
+    message: (options: ToastMessagePassThroughOptions) => ({
       class: [
         'rounded-2xl border shadow-none',
         this.severityClass[options?.context?.message?.severity ?? 'info'],

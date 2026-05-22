@@ -3,6 +3,7 @@ export interface BaseUser {
   firstName: string;
   lastName: string;
   phone: string;
+  gender?: string;
   photo?: string;
 }
 
@@ -64,6 +65,16 @@ export interface AuthResponseDto {
   token: string;
 }
 
+export interface UserResponseDto {
+  message?: string;
+  user: UserDto;
+}
+
+export interface PhotoResponseDto {
+  message?: string;
+  photo?: string;
+}
+
 export interface MessageResponse {
   message: string;
 }
@@ -77,6 +88,7 @@ export class AuthAdapter {
       lastName: dto.lastName,
       role: (dto.role === 'admin' ? 'admin' : 'user') as 'user' | 'admin',
       phone: dto.phone,
+      gender: dto.gender,
       photo: dto.photo,
     };
   }
@@ -89,13 +101,27 @@ export class AuthAdapter {
     };
   }
 
+  static fromUserResponseDto(dto: UserDto | UserResponseDto): User {
+    return this.fromDto(this.unwrapUserDto(dto));
+  }
+
+  static fromPhotoResponseDto(dto: PhotoResponseDto, currentUser: User): User {
+    return {
+      ...currentUser,
+      photo: dto.photo ?? currentUser.photo,
+    };
+  }
+
+  private static unwrapUserDto(dto: UserDto | UserResponseDto): UserDto {
+    return 'user' in dto ? dto.user : dto;
+  }
+
   static toEditProfileDto(user: Partial<BaseUser>): Partial<BaseUser> {
     // This could handle specific mapping if the API expects different names for editing
     return {
       firstName: user.firstName,
       lastName: user.lastName,
       phone: user.phone,
-      photo: user.photo,
     };
   }
 }

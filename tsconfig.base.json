@@ -24,7 +24,8 @@
       ],
       "@shop-workspace/admin-feature-dashboard": [
         "libs/admin/feature-dashboard/src/index.ts"
-      ]
+      ],
+      "admin/Routes": ["apps/admin/src/app/remote-entry/entry.routes.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -31,7 +31,7 @@
         class="text-left px-1 md:px-3 flex justify-center items-center cursor-pointer"
       >
         <lib-authenticated-menu-molecule
-          [userName]="user?.firstName"
+          [userName]="user?.firstName ?? ''"
           (logout)="logout.emit()"
         ></lib-authenticated-menu-molecule>
       </div>
@@ -57,9 +57,9 @@
       ></lib-nav-user-data-molecule>
     </div>
     }
-    <button class="cursor-pointer border-e border-[#E4E4E7]">
-      <span class="px-2">العربية</span>
-    </button>
+    <lib-lang-switch-atom
+      class="border-e border-[#E4E4E7] px-2"
+    ></lib-lang-switch-atom>
     <button class="cursor-pointer ps-2" (click)="toggleTheme()">
       <lucide-icon
         [name]="isDark() ? icons.SunMoon : icons.Moon"

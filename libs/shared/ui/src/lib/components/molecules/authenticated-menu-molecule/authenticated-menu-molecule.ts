@@ -38,7 +38,7 @@ export class AuthenticatedMenuMolecule {
     {
       icon: User,
       label: 'My Profile',
-      // routerLink: '/profile'
+      routerLink: '/profile',
     },
     {
       icon: MapPinHouse,
