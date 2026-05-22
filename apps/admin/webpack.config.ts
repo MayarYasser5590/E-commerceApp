@@ -14,6 +14,7 @@ export default async (webpackConfig) => {
     ...updatedConfig,
     output: {
       ...updatedConfig.output,
+      publicPath: 'http://localhost:4201/',
       scriptType: 'module',
     },
   };
