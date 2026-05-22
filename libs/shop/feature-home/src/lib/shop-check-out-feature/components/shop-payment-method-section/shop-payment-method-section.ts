@@ -40,7 +40,18 @@ export class ShopPaymentMethodSection implements OnDestroy {
 
     if (!method || !address) return;
 
-    const body = {
+    const body = this.buildOrderBody(address);
+
+    if (method === 'cash') {
+      this.handleCashCheckout(body);
+      return;
+    }
+
+    this.handleCardCheckout(body);
+  }
+
+  private buildOrderBody(address: UserAddress) {
+    return {
       shippingAddress: {
         street: address.street,
         city: address.city,
@@ -49,33 +60,26 @@ export class ShopPaymentMethodSection implements OnDestroy {
         long: address.long,
       },
     };
+  }
 
-    if (method === 'cash') {
-      this.orderSubscribe.add(
-        this.orderService.createCashOrder(body).subscribe({
-          next: (res) => {
-            console.log('Order created:', res);
-            this.router.navigate(['/allOrders']);
-          },
-          error: (err) => {
-            console.error(err);
-          },
-        }),
-      );
-    }
+  private handleCashCheckout(body: ReturnType<typeof this.buildOrderBody>) {
+    this.orderSubscribe.add(
+      this.orderService.createCashOrder(body).subscribe({
+        next: () => this.router.navigate(['/allOrders']),
+        error: console.error,
+      }),
+    );
+  }
 
-    if (method === 'card') {
-      this.orderSubscribe.add(
-        this.orderService.createCheckoutSession(body).subscribe({
-          next: (res) => {
-            window.location.href = res.session.url;
-          },
-          error: (err) => {
-            console.error(err);
-          },
-        }),
-      );
-    }
+  private handleCardCheckout(body: ReturnType<typeof this.buildOrderBody>) {
+    this.orderSubscribe.add(
+      this.orderService.createCheckoutSession(body).subscribe({
+        next: (res) => {
+          window.location.href = res.session.url;
+        },
+        error: console.error,
+      }),
+    );
   }
 
   goBack() {

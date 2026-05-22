@@ -2,16 +2,16 @@ import {
   Component,
   EventEmitter,
   inject,
-  OnDestroy,
   OnInit,
   Output,
   signal,
+  DestroyRef,
 } from '@angular/core';
 import { UserAddressService } from '../../../data-access/user-address.service';
 import { UserAddress } from '@shop-workspace/shared-types';
-import { Subscription } from 'rxjs';
 import { LibButton, ProgressBarMolecule } from '@shop-workspace/shared-ui';
 import { LucideAngularModule, Phone } from 'lucide-angular';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'lib-shop-shipping-address-section',
@@ -19,9 +19,9 @@ import { LucideAngularModule, Phone } from 'lucide-angular';
   templateUrl: './shop-shipping-address-section.html',
   styleUrl: './shop-shipping-address-section.scss',
 })
-export class ShopShippingAddressSection implements OnInit, OnDestroy {
+export class ShopShippingAddressSection implements OnInit {
   private readonly userAddressService = inject(UserAddressService);
-  userAddressSubscribe: Subscription = new Subscription();
+  private readonly destroyRef = inject(DestroyRef);
 
   @Output() next = new EventEmitter<UserAddress>();
 
@@ -37,8 +37,9 @@ export class ShopShippingAddressSection implements OnInit, OnDestroy {
   }
 
   getUserAddress(): void {
-    this.userAddressSubscribe = this.userAddressService
+    this.userAddressService
       .getLoggedUserAddresses()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
           this.addresses.set(res.addresses);
@@ -61,9 +62,5 @@ export class ShopShippingAddressSection implements OnInit, OnDestroy {
     if (selected) {
       this.next.emit(selected);
     }
-  }
-
-  ngOnDestroy(): void {
-    this.userAddressSubscribe.unsubscribe();
   }
 }

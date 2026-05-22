@@ -32,8 +32,10 @@ export class OrderService {
   }
 
   createCheckoutSession(body: CheckoutBody): Observable<CheckoutResponse> {
+    const currentUrl = window.location.origin;
+
     return this.http.post<CheckoutResponse>(
-      `${this.baseUrl}/orders/checkout?url=http://localhost:3000`,
+      `${this.baseUrl}/orders/checkout?url=${currentUrl}`,
       body,
     );
   }
