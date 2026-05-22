@@ -10,10 +10,12 @@ import {
   ChangePasswordDto,
   LoginCredentials,
   MessageResponse,
+  PhotoResponseDto,
   ResetPasswordDto,
   SignupCredentials,
   User,
   UserDto,
+  UserResponseDto,
 } from '../models/auth.models';
 import { API_ENDPOINTS } from '@shop-workspace/shared-util';
 import { SsrCookieService } from 'ngx-cookie-service-ssr';
@@ -70,26 +72,52 @@ export class AuthService {
     );
   }
 
-  uploadProfilePhoto(file: File): Observable<AuthResponse> {
+  uploadProfilePhoto(file: File): Observable<User> {
     const formData = new FormData();
     formData.append('photo', file);
     return this.http
-      .put<AuthResponseDto>(
+      .put<AuthResponseDto | UserDto | UserResponseDto | PhotoResponseDto>(
         `${this.config.apiUrl}${API_ENDPOINTS.AUTH.uploadPhoto}`,
         formData,
       )
       .pipe(
-        map((res) => AuthAdapter.fromResponseDto(res)),
-        tap((res) => this.setAuth(res)),
+        map((res) => {
+          if ('token' in res && res.token) {
+            const auth = AuthAdapter.fromResponseDto(res);
+            this.setAuth(auth);
+            return auth.user;
+          }
+
+          if ('photo' in res && !('user' in res)) {
+            const currentUser = this.currentUser();
+            if (currentUser) {
+              return AuthAdapter.fromPhotoResponseDto(res, currentUser);
+            }
+          }
+
+          if ('user' in res || '_id' in res) {
+            return AuthAdapter.fromUserResponseDto(res);
+          }
+
+          const currentUser = this.currentUser();
+          if (currentUser) {
+            return currentUser;
+          }
+
+          throw new Error('Upload photo succeeded but no current user was available.');
+        }),
+        tap((user) => this.setUser(user)),
       );
   }
 
   getLoggedUserData(): Observable<User> {
     return this.http
-      .get<UserDto>(`${this.config.apiUrl}${API_ENDPOINTS.AUTH.getUserData}`)
+      .get<UserDto | UserResponseDto>(
+        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.getUserData}`,
+      )
       .pipe(
-        map((res) => AuthAdapter.fromDto(res)),
-        tap((user) => this.currentUser.set(user)),
+        map((res) => AuthAdapter.fromUserResponseDto(res)),
+        tap((user) => this.setUser(user)),
       );
   }
 
@@ -119,19 +147,19 @@ export class AuthService {
       .delete<MessageResponse>(
         `${this.config.apiUrl}${API_ENDPOINTS.AUTH.deleteAccount}`,
       )
-      .pipe(tap(() => this.logout()));
+      .pipe(tap(() => this.clearAuth()));
   }
 
   editProfile(data: Partial<BaseUser>): Observable<User> {
     const dto = AuthAdapter.toEditProfileDto(data);
     return this.http
-      .put<UserDto>(
+      .put<UserDto | UserResponseDto>(
         `${this.config.apiUrl}${API_ENDPOINTS.AUTH.editProfile}`,
         dto,
       )
       .pipe(
-        map((res) => AuthAdapter.fromDto(res)),
-        tap((user) => this.currentUser.set(user)),
+        map((res) => AuthAdapter.fromUserResponseDto(res)),
+        tap((user) => this.setUser(user)),
       );
   }
 
@@ -184,7 +212,12 @@ export class AuthService {
 
     localStorage.setItem(this.USER_KEY, JSON.stringify(auth.user));
     this.token.set(auth.token);
-    this.currentUser.set(auth.user);
+    this.setUser(auth.user);
+  }
+
+  private setUser(user: User): void {
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    this.currentUser.set(user);
   }
 
   private getStoredUser(): User | null {

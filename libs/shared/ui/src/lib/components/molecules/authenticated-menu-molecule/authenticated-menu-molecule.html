@@ -30,9 +30,13 @@
   </ng-template>
 
   <ng-template pTemplate="item" let-item>
+    @if (item.separator) {
+    <div class="my-1 border-t border-gray-200"></div>
+    } @else {
     <button
       class="flex items-center gap-3 px-4 w-full focus:text-[#741C21] py-2 text-sm hover:bg-gray-100 cursor-pointer"
       [routerLink]="item.routerLink"
+      (click)="item.command?.()"
     >
       <lucide-icon
         [name]="item.icon"
@@ -42,5 +46,6 @@
         >{{ item.label }}</span
       >
     </button>
+    }
   </ng-template>
 </p-menu>

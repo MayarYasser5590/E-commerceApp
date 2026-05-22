@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { Navbar } from '../../../core/features/navbar/navbar';
 import { FooterOrganism } from '@shop-workspace/shared-ui';
 import { Toast } from '@shop-workspace/shared-ui';
+import { Footer } from '../../../core/features/footer/footer';
 
 @Component({
   selector: 'app-auth-layout',
-  imports: [RouterOutlet, Navbar, FooterOrganism, Toast],
+  imports: [RouterOutlet, Navbar, FooterOrganism, Toast, Footer],
   template: `
     <main class="bg-[var(--bg-page)]">
       <lib-toast #toast />
