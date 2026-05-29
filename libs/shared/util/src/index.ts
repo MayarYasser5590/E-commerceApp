@@ -12,5 +12,6 @@ export * from './lib/theme.service';
 
 export * from './lib/email-error-utils';
 export * from './lib/name-error-utils';
+export * from './lib/status-classes.config';
 export * from './lib/egyptian-phone-utils';
 export * from './lib/api-error-utils';

@@ -30,10 +30,16 @@ export const featureRoutes: Routes = [
         title: 'Product Details',
       },
       {
-        path: 'cart',
+        path: 'shopping',
         loadComponent: () =>
-          import('./cart/cart-page').then((m) => m.CartPage),
-        title: 'Cart',
+          import('./shopping/shopping-page').then((m) => m.ShoppingPage),
+        title: 'shopping',
+      },
+      {
+        path: 'allOrders',
+        loadComponent: () =>
+          import('./orders/orders-page').then((m) => m.OrderPageComponent),
+        title: 'All Orders',
       },
       {
         path: 'wishlist',
