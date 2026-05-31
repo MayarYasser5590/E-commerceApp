@@ -11,38 +11,27 @@ import {
   NavigationEnd,
   Router,
   RouterLink,
-  RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
 import {
-  CalendarHeart,
-  ClipboardList,
   Flower,
-  LayoutDashboard,
   LucideAngularModule,
   Menu,
-  Package,
   Search,
+  EllipsisVertical,
 } from 'lucide-angular';
 import { filter } from 'rxjs';
 import { DrawerModule } from 'primeng/drawer';
-
-interface AdminNavItem {
-  label: string;
-  path: string;
-  icon: typeof LayoutDashboard;
-  exact: boolean;
-}
+import { AdminSidebar } from './admin-sidebar-feature/admin-sidebar-feature';
 
 @Component({
   selector: 'app-admin-entry',
   imports: [
     DrawerModule,
     LucideAngularModule,
-    NgTemplateOutlet,
     RouterLink,
-    RouterLinkActive,
     RouterOutlet,
+    AdminSidebar,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -53,15 +42,19 @@ interface AdminNavItem {
         [visible]="sidebarVisible()"
         (visibleChange)="sidebarVisible.set($event)"
       >
-        <ng-container [ngTemplateOutlet]="sidebarContent"></ng-container>
+        <app-admin-sidebar
+          (closeSidebar)="sidebarVisible.set(false)"
+        ></app-admin-sidebar>
       </p-drawer>
 
       <div class="grid min-h-screen lg:grid-cols-[18rem_minmax(0,1fr)]">
         <aside
-          class="sticky top-0 hidden h-screen flex-col border-r border-[#f1dfda] bg-white px-6 py-6 lg:flex"
+          class="sticky top-0 hidden min-h-screen flex-col border-r border-[#ececec] bg-[#fafafa] lg:flex"
           aria-label="Admin navigation"
         >
-          <ng-container [ngTemplateOutlet]="sidebarContent"></ng-container>
+          <div class="w-full h-full">
+            <app-admin-sidebar></app-admin-sidebar>
+          </div>
         </aside>
 
         <main class="min-w-0 px-4 py-4 sm:px-6 lg:px-8">
@@ -129,58 +122,6 @@ interface AdminNavItem {
         </main>
       </div>
     </div>
-
-    <ng-template #sidebarContent>
-      <a
-        class="flex items-center gap-3 text-[#231f20] no-underline"
-        routerLink="./overview"
-        aria-label="Rose admin dashboard"
-        (click)="sidebarVisible.set(false)"
-      >
-        <span
-          class="grid size-[3.125rem] shrink-0 place-items-center rounded-2xl bg-[#f82ba9] text-white"
-          aria-hidden="true"
-        >
-          <lucide-icon [name]="icons.Flower" class="size-7"></lucide-icon>
-        </span>
-        <span class="min-w-0">
-          <strong class="block text-base leading-tight">Rose</strong>
-          <small class="block text-[0.8rem] text-[#847780]">Admin</small>
-        </span>
-      </a>
-
-      <nav class="mt-8 grid gap-1.5" aria-label="Primary">
-        @for (item of navItems; track item.path) {
-          <a
-            class="flex min-h-[3.25rem] items-center gap-3 rounded-[14px] px-4 font-bold text-[#635960] no-underline transition-colors hover:bg-[#fff0fa] hover:text-[#f82ba9]"
-            [routerLink]="item.path"
-            routerLinkActive="bg-[#fff0fa] text-[#f82ba9]"
-            [routerLinkActiveOptions]="{ exact: item.exact }"
-            (click)="sidebarVisible.set(false)"
-          >
-            <lucide-icon
-              [name]="item.icon"
-              class="size-5 shrink-0"
-              aria-hidden="true"
-            ></lucide-icon>
-            <span>{{ item.label }}</span>
-          </a>
-        }
-      </nav>
-
-      <a
-        class="mt-auto flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#f82ba9] px-4 font-extrabold text-white no-underline"
-        routerLink="/"
-        (click)="sidebarVisible.set(false)"
-      >
-        <lucide-icon
-          [name]="icons.Flower"
-          class="size-5"
-          aria-hidden="true"
-        ></lucide-icon>
-        <span>Preview website</span>
-      </a>
-    </ng-template>
   `,
   styles: [
     `
@@ -206,34 +147,8 @@ export class RemoteEntry {
     Flower,
     Menu,
     Search,
+    EllipsisVertical,
   };
-
-  protected readonly navItems: AdminNavItem[] = [
-    {
-      label: 'Overview',
-      path: './overview',
-      icon: LayoutDashboard,
-      exact: true,
-    },
-    {
-      label: 'Categories',
-      path: './categories',
-      icon: ClipboardList,
-      exact: true,
-    },
-    {
-      label: 'Occasions',
-      path: './occasions',
-      icon: CalendarHeart,
-      exact: true,
-    },
-    {
-      label: 'Products',
-      path: './products',
-      icon: Package,
-      exact: true,
-    },
-  ];
 
   constructor() {
     this.router.events
@@ -250,7 +165,7 @@ export class RemoteEntry {
 
     while (child?.firstChild) {
       child = child.firstChild;
-    }    
+    }
     return child?.snapshot?.data?.['breadcrumb'] ?? 'Overview';
   }
 }
