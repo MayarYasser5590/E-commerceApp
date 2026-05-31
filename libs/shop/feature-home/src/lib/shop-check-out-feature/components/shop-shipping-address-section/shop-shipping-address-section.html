@@ -1,0 +1,80 @@
+<div class="w-full max-w-3xl mx-auto">
+  <lib-progress-bar-molecule [step]="1"></lib-progress-bar-molecule>
+  <h2 class="text-[30px] font-semibold text-[#27272A] my-3">
+    Shipping Address
+  </h2>
+  <!-- Addresses -->
+  <div class="space-y-4">
+    @for (address of addresses(); track address._id) {
+    <button
+      type="button"
+      (click)="selectAddress(address._id)"
+      class="w-full flex justify-between items-center p-4 rounded-xl border transition-all duration-200 cursor-pointer"
+      [class.bg-white]="selectedAddressId() !== address._id"
+      [class.text-[#27272A]]="selectedAddressId() !== address._id"
+      [class.border-[#D4D4D8]]="selectedAddressId() !== address._id"
+      [class.bg-[#A6252A]]="selectedAddressId() === address._id"
+      [class.text-white]="selectedAddressId() === address._id"
+      [class.border-[#A6252A]]="selectedAddressId() === address._id"
+    >
+      <!-- Left -->
+      <div class="text-left">
+        <h3 class="text-lg font-semibold">{{ address.city }}</h3>
+
+        <span
+          class="inline-block mt-2 px-3 py-1 text-sm rounded-full"
+          [class.bg-gray-100]="selectedAddressId() !== address._id"
+          [class.text-[#27272A]]="selectedAddressId() !== address._id"
+          [class.bg-[#27272A]]="selectedAddressId() === address._id"
+          [class.text-white]="selectedAddressId() === address._id"
+        >
+          {{ address.street }}
+        </span>
+      </div>
+
+      <!-- Right -->
+      <div class="flex items-center gap-2 text-sm">
+        <div
+          class="p-2 rounded-full"
+          [class.bg-[#A6252A]]="selectedAddressId() !== address._id"
+          [class.text-white]="selectedAddressId() !== address._id"
+          [class.bg-[#FAFAFA]]="selectedAddressId() === address._id"
+          [class.text-[#A6252A]]="selectedAddressId() === address._id"
+        >
+          <lucide-icon
+            [name]="icons.Phone"
+            class="w-3 h-3 md:w-5 md:h-5"
+          ></lucide-icon>
+        </div>
+        <span>{{ address.phone }}</span>
+      </div>
+    </button>
+    }
+  </div>
+
+  <!-- OR -->
+  <div class="flex items-center my-6 text-gray-500">
+    <div class="flex-1 h-px bg-[#D4D4D8]"></div>
+    <span class="px-4 text-sm">OR</span>
+    <div class="flex-1 h-px bg-[#D4D4D8]"></div>
+  </div>
+
+  <!-- Add Address -->
+  <lib-button
+    label="Add a New Address"
+    variant="custom"
+    [fullWidth]="true"
+    [customClass]="'bg-[#F4EAEA] text-[#A6252A] rounded-lg !py-[14px] !md:py-[14px]  font-medium hover:opacity-90'"
+  ></lib-button>
+
+  <!-- Next -->
+  <div class="flex justify-end mt-6">
+    <lib-button
+      label="Next →"
+      variant="custom"
+      [disabled]="!selectedAddressId()"
+      (clicked)="onContinue()"
+      [customClass]="'bg-[#A6252A] text-white !px-[24px] !py-[10px] rounded-lg disabled:bg-gray-400'"
+    ></lib-button>
+  </div>
+</div>

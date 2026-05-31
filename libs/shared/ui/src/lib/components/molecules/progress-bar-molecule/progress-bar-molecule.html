@@ -1,0 +1,44 @@
+<div class="flex items-center mb-8">
+  <!-- Step 1 line -->
+  <div
+    class="flex-1 h-1"
+    [class.bg-[#A6252A]]="step() >= 1"
+    [class.bg-[#D4D4D8]]="step() < 1"
+  ></div>
+
+  <!-- Step 1 circle -->
+  <div
+    class="w-6 h-6 rounded-full flex items-center justify-center text-sm"
+    [class.bg-[#A6252A]]="step() >= 1"
+    [class.text-white]="step() >= 1"
+    [class.bg-[#D4D4D8]]="step() < 1"
+    [class.text-black]="step() < 1"
+  >
+    1
+  </div>
+
+  <!-- Middle line -->
+  <div
+    class="flex-1 h-1"
+    [class.bg-[#A6252A]]="step() >= 2"
+    [class.bg-[#D4D4D8]]="step() < 2"
+  ></div>
+
+  <!-- Step 2 circle -->
+  <div
+    class="w-6 h-6 rounded-full flex items-center justify-center text-sm"
+    [class.bg-[#A6252A]]="step() >= 2"
+    [class.text-white]="step() >= 2"
+    [class.bg-[#D4D4D8]]="step() < 2"
+    [class.text-black]="step() < 2"
+  >
+    2
+  </div>
+
+  <!-- Last line -->
+  <div
+    class="flex-1 h-1"
+    [class.bg-[#D4D4D8]]="step() < 2 "
+    [class.bg-[#A6252A]]="step() >= 2 "
+  ></div>
+</div>
