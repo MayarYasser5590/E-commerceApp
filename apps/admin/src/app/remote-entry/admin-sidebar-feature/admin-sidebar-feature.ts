@@ -2,7 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnInit,
   output,
+  DestroyRef,
 } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
@@ -16,8 +18,8 @@ import {
   LucideAngularModule,
   Package,
 } from 'lucide-angular';
-import { AuthService } from '@shop-workspace/shared-auth';
-import { Subscription } from 'rxjs';
+import { AuthService, User } from '@shop-workspace/shared-auth';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface AdminNavItem {
   label: string;
@@ -32,14 +34,13 @@ interface AdminNavItem {
   templateUrl: './admin-sidebar-feature.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminSidebar {
+export class AdminSidebar implements OnInit {
   closeSidebar = output<void>();
   items: MenuItem[] = [];
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  logOutSubscribe: Subscription = new Subscription();
-  userInfoSubscribe: Subscription = new Subscription();
-  currentUser = this.authService.currentUser;
+  currentUser: User | null = null;
+  private destroyRef = inject(DestroyRef);
 
   protected readonly icons = {
     Flower,
@@ -69,6 +70,25 @@ export class AdminSidebar {
     },
   ];
 
+  ngOnInit(): void {
+    this.loadUser();
+    this.popUp();
+  }
+
+  private loadUser(): void {
+    if (!this.authService.isAuthenticated()) return;
+
+    this.authService
+      .getLoggedUserData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (user) => {
+          this.currentUser = user;
+          console.log(this.currentUser);
+        },
+      });
+  }
+
   popUp() {
     this.items = [
       {
@@ -88,16 +108,16 @@ export class AdminSidebar {
   }
 
   logOut() {
-    this.logOutSubscribe = this.authService.logout().subscribe({
-      next: (res) => {
-        if (res.message === 'success') {
-          this.router.navigate(['/login']);
-        }
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.authService
+      .logout()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          if (res.message === 'success') {
+            this.authService.clearAuth();
+            window.location.href = 'http://localhost:4200/auth/login';
+          }
+        },
+      });
   }
-
 }
