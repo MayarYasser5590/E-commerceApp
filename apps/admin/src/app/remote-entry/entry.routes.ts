@@ -1,11 +1,13 @@
 import { Route } from '@angular/router';
 import { AdminDashboardPlaceholder } from './dashboard-placeholder';
 import { RemoteEntry } from './entry';
+import { adminGuard } from './admin.guard';
 
 export const remoteRoutes: Route[] = [
   {
     path: '',
     component: RemoteEntry,
+    canActivateChild: [adminGuard],
     children: [
       {
         path: '',
