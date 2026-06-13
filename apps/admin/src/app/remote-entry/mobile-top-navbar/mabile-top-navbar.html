@@ -1,0 +1,29 @@
+<header
+  class="lg:hidden sticky top-0 z-50 flex items-center justify-between border-b border-[#F3F4F6] bg-white px-4 py-3"
+>
+  <div class="flex items-center gap-3">
+    <img src="/assets/Logo.webp" class="h-10 w-auto" alt="Rose" />
+
+    <nav class="flex items-center gap-2 text-xs">
+      <span class="text-[#6B7280]">Home</span>
+
+      <i class="pi pi-angle-right text-[#9CA3AF]"></i>
+
+      <span class="font-medium text-[#B3262D]"> {{ title }} </span>
+    </nav>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <img
+      [src]="avatar"
+      alt="profile image"
+      class="h-9 w-9 rounded-full object-cover"
+    />
+
+    <button type="button" (click)="menu.toggle($event)">
+      <lucide-icon [name]="icons.Menu"></lucide-icon>
+    </button>
+
+    <p-menu #menu [popup]="true" [model]="items" appendTo="body" />
+  </div>
+</header>

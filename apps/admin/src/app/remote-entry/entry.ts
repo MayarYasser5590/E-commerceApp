@@ -26,6 +26,7 @@ import {
 } from 'lucide-angular';
 import { filter } from 'rxjs';
 import { DrawerModule } from 'primeng/drawer';
+import { MobileTopNavbar } from './mobile-top-navbar/mobile-top-navbar';
 
 interface AdminNavItem {
   label: string;
@@ -43,10 +44,15 @@ interface AdminNavItem {
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
+    MobileTopNavbar,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen bg-[#f8f6f3] text-[#231f20]">
+      <app-top-mobile-navbar
+        class="lg:hidden"
+        [title]="pageTitle()"
+      ></app-top-mobile-navbar>
       <p-drawer
         styleClass="admin-dashboard-drawer !w-[min(19rem,86vw)]"
         position="left"
@@ -250,7 +256,7 @@ export class RemoteEntry {
 
     while (child?.firstChild) {
       child = child.firstChild;
-    }    
+    }
     return child?.snapshot?.data?.['breadcrumb'] ?? 'Overview';
   }
 }
