@@ -5,25 +5,71 @@
     <img src="/assets/Logo.webp" class="h-10 w-auto" alt="Rose" />
 
     <nav class="flex items-center gap-2 text-xs">
-      <span class="text-[#6B7280]">Home</span>
+      <a
+        routerLink="/overview"
+        class="text-[#6B7280] no-underline hover:text-[#B3262D]"
+      >
+        Home
+      </a>
+      <lucide-icon
+        [name]="icons.ChevronRight"
+        size="16"
+        class="text-[#6B7280]"
+      ></lucide-icon>
 
-      <i class="pi pi-angle-right text-[#9CA3AF]"></i>
-
-      <span class="font-medium text-[#B3262D]"> {{ title }} </span>
+      <a
+        [routerLink]="currentRoute"
+        class="font-medium text-[#B3262D] no-underline"
+      >
+        {{ title }}
+      </a>
     </nav>
   </div>
 
   <div class="flex items-center gap-3">
     <img
-      [src]="avatar"
+      [src]="currentUser?.photo"
       alt="profile image"
       class="h-9 w-9 rounded-full object-cover"
     />
 
-    <button type="button" (click)="menu.toggle($event)">
-      <lucide-icon [name]="icons.Menu"></lucide-icon>
+    <button
+      type="button"
+      (click)="menu.toggle($event)"
+      class="p-2 rounded-lg border border-gray-200 bg-white shadow-sm hover:bg-gray-50"
+    >
+      <lucide-icon [name]="icons.Menu" class="w-5 h-5"></lucide-icon>
     </button>
 
-    <p-menu #menu [popup]="true" [model]="items" appendTo="body" />
+    <p-menu
+      #menu
+      [model]="items"
+      [popup]="true"
+      appendTo="body"
+      [baseZIndex]="1000"
+      styleClass="user-menu bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200"
+    >
+      <ng-template let-item pTemplate="item">
+        @if (item.separator) {
+        <div class="border-t border-gray-200 my-1"></div>
+
+        } @if (!item.separator) {
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
+          [routerLink]="item.routerLink"
+          (click)="item.command?.()"
+        >
+          @if (item.image) {
+          <img
+            [src]="item.image"
+            [alt]="item.label"
+            class="h-6 w-6 rounded-full object-cover"
+          />
+          }
+          <span class="font-medium">{{ item.label }}</span>
+        </a>
+        }
+      </ng-template>
+    </p-menu>
   </div>
 </header>
