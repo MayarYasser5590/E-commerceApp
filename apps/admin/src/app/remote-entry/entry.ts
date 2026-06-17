@@ -1,11 +1,5 @@
 import { MobileBottomNavbar } from './mobile-bottom-navbar/mobile-bottom-navbar';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -36,7 +30,6 @@ import { AdminSidebar } from './admin-sidebar-feature/admin-sidebar-feature';
     MobileBottomNavbar,
     AdminSidebar,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen bg-[#f8f6f3] text-[#231f20]">
       <app-top-mobile-navbar

@@ -16,7 +16,12 @@ const config: ModuleFederationConfig = {
   },
   shared: (libraryName, sharedConfig) => {
     if (libraryName.startsWith('@shop-workspace/')) {
-      return false;
+      // return false;
+      return {
+  ...sharedConfig,
+  singleton: false,
+  requiredVersion: 'auto',
+};
     }
 
     const requiredVersion = sharedSingletonVersions.get(libraryName);
