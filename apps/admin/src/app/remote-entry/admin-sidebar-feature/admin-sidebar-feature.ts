@@ -97,7 +97,7 @@ export class AdminSidebar implements OnInit {
       {
         label: 'Account',
         image: '/assets/user.webp',
-        routerLink: './account',
+        routerLink: '/account',
       },
       {
         separator: true,

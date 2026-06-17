@@ -120,14 +120,22 @@
   <div
     class="flex flex-col-reverse gap-3 pt-[60px] sm:flex-row sm:items-center sm:justify-between"
   >
-    <button
-      type="button"
-      class="text-left text-[16px] font-medium leading-none text-[#cd2e33] hover:underline disabled:cursor-not-allowed disabled:opacity-60"
-      [disabled]="isSaving() || isDeleting()"
-      (click)="deleteAccount(toast)"
-    >
-      {{ isDeleting() ? 'Deleting account...' : 'Delete My Account' }}
-    </button>
+    <div>
+      <button
+        type="button"
+        class="text-left me-3 text-[16px] font-medium leading-none text-[#cd2e33] hover:underline disabled:cursor-not-allowed disabled:opacity-60"
+        [disabled]="isSaving() || isDeleting()"
+        (click)="deleteAccount(toast)"
+      >
+        {{ isDeleting() ? 'Deleting account...' : 'Delete My Account' }}
+      </button>
+      <a
+        routerLink="/account/change-password"
+        class="text-left text-[16px] cursor-pointer font-medium leading-none text-[#27272a] hover:underline"
+      >
+        Change Password
+      </a>
+    </div>
 
     <lib-button
       label="Save Changes"

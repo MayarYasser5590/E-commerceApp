@@ -166,7 +166,10 @@ export class ChangePasswordPage {
     this.submitError.set(null);
 
     this.authService
-      .changePassword({ oldPassword, newPassword })
+      .changePassword({
+        password: oldPassword,
+        newPassword,
+      })
       .pipe(finalize(() => this.isSubmitting.set(false)))
       .subscribe({
         next: () => {

@@ -6,13 +6,14 @@ import {
   signal,
   OnInit,
 } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService, BaseUser, User } from '@shop-workspace/shared-auth';
 import {
   egyptianPhoneValidator,
@@ -34,14 +35,17 @@ import {
 
 @Component({
   selector: 'app-admin-account-page',
+  standalone: true,
   imports: [
     ReactiveFormsModule,
+    RouterLink,
     AvatarUpload,
     FormField,
     LibButton,
     CustomInput,
     Toast,
   ],
+  providers: [MessageService],
   templateUrl: './admin-account-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -33,7 +33,7 @@ export interface LoginCredentials {
 }
 
 export interface ChangePasswordDto {
-  oldPassword: string;
+  password: string;
   newPassword: string;
 }
 
@@ -62,6 +62,11 @@ export interface AuthResponse {
 export interface AuthResponseDto {
   message: string;
   user: UserDto;
+  token: string;
+}
+
+export interface ChangePasswordResponse {
+  message: string;
   token: string;
 }
 
