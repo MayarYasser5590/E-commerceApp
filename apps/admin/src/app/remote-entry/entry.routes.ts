@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { AdminDashboardPlaceholder } from './dashboard-placeholder';
 import { RemoteEntry } from './entry';
+import { AdminAccountPage } from './admin-account/admin-account-page';
 
 export const remoteRoutes: Route[] = [
   {
@@ -35,6 +36,12 @@ export const remoteRoutes: Route[] = [
         component: AdminDashboardPlaceholder,
         data: { breadcrumb: 'Products' },
         title: 'Admin Products',
+      },
+      {
+        path: 'account',
+        component: AdminAccountPage,
+        data: { breadcrumb: 'Account' },
+        title: 'Admin Account',
       },
     ],
   },

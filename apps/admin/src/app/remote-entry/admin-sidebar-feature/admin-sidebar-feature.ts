@@ -86,6 +86,7 @@ export class AdminSidebar implements OnInit {
       .subscribe({
         next: (user) => {
           this.currentUser = user;
+          console.log(this.currentUser);
           this.cdr.markForCheck();
         },
       });
