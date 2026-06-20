@@ -21,3 +21,23 @@ export interface CategoriesResponse {
   metadata: PaginationMetadata;
   categories: Category[];
 }
+
+export interface CategoryResponse {
+  message: string;
+  category: Category;
+}
+
+export interface DeleteCategoryResponse {
+  message: string;
+  document: Category;
+}
+
+export interface CreateCategoryDto {
+  name: string;
+  image: File;
+}
+
+export interface UpdateCategoryDto {
+  name: string;
+  image?: File;
+}

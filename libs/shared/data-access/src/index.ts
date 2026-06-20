@@ -5,3 +5,4 @@ export * from './lib/data-access/review.service';
 export * from './lib/data-access/toast.service';
 export * from './lib/data-access/user-address.service';
 export * from './lib/data-access/wishlist.service';
+export * from './lib/data-access/category.service';

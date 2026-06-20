@@ -69,49 +69,8 @@ import { AdminSidebar } from './admin-sidebar-feature/admin-sidebar-feature';
             <span class="font-semibold text-[##A6252A]">{{ pageTitle() }}</span>
           </nav>
           <div class="min-w-0 px-4 sm:px-6 sm:py-4 bg-[#FAFAFA]">
-            <header
-              class="hidden sm:block grid min-h-[4.5rem] grid-cols-[auto_minmax(0,1fr)] items-center gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,22rem)]"
-            >
-              <button
-                type="button"
-                class="inline-flex size-11 items-center justify-center rounded-full border border-[#f1dfda] bg-white text-[#635960] shadow-sm lg:hidden"
-                aria-label="Open navigation"
-                (click)="sidebarVisible.set(true)"
-              >
-                <lucide-icon
-                  [name]="icons.Menu"
-                  class="size-5"
-                  aria-hidden="true"
-                ></lucide-icon>
-              </button>
-
-              <div class="hidden sm:block min-w-0">
-                <h1
-                  class="truncate text-2xl font-bold leading-tight sm:text-[2rem]"
-                >
-                  {{ pageTitle() }}
-                </h1>
-              </div>
-
-              <!-- <label
-              class="col-span-2 flex h-11 items-center gap-2 rounded-full border border-[#f1dfda] bg-white px-4 text-[#8d8088] lg:col-span-1"
-            >
-              <lucide-icon
-                [name]="icons.Search"
-                class="size-4"
-                aria-hidden="true"
-              ></lucide-icon>
-              <span class="sr-only">Search admin pages</span>
-              <input
-                type="search"
-                placeholder="Search"
-                class="min-w-0 flex-1 border-0 bg-transparent text-sm text-[#231f20] outline-none placeholder:text-[#8d8088]"
-              />
-            </label> -->
-            </header>
-
             <section
-              class="mt-4 min-h-[calc(100vh-11rem)] rounded-[14px] border border-[#f1dfda] bg-white px-4 pt-4 sm:p-6 lg:min-h-[calc(100vh-9rem)]"
+              class="mt-4 mb-14 sm:mb-8 min-h-[calc(100vh-11rem)] rounded-[14px] border border-[#f1dfda] bg-white px-4  sm:px-6 lg:min-h-[calc(100vh-9rem)]"
               aria-label="Admin page content"
             >
               <router-outlet></router-outlet>
