@@ -52,3 +52,4 @@ export * from './lib/components/organisms/forgot-pass-request-organism/forgot-pa
 export * from './lib/components/organisms/register-form-organism/register-form-organism';
 export * from './lib/components/molecules/progress-bar-molecule/progress-bar-molecule';
 export * from './lib/components/atoms/lang-switch-atom/lang-switch-atom';
+export * from './lib/components/molecules/app-paginator/app-paginator-molecule';

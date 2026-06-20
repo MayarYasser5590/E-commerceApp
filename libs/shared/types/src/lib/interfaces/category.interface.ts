@@ -3,13 +3,21 @@ export interface Category {
   name: string;
   slug: string;
   image: string;
+  isSuperAdmin: boolean;
   createdAt: string;
   updatedAt: string;
-  isSuperAdmin: boolean;
-  productsCount?: number;
+  productsCount: number;
+}
+
+export interface PaginationMetadata {
+  currentPage: number;
+  limit: number;
+  totalPages: number;
+  totalItems: number;
 }
 
 export interface CategoriesResponse {
   message: string;
+  metadata: PaginationMetadata;
   categories: Category[];
 }

@@ -8,10 +8,10 @@ import {
   signal,
 } from '@angular/core';
 import { LibButton, ProgressBarMolecule } from '@shop-workspace/shared-ui';
-import { OrderService } from '../../../data-access/order.service';
 import { Subscription } from 'rxjs';
 import { UserAddress } from '@shop-workspace/shared-types';
 import { Router } from '@angular/router';
+import { OrderService } from '@shop-workspace/data-access';
 
 type PaymentMethod = 'cash' | 'card';
 

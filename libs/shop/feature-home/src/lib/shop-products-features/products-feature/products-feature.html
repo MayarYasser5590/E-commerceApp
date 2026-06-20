@@ -56,17 +56,14 @@
           </button>
         </div>
       </div>
-      } @if (totalProducts() > rows) {
-      <div class="mt-8 flex justify-center">
-        <p-paginator
-          [rows]="rows"
-          [totalRecords]="totalProducts()"
-          [first]="(page() - 1) * rows"
-          (onPageChange)="onPageChange($event)"
-        >
-        </p-paginator>
-      </div>
       }
+      <lib-app-paginator-molecule
+        [rows]="rows"
+        [totalRecords]="totalProducts()"
+        [page]="page()"
+        (pageChange)="onPageChange($event)"
+      >
+      </lib-app-paginator-molecule>
     </div>
   </div>
 </div>

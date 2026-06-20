@@ -1,12 +1,12 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Order } from '@shop-workspace/shared-types';
 import { CommonModule } from '@angular/common';
-import { OrderService } from '../data-access/order.service';
 import { LucideAngularModule, Star } from 'lucide-angular';
 import {
   DEFAULT_STATUS_CLASS,
   STATUS_CLASSES,
 } from '@shop-workspace/shared-util';
+import { OrderService } from '@shop-workspace/data-access';
 
 @Component({
   selector: 'lib-shop-orders-feature',

@@ -6,8 +6,8 @@ import {
 import { AuthService } from '@shop-workspace/shared-auth';
 import { Router } from '@angular/router';
 import { CartUi } from '@shop-workspace/shop-feature-home';
-import { WishlistService } from '@shop-workspace/shop-feature-home';
 import { Subscription } from 'rxjs';
+import { WishlistService } from '@shop-workspace/data-access';
 
 @Component({
   selector: 'app-navbar',
