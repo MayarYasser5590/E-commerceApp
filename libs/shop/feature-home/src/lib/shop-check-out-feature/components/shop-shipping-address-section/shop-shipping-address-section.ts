@@ -7,11 +7,11 @@ import {
   signal,
   DestroyRef,
 } from '@angular/core';
-import { UserAddressService } from '../../../data-access/user-address.service';
 import { UserAddress } from '@shop-workspace/shared-types';
 import { LibButton, ProgressBarMolecule } from '@shop-workspace/shared-ui';
 import { LucideAngularModule, Phone } from 'lucide-angular';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserAddressService } from '@shop-workspace/data-access';
 
 @Component({
   selector: 'lib-shop-shipping-address-section',

@@ -6,7 +6,6 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { ProductService } from '../../data-access/product.service';
 import {
   Category,
   Metadata,
@@ -17,9 +16,15 @@ import { PaginatorModule } from 'primeng/paginator';
 import { PaginatorState } from 'primeng/types/paginator';
 import { forkJoin, Subscription } from 'rxjs';
 import { CartUi } from '../../cart/data-access/cart.ui';
-import { ProductCardMolecule } from '@shop-workspace/shared-ui';
-import { WishlistService } from '../../data-access/wishlist.service';
-import { AppToastService } from '../../data-access/toast.service';
+import {
+  AppPaginatorMolecule,
+  ProductCardMolecule,
+} from '@shop-workspace/shared-ui';
+import {
+  ProductService,
+  WishlistService,
+  AppToastService,
+} from '@shop-workspace/data-access';
 import { ProductFilterSidebarComponent } from './product-filter-sidebar.component';
 import {
   ProductFilterGroup,
@@ -39,6 +44,7 @@ import {
     PaginatorModule,
     ProductCardMolecule,
     ProductFilterSidebarComponent,
+    AppPaginatorMolecule,
   ],
   templateUrl: './products-feature.html',
   styleUrl: './products-feature.scss',

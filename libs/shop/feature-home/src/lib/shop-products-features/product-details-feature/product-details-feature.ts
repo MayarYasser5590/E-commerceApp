@@ -4,10 +4,12 @@ import { Subscription } from 'rxjs';
 import { DetailsSection } from './components/details-section/details-section';
 import { RatingsSection } from './components/Ratings-section/ratings-section';
 import { RelatedProductsSection } from './components/related-products/related-products-section';
-import { ProductService } from '../../data-access/product.service';
 import { ProductData, RelatedProduct } from '@shop-workspace/shared-types';
-import { WishlistService } from '../../data-access/wishlist.service';
-import { AppToastService } from '../../data-access/toast.service';
+import {
+  WishlistService,
+  AppToastService,
+  ProductService,
+} from '@shop-workspace/data-access';
 
 @Component({
   selector: 'lib-product-details-feature',
@@ -49,13 +51,14 @@ export class ProductDetailsFeature implements OnInit, OnDestroy {
   }
 
   getSpecificProduct(id: string) {
-    this.specificProductSubscribe = this.productService.getProductById(id).subscribe({
-      next: (res) => {
-        this.product.set(res.product);
-              console.log(res);
-
-      }
-    });
+    this.specificProductSubscribe = this.productService
+      .getProductById(id)
+      .subscribe({
+        next: (res) => {
+          this.product.set(res.product);
+          console.log(res);
+        },
+      });
   }
 
   onToggleWishlist(product: ProductData | RelatedProduct) {

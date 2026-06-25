@@ -8,6 +8,7 @@ import {
   AuthResponseDto,
   BaseUser,
   ChangePasswordDto,
+  ChangePasswordResponse,
   LoginCredentials,
   MessageResponse,
   PhotoResponseDto,
@@ -65,21 +66,35 @@ export class AuthService {
       .pipe(map((res) => AuthAdapter.fromResponseDto(res)));
   }
 
-  changePassword(data: ChangePasswordDto): Observable<MessageResponse> {
-    return this.http.patch<MessageResponse>(
-      `${this.config.apiUrl}${API_ENDPOINTS.AUTH.changePassword}`,
-      data,
-    );
+  private updateToken(token: string): void {
+    if (this.cookieService.get(this.TOKEN_KEY)) {
+      this.cookieService.set(this.TOKEN_KEY, token, {
+        expires: 7,
+        path: '/',
+      });
+    } else {
+      sessionStorage.setItem(this.TOKEN_KEY, token);
+    }
+
+    this.token.set(token);
+  }
+
+  changePassword(data: ChangePasswordDto): Observable<ChangePasswordResponse> {
+    return this.http
+      .patch<ChangePasswordResponse>(
+        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.changePassword}`,
+        data,
+      )
+      .pipe(tap((res) => this.updateToken(res.token)));
   }
 
   uploadProfilePhoto(file: File): Observable<User> {
     const formData = new FormData();
     formData.append('photo', file);
     return this.http
-      .put<AuthResponseDto | UserDto | UserResponseDto | PhotoResponseDto>(
-        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.uploadPhoto}`,
-        formData,
-      )
+      .put<
+        AuthResponseDto | UserDto | UserResponseDto | PhotoResponseDto
+      >(`${this.config.apiUrl}${API_ENDPOINTS.AUTH.uploadPhoto}`, formData)
       .pipe(
         map((res) => {
           if ('token' in res && res.token) {
@@ -104,7 +119,9 @@ export class AuthService {
             return currentUser;
           }
 
-          throw new Error('Upload photo succeeded but no current user was available.');
+          throw new Error(
+            'Upload photo succeeded but no current user was available.',
+          );
         }),
         tap((user) => this.setUser(user)),
       );
@@ -112,9 +129,9 @@ export class AuthService {
 
   getLoggedUserData(): Observable<User> {
     return this.http
-      .get<UserDto | UserResponseDto>(
-        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.getUserData}`,
-      )
+      .get<
+        UserDto | UserResponseDto
+      >(`${this.config.apiUrl}${API_ENDPOINTS.AUTH.getUserData}`)
       .pipe(
         map((res) => AuthAdapter.fromUserResponseDto(res)),
         tap((user) => this.setUser(user)),
@@ -153,10 +170,9 @@ export class AuthService {
   editProfile(data: Partial<BaseUser>): Observable<User> {
     const dto = AuthAdapter.toEditProfileDto(data);
     return this.http
-      .put<UserDto | UserResponseDto>(
-        `${this.config.apiUrl}${API_ENDPOINTS.AUTH.editProfile}`,
-        dto,
-      )
+      .put<
+        UserDto | UserResponseDto
+      >(`${this.config.apiUrl}${API_ENDPOINTS.AUTH.editProfile}`, dto)
       .pipe(
         map((res) => AuthAdapter.fromUserResponseDto(res)),
         tap((user) => this.setUser(user)),

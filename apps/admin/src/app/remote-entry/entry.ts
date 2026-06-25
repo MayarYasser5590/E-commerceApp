@@ -1,11 +1,5 @@
-import { NgTemplateOutlet } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { MobileBottomNavbar } from './mobile-bottom-navbar/mobile-bottom-navbar';
+import { Component, computed, inject, signal } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -22,6 +16,7 @@ import {
 } from 'lucide-angular';
 import { filter } from 'rxjs';
 import { DrawerModule } from 'primeng/drawer';
+import { MobileTopNavbar } from './mobile-top-navbar/mobile-top-navbar';
 import { AdminSidebar } from './admin-sidebar-feature/admin-sidebar-feature';
 
 @Component({
@@ -31,11 +26,17 @@ import { AdminSidebar } from './admin-sidebar-feature/admin-sidebar-feature';
     LucideAngularModule,
     RouterLink,
     RouterOutlet,
+    MobileTopNavbar,
+    MobileBottomNavbar,
     AdminSidebar,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen bg-[#f8f6f3] text-[#231f20]">
+      <app-top-mobile-navbar
+        class="lg:hidden"
+        [title]="pageTitle()"
+        [currentRoute]="currentRoute()"
+      ></app-top-mobile-navbar>
       <p-drawer
         styleClass="admin-dashboard-drawer !w-[min(19rem,86vw)]"
         position="left"
@@ -56,69 +57,26 @@ import { AdminSidebar } from './admin-sidebar-feature/admin-sidebar-feature';
             <app-admin-sidebar></app-admin-sidebar>
           </div>
         </aside>
-
-        <main class="min-w-0 px-4 py-4 sm:px-6 lg:px-8">
-          <header
-            class="grid min-h-[4.5rem] grid-cols-[auto_minmax(0,1fr)] items-center gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,22rem)]"
-          >
-            <button
-              type="button"
-              class="inline-flex size-11 items-center justify-center rounded-full border border-[#f1dfda] bg-white text-[#635960] shadow-sm lg:hidden"
-              aria-label="Open navigation"
-              (click)="sidebarVisible.set(true)"
-            >
-              <lucide-icon
-                [name]="icons.Menu"
-                class="size-5"
-                aria-hidden="true"
-              ></lucide-icon>
-            </button>
-
-            <div class="min-w-0">
-              <p class="mb-1 text-xs font-extrabold uppercase text-[#f82ba9]">
-                Dashboard
-              </p>
-              <h1
-                class="truncate text-2xl font-bold leading-tight sm:text-[2rem]"
-              >
-                {{ pageTitle() }}
-              </h1>
-            </div>
-
-            <label
-              class="col-span-2 flex h-11 items-center gap-2 rounded-full border border-[#f1dfda] bg-white px-4 text-[#8d8088] lg:col-span-1"
-            >
-              <lucide-icon
-                [name]="icons.Search"
-                class="size-4"
-                aria-hidden="true"
-              ></lucide-icon>
-              <span class="sr-only">Search admin pages</span>
-              <input
-                type="search"
-                placeholder="Search"
-                class="min-w-0 flex-1 border-0 bg-transparent text-sm text-[#231f20] outline-none placeholder:text-[#8d8088]"
-              />
-            </label>
-          </header>
-
+        <main>
           <nav
-            class="mt-3 flex items-center gap-2 text-sm text-[#847780]"
+            class="hidden sm:block py-4 px-6 bg-white flex items-center gap-2 text-sm text-[#847780]"
             aria-label="Breadcrumb"
           >
             <a routerLink="./overview" class="font-semibold text-[#635960]"
               >Home</a
             >
             <span aria-hidden="true">/</span>
-            <span class="font-semibold text-[#f82ba9]">{{ pageTitle() }}</span>
+            <span class="font-semibold text-[##A6252A]">{{ pageTitle() }}</span>
           </nav>
-
-          <section
-            class="mt-6 min-h-[calc(100vh-11rem)] rounded-[14px] border border-[#f1dfda] bg-white p-4 sm:p-6 lg:min-h-[calc(100vh-9rem)]"
-            aria-label="Admin page content"
-          >
-            <router-outlet></router-outlet>
-          </section>
+          <div class="min-w-0 px-4 sm:px-6 sm:py-4 bg-[#FAFAFA]">
+            <section
+              class="mt-4 mb-14 sm:mb-8 min-h-[calc(100vh-11rem)] rounded-[14px] border border-[#f1dfda] bg-white px-4  sm:px-6 lg:min-h-[calc(100vh-9rem)]"
+              aria-label="Admin page content"
+            >
+              <router-outlet></router-outlet>
+            </section>
+          </div>
+          <app-bottom-mobile-navbar></app-bottom-mobile-navbar>
         </main>
       </div>
     </div>
@@ -142,6 +100,7 @@ export class RemoteEntry {
   private readonly activeTitle = signal(this.resolvePageTitle());
 
   protected readonly pageTitle = computed(() => this.activeTitle());
+  protected readonly currentRoute = computed(() => this.router.url);
 
   protected readonly icons = {
     Flower,

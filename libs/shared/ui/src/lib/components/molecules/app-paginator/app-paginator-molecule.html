@@ -1,0 +1,11 @@
+@if (totalRecords() > rows()) {
+<div class="mt-8 flex justify-center">
+  <p-paginator
+    [rows]="rows()"
+    [totalRecords]="totalRecords()"
+    [first]="(page() - 1) * rows()"
+    (onPageChange)="pageChange.emit($event)"
+  >
+  </p-paginator>
+</div>
+}

@@ -1,0 +1,33 @@
+<div class="bg-white rounded-3xl p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold">All Categories</h2>
+    <lib-button
+      label="Add a new category"
+      variant="custom"
+      customClass="rounded-md text-white bg-[#A6252A] p-2"
+      [icon]="icons.Plus"
+      (clicked)="addCategory()"
+    />
+  </div>
+  <lib-search-input-molecule
+    placeholder="Search..."
+    inputClass="flex items-center text-[#A6252A] h-[52px] gap-2 rounded-[10px] border border-[#D9D9D9] p-4 outline-none focus:border-0 focus:ring-1 focus:ring-[#A6252A]"
+    (valueChange)="onSearch($event)"
+  />
+
+  <div class="mt-6">
+    <lib-app-table-organism
+      [columns]="columns"
+      [data]="filteredCategories()"
+      (edit)="editCategory($event)"
+      (delete)="deleteCategory($event)"
+    />
+  </div>
+
+  <lib-app-paginator-molecule
+    [rows]="rows()"
+    [page]="page()"
+    [totalRecords]="totalRecords()"
+    (pageChange)="onPageChange($event)"
+  />
+</div>

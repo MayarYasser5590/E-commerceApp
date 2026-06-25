@@ -7,9 +7,7 @@
   [attr.aria-label]="resolvedAriaLabel()"
   [attr.aria-busy]="isLoading()"
 >
-  @if (showLabel()) {
-  <span class="button-label">{{ label() }}</span>
-  } @if (isLoading()) {
+  @if (isLoading()) {
   <lucide-angular
     [img]="LoaderCircle"
     class="button-icon animate-spin"
@@ -21,6 +19,8 @@
     class="button-icon"
     [size]="iconSize()"
   ></lucide-angular>
+  } @if (showLabel()) {
+  <span class="button-label">{{ label() }}</span>
   }
 
   <ng-content></ng-content>

@@ -1,0 +1,44 @@
+<nav
+  class="sm:hidden mt-5 sm:mt-0 fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center border-t border-[#f1dfda] bg-white px-2 py-2"
+  aria-label="Bottom navigation"
+>
+  <a
+    routerLink="./overview"
+    routerLinkActive="!text-[#A6252A] bg-[#FBEAEA]"
+    class="flex flex-col items-center gap-1 rounded-xl px-4 py-2 text-[#27272A] transition-colors"
+    aria-label="Overview"
+  >
+    <lucide-icon [name]="icons.LayoutDashboard" class="size-5"></lucide-icon>
+    <span class="text-[10px] font-semibold">Overview</span>
+  </a>
+
+  <a
+    routerLink="./categories"
+    routerLinkActive="!text-[#A6252A] bg-[#FBEAEA]"
+    class="flex flex-col items-center gap-1 rounded-xl px-4 py-2 text-[#27272A] transition-colors"
+    aria-label="Categories"
+  >
+    <lucide-icon [name]="icons.ClipboardList" class="size-5"></lucide-icon>
+    <span class="text-[10px] font-semibold">Categories</span>
+  </a>
+
+  <a
+    routerLink="./occasions"
+    routerLinkActive="!text-[#A6252A] bg-[#FBEAEA]"
+    class="flex flex-col items-center gap-1 rounded-xl px-4 py-2 text-[#27272A] transition-colors"
+    aria-label="Occasions"
+  >
+    <lucide-icon [name]="icons.CalendarHeart" class="size-5"></lucide-icon>
+    <span class="text-[10px] font-semibold">Occasions</span>
+  </a>
+
+  <a
+    routerLink="./products"
+    routerLinkActive="!text-[#A6252A] bg-[#FBEAEA]"
+    class="flex flex-col items-center gap-1 rounded-xl px-4 py-2 text-[#27272A] transition-colors"
+    aria-label="Products"
+  >
+    <lucide-icon [name]="icons.Package" class="size-5"></lucide-icon>
+    <span class="text-[10px] font-semibold">Products</span>
+  </a>
+</nav>

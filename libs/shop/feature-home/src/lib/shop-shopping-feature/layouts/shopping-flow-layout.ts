@@ -15,7 +15,7 @@ import { LucideAngularModule, ArrowRight, TicketPercent } from 'lucide-angular';
 import { SliderOrganism } from '@shop-workspace/shared-ui';
 import { ProductData } from '@shop-workspace/shared-types';
 import { CartUi } from '../../cart/data-access/cart.ui';
-import { HomeService } from '../../data-access/home.service';
+import { HomeService } from '@shop-workspace/data-access';
 
 @Component({
   selector: 'lib-shopping-flow-layout',

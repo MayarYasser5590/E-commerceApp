@@ -11,18 +11,19 @@ import { BestSellerSectionFeature } from './components/best-seller-section/best-
 import { AboutUsSection } from './components/about-us-section/about-us-section';
 import { SpecialGiftsSection } from '../components/home/special-gifts-section/special-gifts-section';
 import { TestimonialsSection } from '../components/home/testimonials-section/testimonials-section';
-import { HomeService } from '../data-access/home.service';
 import { Occasion, ProductData } from '@shop-workspace/shared-types';
 import {
   GalleryOrganism,
   MostPopularOrganism,
 } from '@shop-workspace/shared-ui';
-import { WishlistService } from '../data-access/wishlist.service';
 import { FeaturesBarSection } from './components/features-bar-section/features-bar-section';
 import { TrustedBySection } from './components/trusted-by-section/trusted-by-section';
 import { CartUi } from '../cart/data-access/cart.ui';
-import { AppToastService } from '../data-access/toast.service';
-
+import {
+  HomeService,
+  AppToastService,
+  WishlistService,
+} from '@shop-workspace/data-access';
 @Component({
   selector: 'lib-shop-feature-home',
   host: {

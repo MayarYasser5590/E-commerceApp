@@ -1,10 +1,10 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { WishlistService } from '../data-access/wishlist.service';
 import { LibButton } from '@shop-workspace/shared-ui';
 import { LucideAngularModule, Trash2, Heart, ArrowLeft } from 'lucide-angular';
 import { RouterLink } from '@angular/router';
 import { WishlistCard } from './components/wishlist-card/wishlist-card';
 import { Subscription } from 'rxjs';
+import { WishlistService } from '@shop-workspace/data-access';
 
 @Component({
   selector: 'lib-shop-wishlist-feature',

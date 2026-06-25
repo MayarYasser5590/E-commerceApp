@@ -1,0 +1,53 @@
+<div class="overflow-hidden rounded-xl">
+  <table class="w-full">
+    <thead>
+      <tr class="border-b border-gray-200 bg-[#FAFAFA]">
+        @for (column of columns(); track column.field) {
+        <th class="text-left px-5 py-3">{{ column.header }}</th>
+        }
+
+        <th class="w-52"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (row of data(); track $index) {
+
+      <tr
+        class="border-b border-gray-100 hover:cursor-pointer hover:bg-[#FBEAEA]"
+      >
+        @for (column of columns(); track column.field) {
+
+        <td class="px-5 py-5">
+          {{ column.formatter ? column.formatter(row[column.field], row) :
+          row[column.field] }}
+        </td>
+
+        }
+        <td class="px-5 py-5">
+          <div class="flex gap-2 justify-end">
+            <lib-button
+              size="sm"
+              label="Edit"
+              variant="custom"
+              customClass="rounded-sm bg-blue-100 text-[#155DFC]"
+              [icon]="icons.Pencil"
+              (click)="onEdit(row._id)"
+            />
+
+            <lib-button
+              size="sm"
+              label="Delete"
+              variant="custom"
+              customClass="rounded-sm bg-red-100 text-[#DC2626]"
+              [icon]="icons.Trash2"
+              (click)="onDelete(row._id)"
+            />
+          </div>
+        </td>
+      </tr>
+
+      }
+    </tbody>
+  </table>
+</div>

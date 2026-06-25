@@ -8,10 +8,10 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { ProductService } from '../../../../data-access/product.service';
 import { RelatedProduct } from '@shop-workspace/shared-types';
 import { SliderOrganism } from '@shop-workspace/shared-ui';
 import { Subscription } from 'rxjs';
+import { ProductService } from '@shop-workspace/data-access';
 
 @Component({
   selector: 'lib-related-products-section',

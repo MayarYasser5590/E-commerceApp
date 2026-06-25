@@ -1,80 +1,50 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  DestroyRef,
   inject,
+  Input,
   OnInit,
   output,
-  DestroyRef,
-  ChangeDetectorRef,
 } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { LucideAngularModule, Menu, ChevronRight } from 'lucide-angular';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
-import {
-  CalendarHeart,
-  ClipboardList,
-  EllipsisVertical,
-  Flower,
-  LayoutDashboard,
-  LucideAngularModule,
-  Package,
-} from 'lucide-angular';
-import { AuthService, User } from '@shop-workspace/shared-auth';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-interface AdminNavItem {
-  label: string;
-  path: string;
-  icon: typeof LayoutDashboard;
-}
+import { AuthService, User } from '@shop-workspace/shared-auth';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-sidebar',
+  selector: 'app-top-mobile-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, LucideAngularModule, MenuModule],
-  templateUrl: './admin-sidebar-feature.html',
+  imports: [LucideAngularModule, MenuModule, RouterLink],
+  templateUrl: './mabile-top-navbar.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminSidebar implements OnInit {
-  closeSidebar = output<void>();
+export class MobileTopNavbar implements OnInit {
+  menuClick = output<void>();
+
+  @Input({ required: true }) title = '';
+  @Input({ required: true }) currentRoute = '';
+
+  @Input() logo = '/assets/Logo.webp';
+
+  @Input() avatar?: string;
   items: MenuItem[] = [];
-  private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
-  currentUser: User | null = null;
   private destroyRef = inject(DestroyRef);
+  private readonly authService = inject(AuthService);
+  currentUser: User | null = null;
   private cdr = inject(ChangeDetectorRef);
 
   protected readonly icons = {
-    Flower,
-    EllipsisVertical,
+    Menu,
+    ChevronRight,
   };
 
-  protected readonly navItems: AdminNavItem[] = [
-    {
-      label: 'Overview',
-      path: './overview',
-      icon: LayoutDashboard,
-    },
-    {
-      label: 'Categories',
-      path: './categories',
-      icon: ClipboardList,
-    },
-    {
-      label: 'Occasions',
-      path: './occasions',
-      icon: CalendarHeart,
-    },
-    {
-      label: 'Products',
-      path: './products',
-      icon: Package,
-    },
-  ];
-
   ngOnInit(): void {
-    this.loadUser();
     this.popUp();
+    this.loadUser();
   }
 
   private loadUser(): void {
@@ -86,7 +56,6 @@ export class AdminSidebar implements OnInit {
       .subscribe({
         next: (user) => {
           this.currentUser = user;
-          console.log(this.currentUser);
           this.cdr.markForCheck();
         },
       });
@@ -96,15 +65,15 @@ export class AdminSidebar implements OnInit {
     this.items = [
       {
         label: 'Account',
-        image: '/assets/user.webp',
-        routerLink: '/account',
+        image: './assets/user-round.webp',
+        routerLink: 'account',
       },
       {
         separator: true,
       },
       {
         label: 'Logout',
-        image: '/assets/log-out.webp',
+        image: './assets/log-out.webp',
         command: () => this.logOut(),
       },
     ];
